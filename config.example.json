@@ -1,0 +1,8 @@
+{
+  "OPENAI_API_KEY": "paste-your-image-api-key-here",
+  "OPENAI_BASE_URL": "https://openox.tech/v1",
+  "OPENAI_API_BASE": "https://openox.tech/v1",
+  "MODEL": "gpt-image-2",
+  "QUALITY": "medium",
+  "SIZE": "1024x1024"
+}

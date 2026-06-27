@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GPT Image 2 Local</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <section class="workspace" aria-label="GPT Image 2">
+        <header class="topbar">
+          <div>
+            <h1>GPT Image 2</h1>
+            <p id="statusLine">本地作图工作台</p>
+          </div>
+          <button class="icon-button" id="clearButton" title="清空对话" aria-label="清空对话">
+            <span aria-hidden="true">↺</span>
+          </button>
+        </header>
+
+        <div class="messages" id="messages" aria-live="polite">
+          <article class="message assistant">
+            <div class="bubble">
+              输入作图要求，或上传参考图后描述你想怎么改。生成结果会保存到本文件夹的 output/imagegen。
+            </div>
+          </article>
+        </div>
+
+        <form class="composer" id="composer">
+          <div class="dropzone" id="dropzone">
+            <input id="imageInput" name="images" type="file" accept="image/png,image/jpeg,image/webp" multiple />
+            <button type="button" class="secondary" id="pickButton">上传图片</button>
+            <div class="thumbs" id="thumbs"></div>
+          </div>
+
+          <div class="controls">
+            <label>
+              <span>尺寸</span>
+              <select id="sizeInput" name="size">
+                <option value="1024x1024">1024 x 1024</option>
+                <option value="1536x1024">1536 x 1024</option>
+                <option value="1024x1536">1024 x 1536</option>
+                <option value="auto">自动</option>
+              </select>
+            </label>
+            <label>
+              <span>质量</span>
+              <select id="qualityInput" name="quality">
+                <option value="medium">medium</option>
+                <option value="high">high</option>
+                <option value="low">low</option>
+                <option value="auto">auto</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="prompt-row">
+            <textarea id="promptInput" name="prompt" rows="3" placeholder="例如：把这张产品图改成夏日户外广告风格，真实摄影，干净背景，高级电商质感"></textarea>
+            <button type="submit" id="sendButton">生成</button>
+          </div>
+        </form>
+      </section>
+    </main>
+    <script src="/app.js"></script>
+  </body>
+</html>
