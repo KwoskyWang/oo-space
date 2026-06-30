@@ -29,12 +29,7 @@ const DEFAULT_ASSET_BASE = "/assets/dragon";
 
 export const dragonEffectAssets: DragonEffectAssets = {
   dragonFrames: [
-    `${DEFAULT_ASSET_BASE}/01_dragon_idle.png`,
     `${DEFAULT_ASSET_BASE}/02_dragon_stars_start.png`,
-    `${DEFAULT_ASSET_BASE}/03_dragon_stars_medium.png`,
-    `${DEFAULT_ASSET_BASE}/04_dragon_stars_burst.png`,
-    `${DEFAULT_ASSET_BASE}/05_dragon_stars_long.png`,
-    `${DEFAULT_ASSET_BASE}/06_dragon_stars_full.png`,
   ],
   starSprites: [
     `${DEFAULT_ASSET_BASE}/stars/08_star_cluster_01.png`,
@@ -188,15 +183,14 @@ export function showDragonEffect(targetElement: Element, options?: DragonEffectO
     ctx.scale(dpr, dpr);
   }
 
-  const frameImages = assets.dragonFrames.map((src) => loadImage(src));
   const starImages = assets.starSprites.map((src) => loadImage(src)).filter(Boolean) as HTMLImageElement[];
   const particles: Particle[] = [];
-  let frameIndex = 0;
-  let lastFrameAt = 0;
   let rafId = 0;
   let stopped = false;
   const startedAt = performance.now();
   const duration = reduceMotion ? 950 : 2300;
+
+  loadImage(assets.dragonFrames[0]);
 
   function cleanup() {
     stopped = true;
@@ -209,13 +203,7 @@ export function showDragonEffect(targetElement: Element, options?: DragonEffectO
     if (stopped || !ctx) return;
 
     const elapsed = now - startedAt;
-    const progress = elapsed / duration;
-
-    if (!reduceMotion && now - lastFrameAt > 95) {
-      frameIndex = Math.min(frameIndex + 1, frameImages.length - 1);
-      dragon.src = frameImages[frameIndex]?.src ?? assets.dragonFrames[frameIndex] ?? dragon.src;
-      lastFrameAt = now;
-    }
+    dragon.src = assets.dragonFrames[0];
 
     if (!reduceMotion && elapsed > 280 && elapsed < 1580) {
       const burst = elapsed > 680 && elapsed < 1100;
