@@ -29,7 +29,7 @@ const DEFAULT_ASSET_BASE = "/assets/dragon";
 
 export const dragonEffectAssets: DragonEffectAssets = {
   dragonFrames: [
-    `${DEFAULT_ASSET_BASE}/02_dragon_stars_start.png`,
+    `${DEFAULT_ASSET_BASE}/01_dragon_idle.png`,
   ],
   starSprites: [
     `${DEFAULT_ASSET_BASE}/stars/08_star_cluster_01.png`,
