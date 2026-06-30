@@ -1,8 +1,9 @@
 import { useState } from "react";
-import type { WorkItem } from "../data/siteContent";
+import type { HeroPose, WorkItem } from "../data/siteContent";
 import PixelMindMap from "./PixelMindMap";
 
 type WorkCardProps = {
+  pose: HeroPose;
   work: WorkItem;
 };
 
@@ -66,15 +67,25 @@ function WorkMedia({ palette, title }: WorkMediaProps) {
   );
 }
 
-function WorkCard({ work }: WorkCardProps) {
+function WorkCard({ pose, work }: WorkCardProps) {
   const [expanded, setExpanded] = useState(false);
   const contentId = `${work.id}-details`;
 
   return (
     <article className={`pixel-card work-card ${expanded ? "is-expanded" : ""}`}>
       <div className="work-card__summary">
-        <div>
-          <span className="pixel-tag">AI · Vibe coding</span>
+        <div className="work-card__character-shell">
+          <img className="work-card__character" src={pose.src} alt={pose.alt} />
+        </div>
+
+        <div className="work-card__copy">
+          <div className="tag-row">
+            {work.badges.map((badge) => (
+              <span className="pixel-tag" key={badge}>
+                {badge}
+              </span>
+            ))}
+          </div>
           <h3>{work.title}</h3>
           <p>{work.description}</p>
         </div>
@@ -85,13 +96,20 @@ function WorkCard({ work }: WorkCardProps) {
           aria-controls={contentId}
           onClick={() => setExpanded((current) => !current)}
         >
-          {expanded ? "收起 / Ver menos" : "展开 / Ver más"}
+          {expanded ? "收起 / Ver menos 🍓" : "展开 / Ver más ✨"}
         </button>
       </div>
 
       <div className="work-card__details" id={contentId} hidden={!expanded}>
         <div className="work-card__details-grid">
-          <MarkdownView markdown={work.markdown} />
+          <div className="work-card__written">
+            <MarkdownView markdown={work.markdown} />
+            <div className="oo-note">
+              <h4>oo 的小结 / Nota de oo</h4>
+              <p>{work.note.chinese}</p>
+              <p className="spanish-line">{work.note.spanish}</p>
+            </div>
+          </div>
           <div className="work-card__visuals">
             <WorkMedia palette={work.mediaPalette} title={work.title} />
             <PixelMindMap title={work.title} nodes={work.mindMapNodes} />

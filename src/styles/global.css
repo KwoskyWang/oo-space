@@ -1,20 +1,23 @@
 :root {
   color-scheme: light;
-  --cream: #fff6df;
-  --cream-soft: #fffaf0;
-  --strawberry: #ff6f9f;
-  --strawberry-soft: #ffd5e2;
-  --mango: #ffd85b;
-  --avocado: #8bd58b;
-  --dragonfruit: #d94f9a;
-  --sky: #82cfff;
-  --blueberry: #5f4b78;
-  --berry-shadow: #7c4269;
-  --ink: #3f3048;
-  --muted: #7d6e86;
-  --card: #fffdf4;
-  --pixel-shadow: 6px 6px 0 var(--berry-shadow);
-  --pixel-border: 3px solid var(--ink);
+  --content-width: 1180px;
+  --cream: #fff7df;
+  --paper: #fffaf0;
+  --strawberry: #ff8fab;
+  --strawberry-soft: #ffd8e3;
+  --dragonfruit: #e84a8a;
+  --mango: #ffc857;
+  --avocado: #8ccf7e;
+  --sky: #8ecae6;
+  --cocoa: #5a3825;
+  --berry-shadow: #7b3f61;
+  --pixel-dark: #2b1d2f;
+  --lavender: #d8c7ff;
+  --mint: #dff7df;
+  --muted: #765f7e;
+  --pixel-border: 3px solid var(--pixel-dark);
+  --pixel-shadow: 7px 7px 0 var(--berry-shadow);
+  --pixel-shadow-small: 4px 4px 0 rgba(123, 63, 97, 0.58);
   font-family:
     "Trebuchet MS",
     "PingFang SC",
@@ -33,6 +36,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 92px;
   background: var(--cream);
 }
 
@@ -40,16 +44,19 @@ body {
   min-width: 320px;
   min-height: 100vh;
   margin: 0;
-  color: var(--ink);
+  overflow-x: hidden;
+  color: var(--pixel-dark);
   background:
-    linear-gradient(rgba(255, 255, 255, 0.32) 2px, transparent 2px),
+    linear-gradient(rgba(255, 255, 255, 0.34) 2px, transparent 2px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.3) 2px, transparent 2px),
-    radial-gradient(circle at 12% 8%, rgba(255, 111, 159, 0.28), transparent 24%),
-    radial-gradient(circle at 88% 12%, rgba(130, 207, 255, 0.3), transparent 23%),
-    linear-gradient(180deg, #fff7dc 0%, #ffe9ef 46%, #e8f8ff 100%);
+    radial-gradient(circle at 20% 8%, rgba(255, 143, 171, 0.26), transparent 24%),
+    radial-gradient(circle at 82% 10%, rgba(142, 202, 230, 0.3), transparent 26%),
+    radial-gradient(circle at 48% 36%, rgba(255, 200, 87, 0.28), transparent 26%),
+    linear-gradient(180deg, #fff7df 0%, #ffe6ef 48%, #e9fbf1 100%);
   background-size:
     34px 34px,
     34px 34px,
+    auto,
     auto,
     auto,
     auto;
@@ -69,20 +76,26 @@ a {
   text-decoration: none;
 }
 
+img,
+video {
+  max-width: 100%;
+}
+
 ::selection {
-  color: var(--ink);
+  color: var(--pixel-dark);
   background: var(--mango);
 }
 
 .site-shell {
   position: relative;
-  overflow: hidden;
+  overflow: clip;
 }
 
 .page-section {
-  width: min(1180px, calc(100% - 32px));
+  position: relative;
+  width: min(var(--content-width), calc(100% - 32px));
   margin: 0 auto;
-  padding: 88px 0 28px;
+  padding-block: 96px;
   opacity: 0;
   transform: translateY(28px);
   transition:
@@ -97,17 +110,23 @@ a {
 
 .section-heading {
   max-width: 760px;
-  margin-bottom: 28px;
+  margin-bottom: 34px;
 }
 
-.section-heading h2 {
-  margin: 8px 0 12px;
-  font-size: clamp(2rem, 5vw, 4.2rem);
-  line-height: 1.05;
-  letter-spacing: 0;
-  text-shadow:
-    4px 4px 0 #ffc5d8,
-    7px 7px 0 rgba(95, 75, 120, 0.28);
+.section-heading--with-character {
+  display: flex;
+  max-width: 100%;
+  align-items: end;
+  justify-content: space-between;
+  gap: 26px;
+}
+
+.section-heading__character {
+  width: clamp(112px, 15vw, 168px);
+  image-rendering: pixelated;
+  filter: drop-shadow(8px 8px 0 rgba(123, 63, 97, 0.26));
+  transform: translateY(8px);
+  animation: softBob 2.6s steps(5, end) infinite;
 }
 
 .section-heading p {
@@ -117,28 +136,41 @@ a {
   line-height: 1.8;
 }
 
-.pixel-kicker {
+.pixel-title,
+.section-heading h2 {
+  margin: 8px 0 12px;
+  color: var(--pixel-dark);
+  font-size: clamp(2rem, 5vw, 4.2rem);
+  line-height: 1.05;
+  letter-spacing: 0;
+  text-shadow:
+    4px 4px 0 #ffd8e3,
+    7px 7px 0 rgba(123, 63, 97, 0.22);
+}
+
+.pixel-kicker,
+.pixel-label {
   display: inline-flex;
   align-items: center;
   width: fit-content;
   margin: 0;
   padding: 7px 10px;
-  color: var(--ink);
+  color: var(--pixel-dark);
   background: var(--mango);
-  border: 2px solid var(--ink);
-  box-shadow: 4px 4px 0 var(--berry-shadow);
+  border: 2px solid var(--pixel-dark);
+  box-shadow: var(--pixel-shadow-small);
   font-family:
     "Courier New",
     "Trebuchet MS",
     monospace;
   font-size: 0.78rem;
-  font-weight: 800;
+  font-weight: 900;
   text-transform: uppercase;
 }
 
 .pixel-card {
   position: relative;
-  background: var(--card);
+  background: var(--paper);
   border: var(--pixel-border);
   box-shadow: var(--pixel-shadow);
   transition:
@@ -148,9 +180,39 @@ a {
 }
 
 .pixel-card:hover {
-  transform: translate(-2px, -5px);
-  box-shadow: 8px 10px 0 var(--berry-shadow);
-  filter: drop-shadow(0 0 14px rgba(255, 111, 159, 0.26));
+  transform: translate(-2px, -6px);
+  box-shadow: 9px 11px 0 var(--berry-shadow);
+  filter: drop-shadow(0 0 14px rgba(255, 143, 171, 0.24));
+}
+
+.pixel-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 152px;
+  min-height: 44px;
+  padding: 10px 14px;
+  color: var(--pixel-dark);
+  background: var(--mango);
+  border: 3px solid var(--pixel-dark);
+  box-shadow: 5px 5px 0 var(--berry-shadow);
+  font-weight: 900;
+  text-align: center;
+  transition:
+    transform 160ms steps(2, end),
+    box-shadow 160ms steps(2, end),
+    background 160ms ease;
+}
+
+.pixel-button:hover {
+  background: var(--avocado);
+  transform: translate(-2px, -3px);
+  box-shadow: 7px 8px 0 var(--berry-shadow);
+}
+
+.pixel-button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--berry-shadow);
 }
 
 .pixel-tag,
@@ -159,18 +221,19 @@ a {
   align-items: center;
   min-height: 26px;
   padding: 4px 8px;
-  border: 2px solid var(--ink);
+  color: var(--pixel-dark);
   background: #fff0a8;
-  box-shadow: 3px 3px 0 rgba(95, 75, 120, 0.45);
+  border: 2px solid var(--pixel-dark);
+  box-shadow: 3px 3px 0 rgba(123, 63, 97, 0.45);
   font-size: 0.76rem;
-  font-weight: 800;
+  font-weight: 900;
 }
 
 .mini-tag {
   min-height: 22px;
   border-width: 1px;
-  background: #e0f7d7;
-  box-shadow: 2px 2px 0 rgba(95, 75, 120, 0.28);
+  background: var(--mint);
+  box-shadow: 2px 2px 0 rgba(123, 63, 97, 0.28);
   color: #4a4052;
 }
 
@@ -186,68 +249,57 @@ a {
     "Courier New",
     "Trebuchet MS",
     monospace;
-  font-weight: 800;
-}
-
-.pixel-button {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 152px;
-  min-height: 42px;
-  padding: 10px 14px;
-  color: var(--ink);
-  background: var(--mango);
-  border: 3px solid var(--ink);
-  box-shadow: 5px 5px 0 var(--berry-shadow);
   font-weight: 900;
-  transition:
-    transform 160ms steps(2, end),
-    box-shadow 160ms steps(2, end),
-    background 160ms ease;
 }
 
-.pixel-button:hover {
-  background: #a9eb9d;
-  transform: translate(-2px, -3px);
-  box-shadow: 7px 8px 0 var(--berry-shadow);
-}
-
-.pixel-button:active {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 var(--berry-shadow);
-}
-
-.site-footer {
-  width: min(1180px, calc(100% - 32px));
-  margin: 74px auto 32px;
-  padding: 28px;
-  text-align: center;
-  background: #fff9dc;
-  border: var(--pixel-border);
-  box-shadow: var(--pixel-shadow);
-}
-
-.site-footer p {
-  margin: 6px 0;
-  font-weight: 800;
-}
-
-.footer-logo {
-  color: var(--dragonfruit);
-  font-size: 2.5rem;
+.pixel-sticker {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  background: #fff7c8;
+  border: 3px solid var(--pixel-dark);
+  box-shadow: 4px 4px 0 var(--berry-shadow);
+  font-size: 1.25rem;
   line-height: 1;
-  text-shadow:
-    3px 3px 0 var(--mango),
-    6px 6px 0 rgba(95, 75, 120, 0.24);
+}
+
+@keyframes softBob {
+  0%,
+  100% {
+    transform: translateY(8px) rotate(-1deg);
+  }
+
+  50% {
+    transform: translateY(-2px) rotate(1deg);
+  }
+}
+
+@media (max-width: 980px) {
+  .page-section {
+    padding-block: 64px;
+  }
 }
 
 @media (max-width: 720px) {
-  .page-section {
-    width: min(100% - 22px, 620px);
-    padding-top: 64px;
+  html {
+    scroll-padding-top: 78px;
   }
 
+  .page-section {
+    width: min(100% - 22px, 620px);
+    padding-block: 48px;
+  }
+
+  .section-heading--with-character {
+    align-items: center;
+  }
+
+  .section-heading__character {
+    width: 92px;
+  }
+
+  .pixel-title,
   .section-heading h2 {
     font-size: clamp(2rem, 11vw, 3rem);
   }
@@ -259,11 +311,6 @@ a {
   .pixel-card:hover {
     transform: translateY(-3px);
     box-shadow: 5px 6px 0 var(--berry-shadow);
-  }
-
-  .site-footer {
-    width: min(100% - 22px, 620px);
-    padding: 22px 14px;
   }
 }
 

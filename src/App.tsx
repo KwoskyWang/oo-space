@@ -1,11 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import AboutSection from "./components/AboutSection";
 import Footer from "./components/Footer";
 import HeroSection from "./components/HeroSection";
 import MemoryGallery from "./components/MemoryGallery";
+import PixelNav from "./components/PixelNav";
 import WorksSection from "./components/WorksSection";
 import { siteContent } from "./data/siteContent";
 
 function App() {
+  const [activeSection, setActiveSection] = useState("inicio");
+
   useEffect(() => {
     const sections = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
     const observer = new IntersectionObserver(
@@ -23,14 +27,43 @@ function App() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    const sections = Array.from(document.querySelectorAll<HTMLElement>("[data-section-nav]"));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (visible?.target.id) {
+          setActiveSection(visible.target.id);
+        }
+      },
+      { rootMargin: "-32% 0px -52% 0px", threshold: [0.08, 0.22, 0.42] },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="site-shell">
+      <PixelNav
+        activeSection={activeSection}
+        logoPose={siteContent.ooPoses.wave}
+        navItems={siteContent.navItems}
+        siteName={siteContent.siteName}
+      />
       <HeroSection content={siteContent} />
       <main>
-        <MemoryGallery memories={siteContent.memories} />
-        <WorksSection works={siteContent.works} />
+        <MemoryGallery memories={siteContent.memoryCards} section={siteContent.memorySection} />
+        <WorksSection content={siteContent} />
+        <AboutSection
+          about={siteContent.aboutContent}
+          pose={siteContent.ooPoses[siteContent.aboutContent.poseId]}
+        />
       </main>
-      <Footer footer={siteContent.footer} ownerName={siteContent.owner.name} />
+      <Footer content={siteContent.footerContent} ownerName={siteContent.owner.name} pose={siteContent.ooPoses[siteContent.footerContent.poseId]} />
     </div>
   );
 }

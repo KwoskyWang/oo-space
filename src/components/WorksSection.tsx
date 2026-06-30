@@ -1,22 +1,33 @@
-import type { WorkItem } from "../data/siteContent";
+import type { siteContent } from "../data/siteContent";
 import WorkCard from "./WorkCard";
 
 type WorksSectionProps = {
-  works: WorkItem[];
+  content: typeof siteContent;
 };
 
-function WorksSection({ works }: WorksSectionProps) {
+function WorksSection({ content }: WorksSectionProps) {
   return (
-    <section className="page-section works-section" id="works" data-reveal>
-      <div className="section-heading">
-        <p className="pixel-kicker">El pequeño universo de IA de oo</p>
-        <h2>oo 的 AI 小宇宙</h2>
-        <p>这里先放入 3 个 vibe coding 作品介绍，内容支持 Markdown 风格展示和展开查看。</p>
+    <section className="page-section works-section" id="works" data-reveal data-section-nav>
+      <div className="section-heading section-heading--with-character">
+        <div>
+          <p className="pixel-kicker">{content.workSection.kicker}</p>
+          <h2 className="pixel-title">{content.workSection.title}</h2>
+          <p>{content.workSection.description}</p>
+        </div>
+        <img
+          className="section-heading__character"
+          src={content.ooPoses[content.workSection.characterPoseId].src}
+          alt={content.ooPoses[content.workSection.characterPoseId].alt}
+        />
       </div>
 
       <div className="works-list">
-        {works.map((work) => (
-          <WorkCard work={work} key={work.id} />
+        {content.workCards.map((work) => (
+          <WorkCard
+            pose={content.ooPoses[work.characterPoseId]}
+            work={work}
+            key={work.id}
+          />
         ))}
       </div>
     </section>

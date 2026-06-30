@@ -3,7 +3,7 @@ type MarqueeTextProps = {
 };
 
 function MarqueeText({ lines }: MarqueeTextProps) {
-  const text = lines.join("   ✦   ");
+  const text = lines.join("   ✦ 🍓 ✦   ");
 
   return (
     <div className="marquee-wrap" aria-label={text}>

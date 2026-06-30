@@ -1,16 +1,22 @@
 import { useEffect, useMemo, useState } from "react";
 import type { HeroPose } from "../data/siteContent";
+import { useEasterEggClick } from "../hooks/useEasterEggClick";
 
 type PixelGirlProps = {
+  easterEgg: {
+    chinese: string;
+    spanish: string;
+  };
   poses: HeroPose[];
   name: string;
 };
 
 const SWAP_INTERVAL = 1800;
 
-function PixelGirl({ poses, name }: PixelGirlProps) {
+function PixelGirl({ easterEgg, poses, name }: PixelGirlProps) {
   const safePoses = useMemo(() => poses.slice(0, 7), [poses]);
   const [index, setIndex] = useState(0);
+  const { handleClick, isVisible } = useEasterEggClick();
 
   useEffect(() => {
     if (safePoses.length <= 1) return;
@@ -25,7 +31,14 @@ function PixelGirl({ poses, name }: PixelGirlProps) {
   return (
     <figure className="pixel-girl" aria-label={`像素风小女孩 ${name}`}>
       <div className="pixel-girl__halo" aria-hidden="true" />
-      <div className="pixel-girl__stage">
+      <button className="pixel-girl__stage" type="button" onClick={handleClick}>
+        <span className="pixel-girl__island" aria-hidden="true" />
+        <span className="pixel-girl__hover-stars" aria-hidden="true">
+          <i />
+          <i />
+          <i />
+          <i />
+        </span>
         {/* TODO: 以后要替换姿势图时，只需要改 src/data/siteContent.ts 里的 characterPoses。 */}
         {safePoses.map((pose, poseIndex) => (
           <img
@@ -37,7 +50,14 @@ function PixelGirl({ poses, name }: PixelGirlProps) {
             style={{ "--pose-offset-x": `${pose.offsetX ?? 0}px`, "--pose-offset-y": `${pose.offsetY ?? 0}px` } as React.CSSProperties}
           />
         ))}
-      </div>
+      </button>
+
+      {isVisible ? (
+        <div className="pixel-toast" role="status">
+          <strong>{easterEgg.chinese}</strong>
+          <span>{easterEgg.spanish}</span>
+        </div>
+      ) : null}
 
       <div className="pixel-girl__dots" aria-hidden="true">
         {safePoses.map((pose, dotIndex) => (
