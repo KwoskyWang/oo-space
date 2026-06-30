@@ -210,6 +210,15 @@ video {
   box-shadow: 7px 8px 0 var(--berry-shadow);
 }
 
+.pixel-button:focus-visible,
+.pixel-nav__item:focus-visible,
+.pixel-nav__brand:focus-visible,
+.floating-fruit:focus-visible,
+.pixel-girl__stage:focus-visible {
+  outline: 3px solid var(--sky);
+  outline-offset: 3px;
+}
+
 .pixel-button:active {
   transform: translate(2px, 2px);
   box-shadow: 2px 2px 0 var(--berry-shadow);

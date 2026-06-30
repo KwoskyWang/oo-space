@@ -7,6 +7,8 @@ type MemoryGalleryProps = {
     kicker: string;
     title: string;
     description: string;
+    noteChinese: string;
+    noteSpanish: string;
   };
 };
 
@@ -17,6 +19,10 @@ function MemoryGallery({ memories, section }: MemoryGalleryProps) {
         <p className="pixel-kicker">{section.kicker}</p>
         <h2 className="pixel-title">{section.title}</h2>
         <p>{section.description}</p>
+        <div className="memory-note">
+          <strong>{section.noteChinese}</strong>
+          <span>{section.noteSpanish}</span>
+        </div>
       </div>
 
       <div className="memory-grid">

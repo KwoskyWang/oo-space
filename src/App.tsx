@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import HeroSection from "./components/HeroSection";
 import MemoryGallery from "./components/MemoryGallery";
 import PixelNav from "./components/PixelNav";
+import SectionDivider from "./components/SectionDivider";
 import WorksSection from "./components/WorksSection";
 import { siteContent } from "./data/siteContent";
 
@@ -56,14 +57,21 @@ function App() {
       />
       <HeroSection content={siteContent} />
       <main>
+        <SectionDivider type="trail" content={siteContent.transitions.heroToMemories} />
         <MemoryGallery memories={siteContent.memoryCards} section={siteContent.memorySection} />
+        <SectionDivider type="message" content={siteContent.transitions.memoriesToWorks} />
         <WorksSection content={siteContent} />
+        <SectionDivider type="orbit" content={siteContent.transitions.worksToAbout} />
         <AboutSection
           about={siteContent.aboutContent}
           pose={siteContent.ooPoses[siteContent.aboutContent.poseId]}
         />
       </main>
-      <Footer content={siteContent.footerContent} ownerName={siteContent.owner.name} pose={siteContent.ooPoses[siteContent.footerContent.poseId]} />
+      <Footer
+        content={siteContent.footerContent}
+        ownerName={siteContent.owner.name}
+        pose={siteContent.ooPoses[siteContent.footerContent.poseId]}
+      />
     </div>
   );
 }

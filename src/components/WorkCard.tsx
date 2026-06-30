@@ -3,6 +3,8 @@ import type { HeroPose, WorkItem } from "../data/siteContent";
 import PixelMindMap from "./PixelMindMap";
 
 type WorkCardProps = {
+  collapseLabel: string;
+  expandLabel: string;
   pose: HeroPose;
   work: WorkItem;
 };
@@ -57,8 +59,14 @@ type WorkMediaProps = {
 function WorkMedia({ palette, title }: WorkMediaProps) {
   return (
     <div className={`work-media work-media--${palette}`} aria-label={`${title} 图片和视频占位`}>
-      {/* TODO: 后续可以替换为真实作品截图、演示 GIF 或 mp4。 */}
-      <span className="work-media__window" />
+      <div className="work-media__window">
+        <span className="work-media__bar" />
+        <span className="work-media__chart" />
+        <span className="work-media__line work-media__line--one" />
+        <span className="work-media__line work-media__line--two" />
+        <span className="work-media__line work-media__line--three" />
+        <span className="work-media__action" />
+      </div>
       <span className="work-media__dot work-media__dot--one" />
       <span className="work-media__dot work-media__dot--two" />
       <span className="work-media__dot work-media__dot--three" />
@@ -67,7 +75,7 @@ function WorkMedia({ palette, title }: WorkMediaProps) {
   );
 }
 
-function WorkCard({ pose, work }: WorkCardProps) {
+function WorkCard({ collapseLabel, expandLabel, pose, work }: WorkCardProps) {
   const [expanded, setExpanded] = useState(false);
   const contentId = `${work.id}-details`;
 
@@ -75,7 +83,14 @@ function WorkCard({ pose, work }: WorkCardProps) {
     <article className={`pixel-card work-card ${expanded ? "is-expanded" : ""}`}>
       <div className="work-card__summary">
         <div className="work-card__character-shell">
-          <img className="work-card__character" src={pose.src} alt={pose.alt} />
+          <img
+            className="work-card__character"
+            src={pose.src}
+            alt={pose.alt}
+            loading="lazy"
+            width="104"
+            height="104"
+          />
         </div>
 
         <div className="work-card__copy">
@@ -96,7 +111,7 @@ function WorkCard({ pose, work }: WorkCardProps) {
           aria-controls={contentId}
           onClick={() => setExpanded((current) => !current)}
         >
-          {expanded ? "收起 / Ver menos 🍓" : "展开 / Ver más ✨"}
+          {expanded ? collapseLabel : expandLabel}
         </button>
       </div>
 
@@ -105,7 +120,7 @@ function WorkCard({ pose, work }: WorkCardProps) {
           <div className="work-card__written">
             <MarkdownView markdown={work.markdown} />
             <div className="oo-note">
-              <h4>oo 的小结 / Nota de oo</h4>
+              <h4>{work.note.title}</h4>
               <p>{work.note.chinese}</p>
               <p className="spanish-line">{work.note.spanish}</p>
             </div>

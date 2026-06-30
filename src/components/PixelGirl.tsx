@@ -16,7 +16,7 @@ const SWAP_INTERVAL = 1800;
 function PixelGirl({ easterEgg, poses, name }: PixelGirlProps) {
   const safePoses = useMemo(() => poses.slice(0, 7), [poses]);
   const [index, setIndex] = useState(0);
-  const { handleClick, isVisible } = useEasterEggClick();
+  const { handleClick, isVisible } = useEasterEggClick(2);
 
   useEffect(() => {
     if (safePoses.length <= 1) return;
@@ -47,6 +47,8 @@ function PixelGirl({ easterEgg, poses, name }: PixelGirlProps) {
             alt={pose.alt}
             aria-hidden={poseIndex !== index}
             key={pose.id}
+            width="420"
+            height="480"
             style={{ "--pose-offset-x": `${pose.offsetX ?? 0}px`, "--pose-offset-y": `${pose.offsetY ?? 0}px` } as React.CSSProperties}
           />
         ))}

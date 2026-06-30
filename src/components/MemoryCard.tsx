@@ -7,19 +7,30 @@ type MemoryCardProps = {
 
 function MemoryImagePlaceholder({ memory }: { memory: MemoryCardType }) {
   if (memory.assetUrl) {
-    return <img className="memory-real-media" src={memory.assetUrl} alt={memory.title} />;
+    return (
+      <img
+        className="memory-real-media"
+        src={memory.assetUrl}
+        alt={memory.title}
+        loading="lazy"
+      />
+    );
   }
 
   return (
     <div className={`memory-art memory-art--${memory.placeholderTheme}`} aria-label={`${memory.title} 占位图`}>
       <span className="memory-art__sun" />
+      <span className="memory-art__flag" />
       <span className="memory-art__street" />
       <span className="memory-art__building memory-art__building--left" />
       <span className="memory-art__building memory-art__building--right" />
       <span className="memory-art__cup" />
+      <span className="memory-art__lamp" />
       <span className="memory-art__desk" />
+      <span className="memory-art__note" />
       <span className="memory-art__ticket" />
       <span className="memory-art__path" />
+      <span className="memory-art__planet" />
       <span className="memory-art__snow memory-art__snow--one" />
       <span className="memory-art__snow memory-art__snow--two" />
       <span className="memory-art__fruit memory-art__fruit--one" />
@@ -42,7 +53,7 @@ function MemoryCard({ memory }: MemoryCardProps) {
 
       <div className="memory-media">
         {hasVideoAsset ? (
-          <video className="memory-real-media" controls src={memory.assetUrl} />
+          <video className="memory-real-media" controls src={memory.assetUrl} preload="metadata" />
         ) : memory.type === "video" ? (
           <PixelVideoPlaceholder palette={memory.placeholderTheme} title={memory.title} />
         ) : (

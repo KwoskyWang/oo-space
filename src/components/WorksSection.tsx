@@ -18,12 +18,17 @@ function WorksSection({ content }: WorksSectionProps) {
           className="section-heading__character"
           src={content.ooPoses[content.workSection.characterPoseId].src}
           alt={content.ooPoses[content.workSection.characterPoseId].alt}
+          loading="lazy"
+          width="168"
+          height="168"
         />
       </div>
 
       <div className="works-list">
         {content.workCards.map((work) => (
           <WorkCard
+            collapseLabel={content.workSection.collapseLabel}
+            expandLabel={content.workSection.expandLabel}
             pose={content.ooPoses[work.characterPoseId]}
             work={work}
             key={work.id}

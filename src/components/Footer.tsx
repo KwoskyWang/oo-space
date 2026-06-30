@@ -7,6 +7,7 @@ type FooterProps = {
     spanish: string;
     chinese: string;
     dedication: string;
+    smallLine: string;
     fruits: string[];
   };
 };
@@ -17,11 +18,19 @@ function Footer({ content, ownerName, pose }: FooterProps) {
       <div className="pixel-postcard__stamp" aria-hidden="true">
         💌
       </div>
-      <img className="pixel-postcard__character" src={pose.src} alt={pose.alt} />
+      <img
+        className="pixel-postcard__character"
+        src={pose.src}
+        alt={pose.alt}
+        loading="lazy"
+        width="112"
+        height="132"
+      />
       <p className="footer-logo">{ownerName}</p>
       <p>{content.spanish}</p>
       <p>{content.chinese}</p>
       <p className="pixel-postcard__dedication">{content.dedication}</p>
+      <p className="pixel-postcard__small">{content.smallLine}</p>
       <div className="pixel-postcard__fruits" aria-hidden="true">
         {content.fruits.map((fruit, index) => (
           <span key={`${fruit}-${index}`}>{fruit}</span>
