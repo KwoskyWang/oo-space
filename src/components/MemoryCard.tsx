@@ -1,11 +1,13 @@
-import type { MemoryCard as MemoryCardType } from "../data/siteContent";
+import type { HeroPose, MemoryCard as MemoryCardType } from "../data/siteContent";
+import OoPixelAvatar from "./OoPixelAvatar";
 import PixelVideoPlaceholder from "./PixelVideoPlaceholder";
 
 type MemoryCardProps = {
   memory: MemoryCardType;
+  pose?: HeroPose;
 };
 
-function MemoryImagePlaceholder({ memory }: { memory: MemoryCardType }) {
+function MemoryImagePlaceholder({ memory, pose }: { memory: MemoryCardType; pose?: HeroPose }) {
   if (memory.assetUrl) {
     return (
       <img
@@ -35,6 +37,19 @@ function MemoryImagePlaceholder({ memory }: { memory: MemoryCardType }) {
       <span className="memory-art__snow memory-art__snow--two" />
       <span className="memory-art__fruit memory-art__fruit--one" />
       <span className="memory-art__fruit memory-art__fruit--two" />
+      {pose ? (
+        <OoPixelAvatar
+          className="memory-art__avatar"
+          src={pose.src}
+          alt={pose.alt}
+          fallbackSrc={pose.fallbackSrc}
+          offsetX={pose.offsetX}
+          offsetY={pose.offsetY}
+          poseName={pose.id}
+          scale={pose.scale}
+          size={72}
+        />
+      ) : null}
       <span className="memory-art__spark memory-art__spark--one" />
       <span className="memory-art__spark memory-art__spark--two" />
       <span className="memory-art__label">{memory.subtitleEs}</span>
@@ -42,7 +57,7 @@ function MemoryImagePlaceholder({ memory }: { memory: MemoryCardType }) {
   );
 }
 
-function MemoryCard({ memory }: MemoryCardProps) {
+function MemoryCard({ memory, pose }: MemoryCardProps) {
   const hasVideoAsset = memory.type === "video" && memory.assetUrl;
 
   return (
@@ -57,7 +72,7 @@ function MemoryCard({ memory }: MemoryCardProps) {
         ) : memory.type === "video" ? (
           <PixelVideoPlaceholder palette={memory.placeholderTheme} title={memory.title} />
         ) : (
-          <MemoryImagePlaceholder memory={memory} />
+          <MemoryImagePlaceholder memory={memory} pose={pose} />
         )}
       </div>
 

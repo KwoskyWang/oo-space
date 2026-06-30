@@ -4,7 +4,7 @@
   left: 50%;
   z-index: 20;
   display: flex;
-  width: min(980px, calc(100% - 24px));
+  width: min(960px, calc(100% - 24px));
   align-items: center;
   justify-content: space-between;
   gap: 14px;
@@ -22,7 +22,7 @@
 
 .pixel-nav__brand {
   display: inline-flex;
-  min-height: 50px;
+  min-height: 46px;
   align-items: center;
   gap: 8px;
   padding: 5px 10px;
@@ -51,9 +51,9 @@
 
 .pixel-nav__item {
   flex: 0 0 auto;
-  min-height: 38px;
-  padding: 9px 12px;
-  font-size: 0.9rem;
+  min-height: 34px;
+  padding: 7px 12px;
+  font-size: 0.86rem;
   font-weight: 900;
   white-space: nowrap;
 }
@@ -237,7 +237,7 @@
 
 .marquee-wrap {
   position: absolute;
-  top: 72px;
+  top: 74px;
   left: 0;
   z-index: 4;
   width: 100%;
@@ -256,13 +256,13 @@
 
 .marquee-track span {
   flex: 0 0 auto;
-  padding: 10px 26px;
+  padding: 6px 24px;
   color: var(--pixel-dark);
   font-family:
     "Courier New",
     "Trebuchet MS",
     monospace;
-  font-size: clamp(0.82rem, 2vw, 1rem);
+  font-size: clamp(0.76rem, 1.6vw, 0.9rem);
   font-weight: 900;
   text-shadow: 2px 2px 0 #ffd0de;
   white-space: nowrap;
@@ -491,18 +491,64 @@
 
 .pixel-girl__island {
   position: absolute;
-  left: 4%;
-  right: 4%;
-  bottom: -34px;
-  height: 82px;
+  left: 0;
+  right: 0;
+  bottom: -24px;
+  z-index: 5;
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 6px 12px;
   background:
-    radial-gradient(circle at 20% 18%, var(--strawberry) 0 9px, transparent 10px),
-    radial-gradient(circle at 76% 22%, var(--mango) 0 8px, transparent 9px),
-    radial-gradient(circle at 50% 18%, #fff4ae 0 6px, transparent 7px),
-    linear-gradient(90deg, transparent 0 6%, var(--avocado) 6% 94%, transparent 94%),
-    linear-gradient(#8ccf7e 0 44%, #ffc857 44% 58%, #c78a50 58% 100%);
+    radial-gradient(circle at 5% 50%, var(--mango) 0 4px, transparent 5px),
+    radial-gradient(circle at 95% 50%, var(--strawberry) 0 4px, transparent 5px),
+    linear-gradient(90deg, transparent 0 4%, var(--avocado) 4% 96%, transparent 96%);
   border: 4px solid var(--pixel-dark);
   box-shadow: 7px 7px 0 rgba(123, 63, 97, 0.36);
+  transition: filter 180ms ease;
+}
+
+.pixel-girl__stage:hover .pixel-girl__island {
+  filter: drop-shadow(0 0 10px rgba(140, 207, 126, 0.44));
+}
+
+.pixel-girl__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 6px;
+  background: var(--paper);
+  border: 2px solid var(--pixel-dark);
+  box-shadow: 2px 2px 0 rgba(123, 63, 97, 0.28);
+  font-family: "Courier New", monospace;
+  font-size: 0.72rem;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.pixel-girl__status i {
+  width: 7px;
+  height: 7px;
+  background: var(--dragonfruit);
+  border: 1px solid var(--pixel-dark);
+}
+
+.pixel-girl__status:nth-child(2) i {
+  background: var(--sky);
+}
+
+.pixel-girl__status:nth-child(3) i {
+  background: var(--mango);
+}
+
+.pixel-girl__status:nth-child(4) i {
+  background: var(--strawberry);
+}
+
+.pixel-girl__status-short {
+  display: none;
 }
 
 .pixel-girl__image {
@@ -623,10 +669,16 @@
   right: -128px;
   top: 32%;
   display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
   width: min(250px, 62vw);
+  align-items: center;
   gap: 3px;
   color: var(--pixel-dark);
   animation: toastPop 2.5s steps(5, end) both;
+}
+
+.pixel-toast__avatar {
+  grid-row: span 2;
 }
 
 .pixel-toast span {
@@ -636,7 +688,8 @@
 .memory-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 34px;
+  column-gap: 36px;
+  row-gap: 54px;
   align-items: stretch;
 }
 
@@ -669,6 +722,35 @@
   top: -14px;
   z-index: 3;
   transform: rotate(8deg);
+}
+
+.hero-mini-sticker {
+  position: absolute;
+  right: clamp(28px, 7vw, 104px);
+  top: 31%;
+  z-index: 3;
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  padding: 8px 9px 6px;
+  background: var(--paper);
+  border: 3px solid var(--pixel-dark);
+  box-shadow: 6px 6px 0 rgba(123, 63, 97, 0.42);
+  transform: rotate(5deg);
+  transition:
+    transform 180ms steps(2, end),
+    box-shadow 180ms steps(2, end);
+}
+
+.hero-mini-sticker:hover {
+  transform: translateY(-5px) rotate(-3deg);
+  box-shadow: 8px 10px 0 rgba(123, 63, 97, 0.5);
+}
+
+.hero-mini-sticker span {
+  font-family: "Courier New", monospace;
+  font-size: 0.72rem;
+  font-weight: 900;
 }
 
 .memory-card:hover .memory-card__sticker {
@@ -870,6 +952,20 @@
   border: 3px solid var(--pixel-dark);
 }
 
+.memory-art__cup::before {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  top: -30px;
+  height: 24px;
+  background:
+    radial-gradient(circle at 20% 70%, rgba(255, 250, 240, 0.9) 0 5px, transparent 6px),
+    radial-gradient(circle at 50% 40%, rgba(255, 250, 240, 0.82) 0 5px, transparent 6px),
+    radial-gradient(circle at 78% 68%, rgba(255, 250, 240, 0.86) 0 5px, transparent 6px);
+  content: "";
+  animation: coffeeSteam 1.8s steps(5, end) infinite;
+}
+
 .memory-art__cup::after {
   position: absolute;
   right: -20px;
@@ -879,6 +975,14 @@
   border: 3px solid var(--pixel-dark);
   border-left: 0;
   content: "";
+}
+
+.memory-art__avatar {
+  position: absolute;
+  right: 20px;
+  bottom: 18px;
+  z-index: 4;
+  filter: drop-shadow(4px 5px 0 rgba(123, 63, 97, 0.28));
 }
 
 .memory-art__desk {
@@ -1060,6 +1164,10 @@
 .memory-art--coffee .memory-art__planet,
 .memory-art--coffee .memory-art__fruit {
   display: none;
+}
+
+.memory-card--coffee .memory-card__sticker {
+  background: #fffaf0;
 }
 
 .memory-art__label,
@@ -1571,12 +1679,32 @@
   content: "";
 }
 
-.about-planet__character img {
+.about-planet__main-avatar {
   position: relative;
   width: min(280px, 78vw);
-  image-rendering: pixelated;
   filter: drop-shadow(9px 10px 0 rgba(123, 63, 97, 0.28));
   animation: girlIdle 2.4s steps(5, end) infinite;
+}
+
+.about-season-card {
+  position: absolute;
+  right: 8%;
+  bottom: 8%;
+  z-index: 3;
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  padding: 7px 8px;
+  background: var(--paper);
+  border: 3px solid var(--pixel-dark);
+  box-shadow: 5px 5px 0 rgba(123, 63, 97, 0.38);
+  transform: rotate(4deg);
+}
+
+.about-season-card > span {
+  font-family: "Courier New", monospace;
+  font-size: 0.68rem;
+  font-weight: 900;
 }
 
 .about-floating-tags {
@@ -1954,6 +2082,19 @@
   }
 }
 
+@keyframes coffeeSteam {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: translateY(4px);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateY(-5px);
+  }
+}
+
 @keyframes dividerHop {
   0%,
   100% {
@@ -1991,6 +2132,8 @@
 
   .memory-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 30px;
+    row-gap: 46px;
   }
 
   .work-card__summary {
@@ -2066,6 +2209,10 @@
     top: 40%;
   }
 
+  .hero-mini-sticker {
+    display: none;
+  }
+
   .marquee-wrap {
     top: 58px;
   }
@@ -2095,6 +2242,26 @@
     width: 90%;
   }
 
+  .pixel-girl__island {
+    bottom: -20px;
+    min-height: 38px;
+    gap: 5px;
+    padding: 5px 7px;
+  }
+
+  .pixel-girl__status {
+    padding: 3px 5px;
+    font-size: 0.68rem;
+  }
+
+  .pixel-girl__status-full {
+    display: none;
+  }
+
+  .pixel-girl__status-short {
+    display: inline;
+  }
+
   .pixel-girl__image {
     inset: -42px -10% 4px;
     width: 120%;
@@ -2109,6 +2276,7 @@
     right: 50%;
     top: 18%;
     transform: translateX(50%);
+    width: min(270px, 86vw);
   }
 
   .hero-cta-row {
@@ -2157,7 +2325,7 @@
 
   .memory-grid {
     grid-template-columns: 1fr;
-    gap: 22px;
+    row-gap: 32px;
   }
 
   .memory-card,
@@ -2222,8 +2390,13 @@
     font-size: 0.7rem;
   }
 
-  .about-planet__character img {
+  .about-planet__main-avatar {
     width: min(220px, 78vw);
+  }
+
+  .about-season-card {
+    right: 2%;
+    bottom: 2%;
   }
 
   .about-card {

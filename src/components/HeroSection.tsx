@@ -1,6 +1,7 @@
 import type { siteContent } from "../data/siteContent";
 import FloatingFruits from "./FloatingFruits";
 import MarqueeText from "./MarqueeText";
+import OoPixelAvatar from "./OoPixelAvatar";
 import PixelGirl from "./PixelGirl";
 
 type HeroSectionProps = {
@@ -14,6 +15,19 @@ function HeroSection({ content }: HeroSectionProps) {
       <div className="hero-pixel-grid" aria-hidden="true" />
       <div className="hero-cloud hero-cloud--left" aria-hidden="true" />
       <div className="hero-cloud hero-cloud--right" aria-hidden="true" />
+      <div className="hero-mini-sticker">
+        <OoPixelAvatar
+          src={content.ooPoses[content.hero.sticker.poseId].src}
+          alt={content.ooPoses[content.hero.sticker.poseId].alt}
+          fallbackSrc={content.ooPoses[content.hero.sticker.poseId].fallbackSrc}
+          offsetX={content.ooPoses[content.hero.sticker.poseId].offsetX}
+          offsetY={content.ooPoses[content.hero.sticker.poseId].offsetY}
+          poseName={content.ooPoses[content.hero.sticker.poseId].id}
+          scale={content.ooPoses[content.hero.sticker.poseId].scale}
+          size={64}
+        />
+        <span>{content.hero.sticker.label}</span>
+      </div>
       <MarqueeText lines={content.hero.marqueeItems} />
 
       <div className="hero-content">
@@ -22,8 +36,10 @@ function HeroSection({ content }: HeroSectionProps) {
         <p className="hero-planet-title">{content.hero.planetTitle}</p>
         <PixelGirl
           easterEgg={content.easterEgg}
+          easterEggAvatars={content.easterEgg.avatarPoseIds.map((poseId) => content.ooPoses[poseId])}
           poses={content.hero.characterPoses}
           name={content.owner.name}
+          statusItems={content.hero.statusItems}
         />
         <p className="hero-subtitle-cn">{content.hero.subtitleChinese}</p>
         <p className="hero-subtitle">{content.hero.subtitleSpanish}</p>

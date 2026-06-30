@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { HeroPose, WorkItem } from "../data/siteContent";
+import OoPixelAvatar from "./OoPixelAvatar";
 import PixelMindMap from "./PixelMindMap";
 
 type WorkCardProps = {
@@ -83,13 +84,16 @@ function WorkCard({ collapseLabel, expandLabel, pose, work }: WorkCardProps) {
     <article className={`pixel-card work-card ${expanded ? "is-expanded" : ""}`}>
       <div className="work-card__summary">
         <div className="work-card__character-shell">
-          <img
+          <OoPixelAvatar
             className="work-card__character"
             src={pose.src}
             alt={pose.alt}
-            loading="lazy"
-            width="104"
-            height="104"
+            fallbackSrc={pose.fallbackSrc}
+            offsetX={pose.offsetX}
+            offsetY={pose.offsetY}
+            poseName={pose.id}
+            scale={pose.scale}
+            size={96}
           />
         </div>
 

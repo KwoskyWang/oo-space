@@ -58,13 +58,18 @@ function App() {
       <HeroSection content={siteContent} />
       <main>
         <SectionDivider type="trail" content={siteContent.transitions.heroToMemories} />
-        <MemoryGallery memories={siteContent.memoryCards} section={siteContent.memorySection} />
+        <MemoryGallery
+          memories={siteContent.memoryCards}
+          poseMap={siteContent.ooPoses}
+          section={siteContent.memorySection}
+        />
         <SectionDivider type="message" content={siteContent.transitions.memoriesToWorks} />
         <WorksSection content={siteContent} />
         <SectionDivider type="orbit" content={siteContent.transitions.worksToAbout} />
         <AboutSection
           about={siteContent.aboutContent}
           pose={siteContent.ooPoses[siteContent.aboutContent.poseId]}
+          winterPose={siteContent.ooPoses[siteContent.aboutContent.winterMiniPoseId]}
         />
       </main>
       <Footer

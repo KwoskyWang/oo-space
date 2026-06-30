@@ -1,4 +1,5 @@
 import type { HeroPose } from "../data/siteContent";
+import OoPixelAvatar from "./OoPixelAvatar";
 
 type AboutSectionProps = {
   about: {
@@ -10,6 +11,7 @@ type AboutSectionProps = {
     keywordTitle: string;
     keywordTitleEs: string;
     keywords: string[];
+    seasonLabels: string[];
     abilityTitle: string;
     abilityStats: {
       id: string;
@@ -18,14 +20,38 @@ type AboutSectionProps = {
     }[];
   };
   pose: HeroPose;
+  winterPose: HeroPose;
 };
 
-function AboutSection({ about, pose }: AboutSectionProps) {
+function AboutSection({ about, pose, winterPose }: AboutSectionProps) {
   return (
     <section className="page-section about-section" id="about" data-reveal data-section-nav>
       <div className="about-planet">
         <div className="about-planet__character">
-          <img src={pose.src} alt={pose.alt} loading="lazy" width="280" height="340" />
+          <OoPixelAvatar
+            className="about-planet__main-avatar"
+            src={pose.src}
+            alt={pose.alt}
+            fallbackSrc={pose.fallbackSrc}
+            offsetX={pose.offsetX}
+            offsetY={pose.offsetY}
+            poseName={pose.id}
+            scale={pose.scale}
+            size="min(280px, 78vw)"
+          />
+          <div className="about-season-card">
+            <OoPixelAvatar
+              src={winterPose.src}
+              alt={winterPose.alt}
+              fallbackSrc={winterPose.fallbackSrc}
+              offsetX={winterPose.offsetX}
+              offsetY={winterPose.offsetY}
+              poseName={winterPose.id}
+              scale={winterPose.scale}
+              size={58}
+            />
+            <span>{about.seasonLabels.join(" / ")}</span>
+          </div>
           <div className="about-floating-tags" aria-hidden="true">
             {about.tags.slice(0, 4).map((tag) => (
               <span key={tag}>{tag}</span>

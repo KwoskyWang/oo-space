@@ -81,6 +81,30 @@ video {
   max-width: 100%;
 }
 
+.oo-avatar {
+  position: relative;
+  display: grid;
+  width: var(--oo-avatar-size);
+  height: var(--oo-avatar-size);
+  place-items: center;
+  overflow: visible;
+}
+
+.oo-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+  transform:
+    translate(var(--oo-avatar-offset-x), var(--oo-avatar-offset-y))
+    scale(var(--oo-avatar-scale));
+  transform-origin: center center;
+}
+
+.oo-avatar--animated {
+  animation: softBob 2.4s steps(5, end) infinite;
+}
+
 ::selection {
   color: var(--pixel-dark);
   background: var(--mango);

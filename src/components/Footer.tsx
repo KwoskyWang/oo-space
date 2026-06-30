@@ -1,4 +1,5 @@
 import type { HeroPose } from "../data/siteContent";
+import OoPixelAvatar from "./OoPixelAvatar";
 
 type FooterProps = {
   ownerName: string;
@@ -18,13 +19,16 @@ function Footer({ content, ownerName, pose }: FooterProps) {
       <div className="pixel-postcard__stamp" aria-hidden="true">
         💌
       </div>
-      <img
+      <OoPixelAvatar
         className="pixel-postcard__character"
         src={pose.src}
         alt={pose.alt}
-        loading="lazy"
-        width="112"
-        height="132"
+        fallbackSrc={pose.fallbackSrc}
+        offsetX={pose.offsetX}
+        offsetY={pose.offsetY}
+        poseName={pose.id}
+        scale={pose.scale}
+        size={112}
       />
       <p className="footer-logo">{ownerName}</p>
       <p>{content.spanish}</p>

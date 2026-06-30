@@ -1,4 +1,5 @@
 import type { siteContent } from "../data/siteContent";
+import OoPixelAvatar from "./OoPixelAvatar";
 import WorkCard from "./WorkCard";
 
 type WorksSectionProps = {
@@ -14,13 +15,16 @@ function WorksSection({ content }: WorksSectionProps) {
           <h2 className="pixel-title">{content.workSection.title}</h2>
           <p>{content.workSection.description}</p>
         </div>
-        <img
+        <OoPixelAvatar
           className="section-heading__character"
           src={content.ooPoses[content.workSection.characterPoseId].src}
           alt={content.ooPoses[content.workSection.characterPoseId].alt}
-          loading="lazy"
-          width="168"
-          height="168"
+          fallbackSrc={content.ooPoses[content.workSection.characterPoseId].fallbackSrc}
+          offsetX={content.ooPoses[content.workSection.characterPoseId].offsetX}
+          offsetY={content.ooPoses[content.workSection.characterPoseId].offsetY}
+          poseName={content.ooPoses[content.workSection.characterPoseId].id}
+          scale={content.ooPoses[content.workSection.characterPoseId].scale}
+          size="clamp(112px, 15vw, 168px)"
         />
       </div>
 
