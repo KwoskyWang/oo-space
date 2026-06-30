@@ -77,7 +77,7 @@ function getOrigin(targetElement: Element) {
   const gap = 20;
 
   let left = rect.right + gap;
-  let top = rect.top + rect.height * 0.34 - dragonHeight * 0.5;
+  let top = rect.top + rect.height * 0.24 - dragonHeight * 0.5;
 
   if (left + dragonWidth > window.innerWidth - 12) {
     left = rect.left - dragonWidth - gap;
@@ -176,8 +176,8 @@ export function showDragonEffect(targetElement: Element, options?: DragonEffectO
   canvas.height = canvasHeight * dpr;
   canvas.style.width = `${canvasWidth}px`;
   canvas.style.height = `${canvasHeight}px`;
-  canvas.style.left = `${Math.min(dragonWidth * 0.62, 92)}px`;
-  canvas.style.top = `${Math.max(dragonHeight * 0.12, 10)}px`;
+  canvas.style.left = `${Math.min(dragonWidth * 0.7, 102)}px`;
+  canvas.style.top = `${Math.max(dragonHeight * 0.03, 4)}px`;
 
   if (ctx) {
     ctx.scale(dpr, dpr);
@@ -209,10 +209,10 @@ export function showDragonEffect(targetElement: Element, options?: DragonEffectO
       const burst = elapsed > 680 && elapsed < 1100;
       const count = burst ? 5 : 3;
       for (let i = 0; i < count; i += 1) {
-        particles.push(createParticle(26, canvasHeight * 0.33, starImages, burst));
+        particles.push(createParticle(36, canvasHeight * 0.28, starImages, burst));
       }
     } else if (reduceMotion && elapsed < 180) {
-      particles.push(createParticle(24, canvasHeight * 0.35, starImages, true));
+      particles.push(createParticle(34, canvasHeight * 0.28, starImages, true));
     }
 
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
