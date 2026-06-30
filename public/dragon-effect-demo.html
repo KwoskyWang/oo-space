@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dragon Star Effect Demo</title>
+    <style>
+      body {
+        min-height: 100vh;
+        margin: 0;
+        display: grid;
+        place-items: center;
+        background: #fff7df;
+        font-family: system-ui, sans-serif;
+      }
+
+      .demo-button {
+        min-height: 48px;
+        padding: 12px 18px;
+        background: #ffc857;
+        border: 3px solid #2b1d2f;
+        box-shadow: 6px 6px 0 #7b3f61;
+        font-weight: 900;
+        cursor: pointer;
+      }
+
+      .dragon-effect {
+        position: fixed;
+        z-index: 60;
+        pointer-events: none;
+        animation: dragonEffectPop 260ms steps(4, end) both;
+      }
+
+      .dragon-effect.is-leaving {
+        animation: dragonEffectLeave 360ms steps(4, end) both;
+      }
+
+      .dragon-effect__dragon {
+        position: absolute;
+        left: 0;
+        top: 0;
+        object-fit: contain;
+        image-rendering: pixelated;
+        filter: drop-shadow(7px 8px 0 rgba(123, 63, 97, 0.32));
+      }
+
+      .dragon-effect__canvas {
+        position: absolute;
+      }
+
+      @keyframes dragonEffectPop {
+        from {
+          opacity: 0;
+          transform: translateY(8px) scale(0.72);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      @keyframes dragonEffectLeave {
+        from {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+
+        to {
+          opacity: 0;
+          transform: translateY(-8px) scale(0.92);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <button class="demo-button" type="button">点击召唤小火龙 / dragon!</button>
+
+    <script type="module">
+      /**
+       * Project usage:
+       * import { initDragonEffect, showDragonEffect } from "/src/effects/dragonEffect";
+       *
+       * Resource roles:
+       * 01_dragon_idle.png: idle frame
+       * 02-06_dragon_stars_*.png: star-breath action frames
+       * stars/08-15_star_cluster_*.png: optional particle sprites
+       */
+      import { initDragonEffect } from "/src/effects/dragonEffect.ts";
+
+      initDragonEffect({
+        triggerSelector: ".demo-button",
+        assetBasePath: "/assets/dragon",
+      });
+    </script>
+  </body>
+</html>

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-export function useEasterEggClick(clicksToTrigger = 5, visibleMs = 2500) {
+export function useEasterEggClick(clicksToTrigger = 5, visibleMs = 2500, onTrigger?: () => void) {
   const [isVisible, setIsVisible] = useState(false);
   const clickCount = useRef(0);
   const hideTimer = useRef<number | null>(null);
@@ -24,6 +24,7 @@ export function useEasterEggClick(clicksToTrigger = 5, visibleMs = 2500) {
     if (clickCount.current < clicksToTrigger) return;
 
     clickCount.current = 0;
+    onTrigger?.();
     setIsVisible(false);
     window.setTimeout(() => setIsVisible(true), 20);
 

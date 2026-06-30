@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import type { HeroPose } from "../data/siteContent";
+import { showDragonEffect } from "../effects/dragonEffect";
 import { useEasterEggClick } from "../hooks/useEasterEggClick";
 import OoPixelAvatar from "./OoPixelAvatar";
 
@@ -23,7 +24,10 @@ function PixelGirl({ easterEgg, easterEggAvatars, poses, name, statusItems }: Pi
   const safePoses = useMemo(() => poses.slice(0, 7), [poses]);
   const [index, setIndex] = useState(0);
   const [eggAvatarIndex, setEggAvatarIndex] = useState(0);
-  const { handleClick, isVisible } = useEasterEggClick(2);
+  const { handleClick, isVisible } = useEasterEggClick(2, 2500, () => {
+    const stage = document.querySelector(".pixel-girl__stage");
+    if (stage) showDragonEffect(stage);
+  });
   const eggAvatar = easterEggAvatars[eggAvatarIndex % easterEggAvatars.length];
 
   useEffect(() => {
