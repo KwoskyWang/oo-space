@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import type { HeroPose } from "../data/siteContent";
+import type { Season, HeroPose } from "../data/poseMap";
 import { showDragonEffect } from "../effects/dragonEffect";
 import { useEasterEggClick } from "../hooks/useEasterEggClick";
 import OoPixelAvatar from "./OoPixelAvatar";
@@ -12,6 +12,7 @@ type PixelGirlProps = {
   easterEggAvatars: HeroPose[];
   poses: HeroPose[];
   name: string;
+  season: Season;
   statusItems: {
     label: string;
     shortLabel: string;
@@ -20,13 +21,13 @@ type PixelGirlProps = {
 
 const SWAP_INTERVAL = 1800;
 
-function PixelGirl({ easterEgg, easterEggAvatars, poses, name, statusItems }: PixelGirlProps) {
+function PixelGirl({ easterEgg, easterEggAvatars, poses, name, season, statusItems }: PixelGirlProps) {
   const safePoses = useMemo(() => poses.slice(0, 7), [poses]);
   const [index, setIndex] = useState(0);
   const [eggAvatarIndex, setEggAvatarIndex] = useState(0);
   const { handleClick, isVisible } = useEasterEggClick(2, 2500, () => {
     const stage = document.querySelector(".pixel-girl__stage");
-    if (stage) showDragonEffect(stage);
+    if (stage) showDragonEffect(stage, { season });
   });
   const eggAvatar = easterEggAvatars[eggAvatarIndex % easterEggAvatars.length];
 
@@ -67,7 +68,7 @@ function PixelGirl({ easterEgg, easterEggAvatars, poses, name, statusItems }: Pi
           <i />
           <i />
         </span>
-        {/* TODO: 以后要替换姿势图时，只需要改 src/data/siteContent.ts 里的 characterPoses。 */}
+        {/* TODO: 以后要替换姿势图时，只需要改 src/data/poseMap.ts 和 seasonContent.ts。 */}
         {safePoses.map((pose, poseIndex) => (
           <OoPixelAvatar
             className={`pixel-girl__image ${poseIndex === index ? "is-active" : ""}`}

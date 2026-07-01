@@ -6,10 +6,18 @@ import MemoryGallery from "./components/MemoryGallery";
 import PixelNav from "./components/PixelNav";
 import SectionDivider from "./components/SectionDivider";
 import WorksSection from "./components/WorksSection";
+import { ooPoseSets } from "./data/poseMap";
+import { seasonContent } from "./data/seasonContent";
 import { siteContent } from "./data/siteContent";
+import { useSeasonTheme } from "./hooks/useSeasonTheme";
 
 function App() {
   const [activeSection, setActiveSection] = useState("inicio");
+  const { season, toggleSeason } = useSeasonTheme();
+  const seasonal = seasonContent[season];
+  const poseSet = ooPoseSets[season];
+  const poseFallbackSet = season === "winter" ? ooPoseSets.summer : ooPoseSets.winter;
+  const poseLookup = { ...poseFallbackSet, ...poseSet };
 
   useEffect(() => {
     const sections = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
@@ -48,34 +56,41 @@ function App() {
   }, []);
 
   return (
-    <div className="site-shell">
+    <div className="site-shell" data-season={season}>
       <PixelNav
         activeSection={activeSection}
-        logoPose={siteContent.ooPoses.wave}
+        logoPose={season === "winter" ? poseSet.cuteFace : poseSet.wave}
         navItems={siteContent.navItems}
+        onToggleSeason={toggleSeason}
+        season={season}
         siteName={siteContent.siteName}
       />
-      <HeroSection content={siteContent} />
+      <HeroSection content={siteContent} poseSet={poseSet} season={season} seasonal={seasonal} />
       <main>
         <SectionDivider type="trail" content={siteContent.transitions.heroToMemories} />
         <MemoryGallery
           memories={siteContent.memoryCards}
-          poseMap={siteContent.ooPoses}
-          section={siteContent.memorySection}
+          poseMap={poseSet}
+          section={seasonal.memorySection}
         />
         <SectionDivider type="message" content={siteContent.transitions.memoriesToWorks} />
-        <WorksSection content={siteContent} />
+        <WorksSection content={siteContent} poseMap={poseLookup} seasonal={seasonal.workSection} />
         <SectionDivider type="orbit" content={siteContent.transitions.worksToAbout} />
         <AboutSection
-          about={siteContent.aboutContent}
-          pose={siteContent.ooPoses[siteContent.aboutContent.poseId]}
-          winterPose={siteContent.ooPoses[siteContent.aboutContent.winterMiniPoseId]}
+          abilityStats={siteContent.aboutContent.abilityStats}
+          about={seasonal.aboutContent}
+          miniPose={
+            season === "winter"
+              ? ooPoseSets.summer[seasonal.aboutContent.seasonalMiniPoseId]
+              : ooPoseSets.winter[seasonal.aboutContent.seasonalMiniPoseId]
+          }
+          pose={poseSet[seasonal.aboutContent.poseId]}
         />
       </main>
       <Footer
-        content={siteContent.footerContent}
+        content={seasonal.footerContent}
         ownerName={siteContent.owner.name}
-        pose={siteContent.ooPoses[siteContent.footerContent.poseId]}
+        pose={poseSet[seasonal.footerContent.poseId]}
       />
     </div>
   );

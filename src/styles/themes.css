@@ -1,0 +1,236 @@
+html {
+  transition:
+    background-color 360ms ease,
+    filter 360ms ease;
+}
+
+html[data-season="summer"] {
+  --theme-glow: rgba(255, 200, 87, 0.5);
+}
+
+html[data-season="winter"] {
+  --cream: #fffaf0;
+  --paper: #fff8ea;
+  --strawberry: #f3a7bd;
+  --strawberry-soft: #f8d8e2;
+  --dragonfruit: #d86d9f;
+  --mango: #f6d77a;
+  --avocado: #b7d8bc;
+  --sky: #bfe9ff;
+  --cocoa: #4a3328;
+  --berry-shadow: #6f4b65;
+  --pixel-dark: #2b2233;
+  --lavender: #d9d7ff;
+  --mint: #e8f8ee;
+  --muted: #6b5c73;
+  --winter-blue: #dff5ff;
+  --ice-blue: #bde7f7;
+  --snow: #ffffff;
+  --latte: #c99a6b;
+  --warm-light: #ffe6a7;
+  --theme-glow: rgba(255, 230, 167, 0.58);
+  --pixel-shadow: 7px 7px 0 rgba(111, 75, 101, 0.86);
+  --pixel-shadow-small: 4px 4px 0 rgba(111, 75, 101, 0.5);
+}
+
+html[data-season="winter"] body {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.42) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.38) 2px, transparent 2px),
+    radial-gradient(circle at 50% 18%, rgba(255, 230, 167, 0.46), transparent 22%),
+    radial-gradient(circle at 20% 9%, rgba(191, 233, 255, 0.5), transparent 24%),
+    radial-gradient(circle at 82% 10%, rgba(243, 167, 189, 0.2), transparent 26%),
+    linear-gradient(180deg, #fffaf0 0%, #e7f7ff 52%, #fff1f7 100%);
+  background-size:
+    34px 34px,
+    34px 34px,
+    auto,
+    auto,
+    auto,
+    auto;
+}
+
+.site-shell {
+  transition:
+    background-color 360ms ease,
+    color 360ms ease;
+}
+
+.site-shell::after {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: rgba(255, 250, 240, 0.28);
+  opacity: 0;
+  pointer-events: none;
+  content: "";
+  transition: opacity 420ms ease;
+}
+
+.site-shell[data-season="winter"]::after {
+  animation: seasonFade 520ms ease both;
+}
+
+[data-season="winter"] .hero-section::after {
+  background:
+    radial-gradient(circle at 50% 42%, rgba(255, 230, 167, 0.62), transparent 26%),
+    radial-gradient(circle at 30% 42%, rgba(191, 233, 255, 0.5), transparent 24%),
+    radial-gradient(circle at 72% 45%, rgba(255, 255, 255, 0.44), transparent 25%),
+    radial-gradient(circle at 64% 62%, rgba(201, 154, 107, 0.14), transparent 24%);
+}
+
+[data-season="winter"] .hero-pixel-grid {
+  background-image:
+    linear-gradient(rgba(43, 34, 51, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(43, 34, 51, 0.055) 1px, transparent 1px);
+}
+
+[data-season="winter"] .hero-title {
+  color: #d86d9f;
+  text-shadow:
+    5px 5px 0 var(--ice-blue),
+    10px 10px 0 rgba(43, 34, 51, 0.86);
+}
+
+[data-season="winter"] .hero-planet-title,
+[data-season="winter"] .pixel-title {
+  text-shadow:
+    4px 4px 0 rgba(223, 245, 255, 0.95),
+    7px 7px 0 rgba(111, 75, 101, 0.2);
+}
+
+[data-season="winter"] .marquee-wrap {
+  background: #e6f7ff;
+  box-shadow: 0 5px 0 rgba(111, 75, 101, 0.2);
+}
+
+[data-season="winter"] .marquee-track span {
+  text-shadow: 2px 2px 0 #ffffff;
+}
+
+[data-season="winter"] .pixel-card,
+[data-season="winter"] .pixel-postcard,
+[data-season="winter"] .memory-note,
+[data-season="winter"] .section-divider--message {
+  background-color: var(--paper);
+  box-shadow: var(--pixel-shadow);
+}
+
+[data-season="winter"] .pixel-button:hover,
+[data-season="winter"] .season-toggle:hover {
+  filter: drop-shadow(0 0 12px rgba(189, 231, 247, 0.58));
+}
+
+[data-season="winter"] .pixel-button:hover::after,
+[data-season="winter"] .season-toggle:hover::after {
+  opacity: 1;
+}
+
+[data-season="winter"] .pixel-girl__halo {
+  background:
+    radial-gradient(circle, rgba(255, 230, 167, 0.7) 0 45%, transparent 47%),
+    radial-gradient(circle, rgba(191, 233, 255, 0.5) 0 64%, transparent 66%);
+}
+
+[data-season="winter"] .pixel-girl__stage {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.24) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.24) 2px, transparent 2px),
+    radial-gradient(circle at 50% 38%, rgba(255, 230, 167, 0.56), transparent 44%),
+    rgba(223, 245, 255, 0.76);
+}
+
+[data-season="winter"] .pixel-girl__island {
+  background:
+    radial-gradient(circle at 5% 50%, var(--warm-light) 0 4px, transparent 5px),
+    radial-gradient(circle at 95% 50%, var(--ice-blue) 0 4px, transparent 5px),
+    linear-gradient(90deg, transparent 0 4%, #dff5ff 4% 96%, transparent 96%);
+}
+
+[data-season="winter"] .memory-art {
+  filter: saturate(0.86) brightness(1.04);
+}
+
+[data-season="winter"] .memory-art--coffee {
+  background:
+    radial-gradient(circle at 70% 24%, rgba(255, 230, 167, 0.7), transparent 23%),
+    linear-gradient(135deg, #fffaf0, #dff5ff 44%, #ffe6c6);
+  filter: saturate(1.04);
+}
+
+[data-season="winter"] .work-card {
+  background:
+    linear-gradient(90deg, rgba(191, 233, 255, 0.22), transparent 28%),
+    var(--paper);
+}
+
+[data-season="winter"] .work-card__character-shell,
+[data-season="winter"] .work-media__window::before {
+  background: #e6f7ff;
+}
+
+[data-season="winter"] .work-media--weekly,
+[data-season="winter"] .work-media--spanish,
+[data-season="winter"] .work-media--hotel {
+  background: linear-gradient(135deg, #dff5ff, #fffaf0 50%, #ffe6a7);
+}
+
+[data-season="winter"] .oo-note {
+  background:
+    linear-gradient(90deg, rgba(191, 233, 255, 0.34), transparent 36%),
+    #fff4c5;
+}
+
+[data-season="winter"] .about-planet__character::before {
+  background:
+    radial-gradient(circle, rgba(255, 230, 167, 0.72), transparent 60%),
+    radial-gradient(circle, rgba(191, 233, 255, 0.56), transparent 72%);
+}
+
+[data-season="winter"] .ability-stat__bar span {
+  background:
+    repeating-linear-gradient(90deg, var(--ice-blue) 0 18px, transparent 18px 22px),
+    linear-gradient(90deg, var(--latte), var(--warm-light));
+}
+
+[data-season="winter"] .pixel-postcard {
+  background:
+    radial-gradient(circle at 14% 20%, rgba(191, 233, 255, 0.44), transparent 18%),
+    linear-gradient(135deg, #fffaf0, #e7f7ff 58%, #fff1f7);
+}
+
+[data-season="winter"] .pixel-postcard__stamp {
+  background: #e6f7ff;
+}
+
+.dragon-effect[data-season="winter"]::after {
+  position: absolute;
+  left: 24px;
+  top: 48px;
+  z-index: 3;
+  width: 54px;
+  height: 15px;
+  background:
+    linear-gradient(90deg, #d86d9f 0 16px, #fff 16px 24px, #d86d9f 24px 40px, #fff 40px 48px, #d86d9f 48px);
+  border: 2px solid var(--pixel-dark);
+  box-shadow: 3px 3px 0 rgba(43, 34, 51, 0.22);
+  content: "";
+  transform: rotate(8deg);
+}
+
+@keyframes seasonFade {
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  34% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-shell[data-season="winter"]::after {
+    animation: none;
+  }
+}

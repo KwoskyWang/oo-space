@@ -1,4 +1,4 @@
-import type { HeroPose } from "../data/siteContent";
+import type { HeroPose } from "../data/poseMap";
 import OoPixelAvatar from "./OoPixelAvatar";
 
 type FooterProps = {
@@ -9,6 +9,7 @@ type FooterProps = {
     chinese: string;
     dedication: string;
     smallLine: string;
+    stamp: string;
     fruits: string[];
   };
 };
@@ -17,7 +18,7 @@ function Footer({ content, ownerName, pose }: FooterProps) {
   return (
     <footer className="site-footer pixel-postcard">
       <div className="pixel-postcard__stamp" aria-hidden="true">
-        💌
+        {content.stamp}
       </div>
       <OoPixelAvatar
         className="pixel-postcard__character"

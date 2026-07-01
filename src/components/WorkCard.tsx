@@ -1,11 +1,13 @@
 import { useState } from "react";
-import type { HeroPose, WorkItem } from "../data/siteContent";
+import type { HeroPose } from "../data/poseMap";
+import type { WorkItem } from "../data/siteContent";
 import OoPixelAvatar from "./OoPixelAvatar";
 import PixelMindMap from "./PixelMindMap";
 
 type WorkCardProps = {
   collapseLabel: string;
   expandLabel: string;
+  noteExtraSpanish?: string;
   pose: HeroPose;
   work: WorkItem;
 };
@@ -76,7 +78,7 @@ function WorkMedia({ palette, title }: WorkMediaProps) {
   );
 }
 
-function WorkCard({ collapseLabel, expandLabel, pose, work }: WorkCardProps) {
+function WorkCard({ collapseLabel, expandLabel, noteExtraSpanish, pose, work }: WorkCardProps) {
   const [expanded, setExpanded] = useState(false);
   const contentId = `${work.id}-details`;
 
@@ -127,6 +129,7 @@ function WorkCard({ collapseLabel, expandLabel, pose, work }: WorkCardProps) {
               <h4>{work.note.title}</h4>
               <p>{work.note.chinese}</p>
               <p className="spanish-line">{work.note.spanish}</p>
+              {noteExtraSpanish ? <p className="spanish-line">{noteExtraSpanish}</p> : null}
             </div>
           </div>
           <div className="work-card__visuals">

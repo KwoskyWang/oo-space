@@ -1,4 +1,5 @@
-import type { HeroPose } from "../data/siteContent";
+import type { CSSProperties } from "react";
+import type { HeroPose } from "../data/poseMap";
 import OoPixelAvatar from "./OoPixelAvatar";
 
 type AboutSectionProps = {
@@ -13,17 +14,17 @@ type AboutSectionProps = {
     keywords: string[];
     seasonLabels: string[];
     abilityTitle: string;
-    abilityStats: {
-      id: string;
-      label: string;
-      value: number;
-    }[];
   };
+  abilityStats: {
+    id: string;
+    label: string;
+    value: number;
+  }[];
+  miniPose: HeroPose;
   pose: HeroPose;
-  winterPose: HeroPose;
 };
 
-function AboutSection({ about, pose, winterPose }: AboutSectionProps) {
+function AboutSection({ abilityStats, about, miniPose, pose }: AboutSectionProps) {
   return (
     <section className="page-section about-section" id="about" data-reveal data-section-nav>
       <div className="about-planet">
@@ -41,13 +42,13 @@ function AboutSection({ about, pose, winterPose }: AboutSectionProps) {
           />
           <div className="about-season-card">
             <OoPixelAvatar
-              src={winterPose.src}
-              alt={winterPose.alt}
-              fallbackSrc={winterPose.fallbackSrc}
-              offsetX={winterPose.offsetX}
-              offsetY={winterPose.offsetY}
-              poseName={winterPose.id}
-              scale={winterPose.scale}
+              src={miniPose.src}
+              alt={miniPose.alt}
+              fallbackSrc={miniPose.fallbackSrc}
+              offsetX={miniPose.offsetX}
+              offsetY={miniPose.offsetY}
+              poseName={miniPose.id}
+              scale={miniPose.scale}
               size={58}
             />
             <span>{about.seasonLabels.join(" / ")}</span>
@@ -86,7 +87,7 @@ function AboutSection({ about, pose, winterPose }: AboutSectionProps) {
 
           <div className="ability-board">
             <h3>{about.abilityTitle}</h3>
-            {about.abilityStats.map((stat) => (
+            {abilityStats.map((stat) => (
               <div className="ability-stat" key={stat.id}>
                 <div className="ability-stat__header">
                   <span>{stat.label}</span>
@@ -95,7 +96,7 @@ function AboutSection({ about, pose, winterPose }: AboutSectionProps) {
                 <div
                   className="ability-stat__bar"
                   aria-label={`${stat.label} ${stat.value}%`}
-                  style={{ "--ability-value": `${stat.value}%` } as React.CSSProperties}
+                  style={{ "--ability-value": `${stat.value}%` } as CSSProperties}
                 >
                   <span />
                 </div>

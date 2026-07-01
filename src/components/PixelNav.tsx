@@ -1,14 +1,18 @@
-import type { HeroPose, NavItem } from "../data/siteContent";
+import type { Season, HeroPose } from "../data/poseMap";
+import type { NavItem } from "../data/siteContent";
 import OoPixelAvatar from "./OoPixelAvatar";
+import SeasonToggle from "./SeasonToggle";
 
 type PixelNavProps = {
   activeSection: string;
   logoPose: HeroPose;
   navItems: NavItem[];
+  onToggleSeason: () => void;
+  season: Season;
   siteName: string;
 };
 
-function PixelNav({ activeSection, logoPose, navItems, siteName }: PixelNavProps) {
+function PixelNav({ activeSection, logoPose, navItems, onToggleSeason, season, siteName }: PixelNavProps) {
   return (
     <nav className="pixel-nav" aria-label="主导航">
       <a className="pixel-nav__brand" href="#inicio" aria-label={siteName}>
@@ -35,6 +39,7 @@ function PixelNav({ activeSection, logoPose, navItems, siteName }: PixelNavProps
             {item.label}
           </a>
         ))}
+        <SeasonToggle season={season} onToggle={onToggleSeason} />
       </div>
     </nav>
   );

@@ -7,12 +7,14 @@ export type DragonEffectOptions = {
   assetBasePath?: string;
   assets?: DragonEffectAssets;
   containerSelector?: string;
+  season?: "summer" | "winter";
   triggerSelector?: string;
 };
 
 type Particle = {
   alpha: number;
   image?: HTMLImageElement;
+  kind: "spark" | "snow";
   life: number;
   maxLife: number;
   rotation: number;
@@ -29,7 +31,7 @@ const DEFAULT_ASSET_BASE = "/assets/dragon";
 
 export const dragonEffectAssets: DragonEffectAssets = {
   dragonFrames: [
-    `${DEFAULT_ASSET_BASE}/01_dragon_idle.png`,
+    `${DEFAULT_ASSET_BASE}/02_dragon_stars_start.png`,
   ],
   starSprites: [
     `${DEFAULT_ASSET_BASE}/stars/08_star_cluster_01.png`,
@@ -77,7 +79,7 @@ function getOrigin(targetElement: Element) {
   const gap = 20;
 
   let left = rect.right + gap;
-  let top = rect.top + rect.height * 0.24 - dragonHeight * 0.5;
+  let top = rect.top + rect.height * 0.12 - dragonHeight * 0.5;
 
   if (left + dragonWidth > window.innerWidth - 12) {
     left = rect.left - dragonWidth - gap;
@@ -89,28 +91,54 @@ function getOrigin(targetElement: Element) {
   return { dragonHeight, dragonWidth, left, top };
 }
 
-function createParticle(originX: number, originY: number, sprites: HTMLImageElement[], burst = false): Particle {
+function createParticle(
+  originX: number,
+  originY: number,
+  sprites: HTMLImageElement[],
+  burst = false,
+  season: "summer" | "winter" = "summer",
+): Particle {
   const angle = (-26 + Math.random() * 52) * (Math.PI / 180);
   const speed = (burst ? 3.8 : 2.1) + Math.random() * (burst ? 4.5 : 3.2);
   const life = 42 + Math.random() * 34;
+  const snow = season === "winter" && Math.random() > 0.58;
 
   return {
     alpha: 0.82 + Math.random() * 0.18,
-    image: sprites.length ? sprites[Math.floor(Math.random() * sprites.length)] : undefined,
+    image: !snow && sprites.length ? sprites[Math.floor(Math.random() * sprites.length)] : undefined,
+    kind: snow ? "snow" : "spark",
     life,
     maxLife: life,
     rotation: Math.random() * Math.PI,
     rotationSpeed: -0.12 + Math.random() * 0.24,
-    size: (burst ? 14 : 9) + Math.random() * (burst ? 22 : 16),
+    size: (snow ? 10 : burst ? 14 : 9) + Math.random() * (snow ? 12 : burst ? 22 : 16),
     sparkle: Math.random() * Math.PI * 2,
     vx: Math.cos(angle) * speed,
-    vy: Math.sin(angle) * speed - 0.5,
+    vy: Math.sin(angle) * speed - (season === "winter" ? 0.78 : 0.5),
     x: originX + Math.random() * 8,
     y: originY + (Math.random() - 0.5) * 18,
   };
 }
 
 function drawFallbackStar(ctx: CanvasRenderingContext2D, particle: Particle) {
+  if (particle.kind === "snow") {
+    const arm = particle.size * 0.46;
+
+    ctx.strokeStyle = Math.random() > 0.5 ? "#ffffff" : "#bde7f7";
+    ctx.lineWidth = Math.max(2, particle.size * 0.12);
+    ctx.beginPath();
+    ctx.moveTo(-arm, 0);
+    ctx.lineTo(arm, 0);
+    ctx.moveTo(0, -arm);
+    ctx.lineTo(0, arm);
+    ctx.moveTo(-arm * 0.7, -arm * 0.7);
+    ctx.lineTo(arm * 0.7, arm * 0.7);
+    ctx.moveTo(arm * 0.7, -arm * 0.7);
+    ctx.lineTo(-arm * 0.7, arm * 0.7);
+    ctx.stroke();
+    return;
+  }
+
   const spikes = 4;
   const outer = particle.size * 0.5;
   const inner = outer * 0.42;
@@ -136,6 +164,7 @@ export function showDragonEffect(targetElement: Element, options?: DragonEffectO
   activeCleanup = null;
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const season = options?.season ?? "summer";
   const assets = resolveAssets(options);
   const container = options?.containerSelector
     ? document.querySelector(options.containerSelector)
@@ -145,6 +174,7 @@ export function showDragonEffect(targetElement: Element, options?: DragonEffectO
 
   const overlay = document.createElement("div");
   overlay.className = "dragon-effect";
+  overlay.dataset.season = season;
   overlay.setAttribute("aria-hidden", "true");
 
   const dragon = document.createElement("img");
@@ -176,8 +206,8 @@ export function showDragonEffect(targetElement: Element, options?: DragonEffectO
   canvas.height = canvasHeight * dpr;
   canvas.style.width = `${canvasWidth}px`;
   canvas.style.height = `${canvasHeight}px`;
-  canvas.style.left = `${Math.min(dragonWidth * 0.7, 102)}px`;
-  canvas.style.top = `${Math.max(dragonHeight * 0.03, 4)}px`;
+  canvas.style.left = `${Math.min(dragonWidth * 0.78, 112)}px`;
+  canvas.style.top = `${Math.max(dragonHeight * -0.02, -2)}px`;
 
   if (ctx) {
     ctx.scale(dpr, dpr);
@@ -209,10 +239,10 @@ export function showDragonEffect(targetElement: Element, options?: DragonEffectO
       const burst = elapsed > 680 && elapsed < 1100;
       const count = burst ? 5 : 3;
       for (let i = 0; i < count; i += 1) {
-        particles.push(createParticle(36, canvasHeight * 0.28, starImages, burst));
+        particles.push(createParticle(42, canvasHeight * 0.22, starImages, burst, season));
       }
     } else if (reduceMotion && elapsed < 180) {
-      particles.push(createParticle(34, canvasHeight * 0.28, starImages, true));
+      particles.push(createParticle(42, canvasHeight * 0.22, starImages, true, season));
     }
 
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);

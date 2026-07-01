@@ -20,29 +20,6 @@ export type AbilityStat = {
   value: number;
 };
 
-export type PoseUsage =
-  | "hero"
-  | "memory"
-  | "ai"
-  | "about"
-  | "footer"
-  | "easterEgg"
-  | "coffee"
-  | "winter";
-
-export type HeroPose = {
-  id: string;
-  src: string;
-  alt: string;
-  label: string;
-  offsetX?: string;
-  offsetY?: string;
-  scale?: number;
-  fallbackSrc?: string;
-  mood?: string;
-  usage?: PoseUsage[];
-};
-
 export type FloatingFruit = {
   id: string;
   kind: FruitKind;
@@ -71,7 +48,7 @@ export type MemoryCard = {
   tags: string[];
   sticker: string;
   placeholderTheme: MemoryTheme;
-  avatarPoseId?: keyof typeof ooPoses;
+  avatarPoseId?: string;
   assetUrl?: string;
 };
 
@@ -87,7 +64,7 @@ export type WorkItem = {
   description: string;
   markdown: string;
   mediaPalette: "weekly" | "spanish" | "hotel";
-  characterPoseId: keyof typeof ooPoses;
+  characterPoseId: string;
   badges: string[];
   note: {
     title: string;
@@ -97,223 +74,6 @@ export type WorkItem = {
   mindMapNodes: MindMapNode[];
 };
 
-const summerPoseSet = {
-  wave: {
-    id: "wave",
-    src: "/assets/oo-poses-7/oo_pixel_pose_01_wave.png",
-    alt: "oo 挥手",
-    label: "wave",
-    offsetX: "0px",
-    offsetY: "8px",
-    scale: 1.08,
-    mood: "hello",
-    usage: ["hero", "about"],
-  },
-  avocado: {
-    id: "avocado",
-    src: "/assets/oo-poses-7/oo_pixel_pose_02_avocado.png",
-    alt: "oo 拿着牛油果",
-    label: "avocado",
-    offsetX: "0px",
-    offsetY: "8px",
-    scale: 1.08,
-    mood: "fruit",
-    usage: ["footer", "hero"],
-  },
-  coding: {
-    id: "coding",
-    src: "/assets/oo-poses-7/oo_pixel_pose_03_coding_laptop.png",
-    alt: "oo 在电脑前工作",
-    label: "coding",
-    offsetX: "0px",
-    offsetY: "10px",
-    scale: 1.07,
-    mood: "focused",
-    usage: ["ai"],
-  },
-  reading: {
-    id: "reading",
-    src: "/assets/oo-poses-7/oo_pixel_pose_04_reading.png",
-    alt: "oo 看书",
-    label: "reading",
-    offsetX: "0px",
-    offsetY: "8px",
-    scale: 1.08,
-    mood: "study",
-    usage: ["ai"],
-  },
-  dragonfruit: {
-    id: "dragonfruit",
-    src: "/assets/oo-poses-7/oo_pixel_pose_06_dragonfruit.png",
-    alt: "oo 拿着火龙果",
-    label: "dragonfruit",
-    offsetX: "0px",
-    offsetY: "9px",
-    scale: 1.08,
-    mood: "fruit",
-    usage: ["hero", "easterEgg"],
-  },
-  pointing: {
-    id: "pointing",
-    src: "/assets/oo-poses-7/oo_pixel_pose_07_pointing.png",
-    alt: "oo 指向前方",
-    label: "pointing",
-    offsetX: "0px",
-    offsetY: "8px",
-    scale: 1.08,
-    mood: "guide",
-    usage: ["ai"],
-  },
-  sittingSmile: {
-    id: "sittingSmile",
-    src: "/assets/oo-poses/oo-pose-03.png",
-    alt: "oo 坐着微笑",
-    label: "sitting smile",
-    offsetX: "0px",
-    offsetY: "6px",
-    scale: 1.04,
-    mood: "soft",
-    usage: ["about"],
-  },
-  dancingMusic: {
-    id: "dancingMusic",
-    src: "/assets/oo-poses/oo-pose-09.png",
-    alt: "oo 开心听音乐",
-    label: "dancing music",
-    offsetX: "0px",
-    offsetY: "8px",
-    scale: 1.05,
-    mood: "happy",
-    usage: ["footer"],
-  },
-} satisfies Record<string, HeroPose>;
-
-const winterFallback = "/assets/oo-poses/oo-pose-03.png";
-
-const winterPoseSet = {
-  winterPeace: {
-    id: "winterPeace",
-    src: "/assets/oo-winter-poses/oo_winter_pose_01_peace.png",
-    fallbackSrc: "/assets/oo-poses/oo-pose-01.png",
-    alt: "冬季 oo 比耶",
-    label: "winter peace",
-    offsetX: "0px",
-    offsetY: "0px",
-    scale: 1,
-    mood: "winter cute",
-    usage: ["hero", "winter"],
-  },
-  winterSmileHand: {
-    id: "winterSmileHand",
-    src: "/assets/oo-winter-poses/oo_winter_pose_02_smile_hand.png",
-    fallbackSrc: "/assets/oo-poses/oo-pose-02.png",
-    alt: "冬季 oo 托腮微笑",
-    label: "winter smile hand",
-    offsetX: "0px",
-    offsetY: "0px",
-    scale: 1,
-    mood: "soft winter",
-    usage: ["about", "winter"],
-  },
-  winterLattePoint: {
-    id: "winterLattePoint",
-    src: "/assets/oo-winter-poses/oo_winter_pose_03_latte_point.png",
-    fallbackSrc: "/assets/oo-poses/oo-pose-03.png",
-    alt: "冬季 oo 指着拿铁",
-    label: "winter latte point",
-    offsetX: "0px",
-    offsetY: "0px",
-    scale: 1,
-    mood: "coffee",
-    usage: ["memory", "coffee", "winter"],
-  },
-  winterPointing: {
-    id: "winterPointing",
-    src: "/assets/oo-winter-poses/oo_winter_pose_04_pointing.png",
-    fallbackSrc: "/assets/oo-poses/oo-pose-04.png",
-    alt: "冬季 oo 指向前方",
-    label: "winter pointing",
-    offsetX: "0px",
-    offsetY: "0px",
-    scale: 1,
-    mood: "guide",
-    usage: ["ai", "winter"],
-  },
-  winterDoublePeace: {
-    id: "winterDoublePeace",
-    src: "/assets/oo-winter-poses/oo_winter_pose_05_double_peace.png",
-    fallbackSrc: "/assets/oo-poses/oo-pose-05.png",
-    alt: "冬季 oo 双手比耶",
-    label: "winter double peace",
-    offsetX: "0px",
-    offsetY: "0px",
-    scale: 1,
-    mood: "bright",
-    usage: ["hero", "winter"],
-  },
-  winterDrinkingLatte: {
-    id: "winterDrinkingLatte",
-    src: "/assets/oo-winter-poses/oo_winter_pose_06_drinking_latte.png",
-    fallbackSrc: "/assets/oo-poses/oo-pose-06.png",
-    alt: "冬季 oo 喝拿铁",
-    label: "winter drinking latte",
-    offsetX: "0px",
-    offsetY: "0px",
-    scale: 1,
-    mood: "cafecito",
-    usage: ["memory", "coffee", "winter"],
-  },
-  winterCuteFace: {
-    id: "winterCuteFace",
-    src: "/assets/oo-winter-poses/oo_winter_pose_07_cute_face.png",
-    fallbackSrc: "/assets/oo-poses/oo-pose-07.png",
-    alt: "冬季 oo 可爱表情",
-    label: "winter cute face",
-    offsetX: "0px",
-    offsetY: "0px",
-    scale: 1,
-    mood: "cute",
-    usage: ["footer", "easterEgg", "winter"],
-  },
-  winterOk: {
-    id: "winterOk",
-    src: "/assets/oo-winter-poses/oo_winter_pose_08_ok.png",
-    fallbackSrc: "/assets/oo-poses/oo-pose-08.png",
-    alt: "冬季 oo OK 手势",
-    label: "winter ok",
-    offsetX: "0px",
-    offsetY: "0px",
-    scale: 1,
-    mood: "ok",
-    usage: ["hero", "winter"],
-  },
-  winterHappyMusic: {
-    id: "winterHappyMusic",
-    src: "/assets/oo-winter-poses/oo_winter_pose_09_happy_music.png",
-    fallbackSrc: winterFallback,
-    alt: "冬季 oo 开心听音乐",
-    label: "winter happy music",
-    offsetX: "0px",
-    offsetY: "0px",
-    scale: 1,
-    mood: "music",
-    usage: ["footer", "winter"],
-  },
-} satisfies Record<string, HeroPose>;
-
-export const ooPoseSets: {
-  summer: Record<string, HeroPose>;
-  winter: Record<string, HeroPose>;
-} = {
-  summer: summerPoseSet,
-  winter: winterPoseSet,
-};
-
-export const ooPoses: Record<string, HeroPose> = {
-  ...summerPoseSet,
-  ...winterPoseSet,
-};
-
 export const siteContent = {
   siteName: "oo 的水果像素星球",
   siteNameEs: "El planeta pixel de oo",
@@ -321,8 +81,6 @@ export const siteContent = {
     name: "oo",
     greeting: "Bienvenid@ a mi planeta",
   },
-  ooPoses,
-  ooPoseSets,
   navItems: [
     { id: "inicio", href: "#inicio", label: "首页 / Inicio" },
     { id: "memories", href: "#memories", label: "回忆 / Recuerdos" },
@@ -334,17 +92,10 @@ export const siteContent = {
     planetTitle: "欢迎来到 oo 的水果像素星球",
     subtitleChinese: "这里收藏着水果、星星、AI、西语和一些闪闪发光的小日常。",
     subtitleSpanish: "Un pequeño mundo pixel lleno de frutas, recuerdos, IA y dulzura.",
-    characterPoses: [
-      ooPoses.wave,
-      ooPoses.avocado,
-      ooPoses.coding,
-      ooPoses.reading,
-      ooPoses.dragonfruit,
-      ooPoses.pointing,
-    ] satisfies HeroPose[],
+    characterPoseIds: ["wave", "avocado", "coding", "reading", "dragonfruit", "pointing"],
     sticker: {
       label: "invierno",
-      poseId: "winterOk" as keyof typeof ooPoses,
+      poseId: "ok",
     },
     statusItems: [
       { label: "Español", shortLabel: "ES" },
@@ -369,7 +120,7 @@ export const siteContent = {
   easterEgg: {
     chinese: "oo 获得了一颗火龙果星星 ✨",
     spanish: "oo ha conseguido una estrella de pitaya ✨",
-    avatarPoseIds: ["dragonfruit", "winterCuteFace"] as Array<keyof typeof ooPoses>,
+    avatarPoseIds: ["dragonfruit", "cuteFace"],
   },
   floatingFruits: [
     {
@@ -563,14 +314,14 @@ export const siteContent = {
       tags: ["Café", "Invierno", "Dulce vida", "Cafecito"],
       sticker: "☕",
       placeholderTheme: "coffee",
-      avatarPoseId: "winterDrinkingLatte",
+      avatarPoseId: "drinkingLatte",
     },
   ] satisfies MemoryCard[],
   workSection: {
     kicker: "El pequeño universo de IA de oo",
     title: "oo 的 AI 小宇宙",
     description: "把 AI、Prompt、知识整理和一点点想象力，做成可展开探索的项目游戏卡。",
-    characterPoseId: "coding" as keyof typeof ooPoses,
+    characterPoseId: "coding",
     expandLabel: "展开 / Ver más ✨",
     collapseLabel: "收起 / Ver menos 🍓",
   },
@@ -708,8 +459,8 @@ oo 希望把每周的任务、会议记录和学习笔记快速整理成一份�
   aboutContent: {
     kicker: "Sobre oo",
     title: "关于 oo / Sobre oo",
-    poseId: "wave" as keyof typeof ooPoses,
-    winterMiniPoseId: "winterSmileHand" as keyof typeof ooPoses,
+    poseId: "wave",
+    seasonalMiniPoseId: "smileHand",
     seasonLabels: ["Verano mode", "Invierno mode"],
     chinese:
       "oo 是一个可爱、好奇、温柔又闪闪发光的小姑娘。她学西语，喜欢探索新的东西，也正在慢慢把 AI 变成自己的小工具箱。",
@@ -729,7 +480,7 @@ oo 希望把每周的任务、会议记录和学习笔记快速整理成一份�
     ] satisfies AbilityStat[],
   },
   footerContent: {
-    poseId: "winterHappyMusic" as keyof typeof ooPoses,
+    poseId: "happyMusic",
     spanish: "Hecho con amor, frutas y un poquito de IA.",
     chinese: "用爱、水果和一点点 AI 做成。",
     dedication: "Para oo, con todo mi cariño.",

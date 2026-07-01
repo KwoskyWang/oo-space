@@ -1,4 +1,5 @@
-import type { HeroPose, MemoryCard as MemoryCardType } from "../data/siteContent";
+import type { HeroPose } from "../data/poseMap";
+import type { MemoryCard as MemoryCardType } from "../data/siteContent";
 import MemoryCard from "./MemoryCard";
 
 type MemoryGalleryProps = {
