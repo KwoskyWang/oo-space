@@ -1,10 +1,11 @@
-import type { HeroPose } from "../data/poseMap";
+import type { Season, HeroPose } from "../data/poseMap";
 import type { MemoryCard as MemoryCardType } from "../data/siteContent";
 import MemoryCard from "./MemoryCard";
 
 type MemoryGalleryProps = {
   memories: MemoryCardType[];
   poseMap: Record<string, HeroPose>;
+  season: Season;
   section: {
     kicker: string;
     title: string;
@@ -14,7 +15,7 @@ type MemoryGalleryProps = {
   };
 };
 
-function MemoryGallery({ memories, poseMap, section }: MemoryGalleryProps) {
+function MemoryGallery({ memories, poseMap, season, section }: MemoryGalleryProps) {
   return (
     <section className="page-section memories-section" id="memories" data-reveal data-section-nav>
       <div className="section-heading">
@@ -29,7 +30,12 @@ function MemoryGallery({ memories, poseMap, section }: MemoryGalleryProps) {
 
       <div className="memory-grid">
         {memories.map((memory) => (
-          <MemoryCard memory={memory} pose={memory.avatarPoseId ? poseMap[memory.avatarPoseId] : undefined} key={memory.id} />
+          <MemoryCard
+            memory={memory}
+            pose={memory.avatarPoseId ? poseMap[memory.avatarPoseId] : undefined}
+            season={season}
+            key={memory.id}
+          />
         ))}
       </div>
     </section>

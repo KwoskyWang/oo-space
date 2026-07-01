@@ -1,3 +1,5 @@
+import { dragonAssets } from "../data/poseMap";
+
 export type DragonEffectAssets = {
   dragonFrames: string[];
   starSprites: string[];
@@ -14,7 +16,7 @@ export type DragonEffectOptions = {
 type Particle = {
   alpha: number;
   image?: HTMLImageElement;
-  kind: "spark" | "snow";
+  kind: "star" | "spark" | "heart" | "ice";
   life: number;
   maxLife: number;
   rotation: number;
@@ -28,10 +30,14 @@ type Particle = {
 };
 
 const DEFAULT_ASSET_BASE = "/assets/dragon";
+const particlesBySeason = {
+  summer: ["star", "spark", "heart"],
+  winter: ["ice"],
+} as const;
 
 export const dragonEffectAssets: DragonEffectAssets = {
   dragonFrames: [
-    `${DEFAULT_ASSET_BASE}/02_dragon_stars_start.png`,
+    dragonAssets.idle,
   ],
   starSprites: [
     `${DEFAULT_ASSET_BASE}/stars/08_star_cluster_01.png`,
@@ -101,17 +107,19 @@ function createParticle(
   const angle = (-26 + Math.random() * 52) * (Math.PI / 180);
   const speed = (burst ? 3.8 : 2.1) + Math.random() * (burst ? 4.5 : 3.2);
   const life = 42 + Math.random() * 34;
-  const snow = season === "winter" && Math.random() > 0.58;
+  const particleKinds = particlesBySeason[season];
+  const kind = particleKinds[Math.floor(Math.random() * particleKinds.length)];
+  const useSprite = season === "summer" && kind === "star";
 
   return {
     alpha: 0.82 + Math.random() * 0.18,
-    image: !snow && sprites.length ? sprites[Math.floor(Math.random() * sprites.length)] : undefined,
-    kind: snow ? "snow" : "spark",
+    image: useSprite && sprites.length ? sprites[Math.floor(Math.random() * sprites.length)] : undefined,
+    kind,
     life,
     maxLife: life,
     rotation: Math.random() * Math.PI,
     rotationSpeed: -0.12 + Math.random() * 0.24,
-    size: (snow ? 10 : burst ? 14 : 9) + Math.random() * (snow ? 12 : burst ? 22 : 16),
+    size: (kind === "ice" ? 10 : burst ? 14 : 9) + Math.random() * (kind === "ice" ? 12 : burst ? 22 : 16),
     sparkle: Math.random() * Math.PI * 2,
     vx: Math.cos(angle) * speed,
     vy: Math.sin(angle) * speed - (season === "winter" ? 0.78 : 0.5),
@@ -121,7 +129,7 @@ function createParticle(
 }
 
 function drawFallbackStar(ctx: CanvasRenderingContext2D, particle: Particle) {
-  if (particle.kind === "snow") {
+  if (particle.kind === "ice") {
     const arm = particle.size * 0.46;
 
     ctx.strokeStyle = Math.random() > 0.5 ? "#ffffff" : "#bde7f7";
@@ -136,6 +144,29 @@ function drawFallbackStar(ctx: CanvasRenderingContext2D, particle: Particle) {
     ctx.moveTo(arm * 0.7, -arm * 0.7);
     ctx.lineTo(-arm * 0.7, arm * 0.7);
     ctx.stroke();
+    return;
+  }
+
+  if (particle.kind === "heart") {
+    const size = particle.size * 0.42;
+
+    ctx.fillStyle = Math.random() > 0.35 ? "#ff8fab" : "#fff0f6";
+    ctx.beginPath();
+    ctx.moveTo(0, size);
+    ctx.lineTo(-size, 0);
+    ctx.lineTo(-size * 0.5, -size);
+    ctx.lineTo(0, -size * 0.45);
+    ctx.lineTo(size * 0.5, -size);
+    ctx.lineTo(size, 0);
+    ctx.closePath();
+    ctx.fill();
+    return;
+  }
+
+  if (particle.kind === "spark") {
+    ctx.fillStyle = Math.random() > 0.45 ? "#ffe6a7" : "#ffc857";
+    ctx.fillRect(-particle.size * 0.4, -particle.size * 0.16, particle.size * 0.8, particle.size * 0.32);
+    ctx.fillRect(-particle.size * 0.16, -particle.size * 0.4, particle.size * 0.32, particle.size * 0.8);
     return;
   }
 

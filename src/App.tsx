@@ -16,8 +16,6 @@ function App() {
   const { season, toggleSeason } = useSeasonTheme();
   const seasonal = seasonContent[season];
   const poseSet = ooPoseSets[season];
-  const poseFallbackSet = season === "winter" ? ooPoseSets.summer : ooPoseSets.winter;
-  const poseLookup = { ...poseFallbackSet, ...poseSet };
 
   useEffect(() => {
     const sections = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
@@ -71,19 +69,16 @@ function App() {
         <MemoryGallery
           memories={siteContent.memoryCards}
           poseMap={poseSet}
+          season={season}
           section={seasonal.memorySection}
         />
         <SectionDivider type="message" content={siteContent.transitions.memoriesToWorks} />
-        <WorksSection content={siteContent} poseMap={poseLookup} seasonal={seasonal.workSection} />
+        <WorksSection content={siteContent} poseMap={poseSet} seasonal={seasonal.workSection} />
         <SectionDivider type="orbit" content={siteContent.transitions.worksToAbout} />
         <AboutSection
           abilityStats={siteContent.aboutContent.abilityStats}
           about={seasonal.aboutContent}
-          miniPose={
-            season === "winter"
-              ? ooPoseSets.summer[seasonal.aboutContent.seasonalMiniPoseId]
-              : ooPoseSets.winter[seasonal.aboutContent.seasonalMiniPoseId]
-          }
+          miniPose={poseSet[seasonal.aboutContent.seasonalMiniPoseId]}
           pose={poseSet[seasonal.aboutContent.poseId]}
         />
       </main>

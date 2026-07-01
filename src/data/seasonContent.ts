@@ -29,6 +29,8 @@ export type SeasonalContent = {
       shortLabel: string;
     }[];
     marqueeItems: string[];
+    scrollHintChinese: string;
+    scrollHintSpanish: string;
     dragonMode: Season;
   };
   memorySection: {
@@ -43,6 +45,7 @@ export type SeasonalContent = {
     title: string;
     description: string;
     characterPoseId: string;
+    projectPoseIds: Record<string, string>;
     noteExtraSpanish?: string;
   };
   aboutContent: {
@@ -85,7 +88,7 @@ const winterDecor: DecorItem[] = [
   { id: "winter-coffee", symbol: "☕", label: "cafecito", x: 82, y: 22, size: 42, delay: -6, duration: 20, layer: "mid" },
   { id: "winter-snowman", symbol: "☃", label: "muñeco", x: 15, y: 74, size: 44, delay: -4, duration: 24, layer: "mid" },
   { id: "winter-scarf", symbol: "🧣", label: "bufanda", x: 87, y: 68, size: 38, delay: -10, duration: 21, layer: "near" },
-  { id: "winter-star", symbol: "✦", label: "luz", x: 36, y: 20, size: 28, delay: -8, duration: 18, layer: "far" },
+  { id: "winter-wind", symbol: "〜", label: "viento", x: 36, y: 20, size: 34, delay: -8, duration: 18, layer: "far" },
   { id: "winter-ice", symbol: "◇", label: "cristal", x: 67, y: 82, size: 26, delay: -12, duration: 17, layer: "far" },
   { id: "winter-lamp", symbol: "✹", label: "lámpara", x: 54, y: 38, size: 30, delay: -1, duration: 22, layer: "mid" },
 ];
@@ -116,6 +119,8 @@ export const seasonContent: Record<Season, SeasonalContent> = {
         "IA pequeña, ideas brillantes",
         "杭州日常 · Español · Dulce vida",
       ],
+      scrollHintChinese: "向下滑，继续探索！",
+      scrollHintSpanish: "Desliza para descubrir más",
       dragonMode: "summer",
     },
     memorySection: {
@@ -130,12 +135,17 @@ export const seasonContent: Record<Season, SeasonalContent> = {
       title: "oo 的 AI 小宇宙",
       description: "把 AI、Prompt、知识整理和一点点想象力，做成可展开探索的项目游戏卡。",
       characterPoseId: "coding",
+      projectPoseIds: {
+        "ai-weekly": "coding",
+        "spanish-prompt": "reading",
+        "hotel-kb": "pointing",
+      },
     },
     aboutContent: {
       kicker: "Sobre oo",
       title: "关于 oo / Sobre oo",
       poseId: "wave",
-      seasonalMiniPoseId: "smileHand",
+      seasonalMiniPoseId: "sittingSmile",
       seasonLabels: ["Verano mode", "Invierno mode"],
       chinese:
         "oo 是一个可爱、好奇、温柔又闪闪发光的小姑娘。她学西语，喜欢探索新的东西，也正在慢慢把 AI 变成自己的小工具箱。",
@@ -186,6 +196,8 @@ export const seasonContent: Record<Season, SeasonalContent> = {
         "invierno brillante",
         "hecho con cariño",
       ],
+      scrollHintChinese: "向下滑，继续探索！",
+      scrollHintSpanish: "Desliza para descubrir más",
       dragonMode: "winter",
     },
     memorySection: {
@@ -200,13 +212,18 @@ export const seasonContent: Record<Season, SeasonalContent> = {
       title: "oo 的 AI 小宇宙",
       description: "冬天的 AI 小宇宙像一扇暖窗，把想法、Prompt 和知识整理得更清楚。",
       characterPoseId: "drinkingLatte",
+      projectPoseIds: {
+        "ai-weekly": "ok",
+        "spanish-prompt": "doublePeace",
+        "hotel-kb": "lattePoint",
+      },
       noteExtraSpanish: "La IA también puede sentirse como abrir una ventanita cálida en invierno.",
     },
     aboutContent: {
       kicker: "Sobre oo",
       title: "关于 oo / Sobre oo",
       poseId: "cuteFace",
-      seasonalMiniPoseId: "wave",
+      seasonalMiniPoseId: "smileHand",
       seasonLabels: ["Invierno mode", "Verano mode"],
       chinese:
         "冬日版 oo 依然可爱、好奇、温柔又闪闪发光。她抱着咖啡，继续学西语、探索 AI，也把每个普通日子变成暖暖的小世界。",

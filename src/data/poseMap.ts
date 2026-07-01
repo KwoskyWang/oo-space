@@ -23,6 +23,10 @@ export type HeroPose = {
   usage?: PoseUsage[];
 };
 
+export const dragonAssets = {
+  idle: "/assets/dragon/01_dragon_idle.png",
+};
+
 const summerPoseSet = {
   wave: {
     id: "wave",
@@ -114,13 +118,10 @@ const summerPoseSet = {
   },
 } satisfies Record<string, HeroPose>;
 
-const winterFallback = "/assets/oo-poses/oo-pose-03.png";
-
 const winterSet = {
   peace: {
     id: "winterPeace",
     src: "/assets/oo-winter-poses/mosaic_chibi_01.png",
-    fallbackSrc: "/assets/oo-poses/oo-pose-01.png",
     alt: "冬季像素风 oo 正在比耶",
     label: "winter peace",
     offsetX: "0px",
@@ -132,7 +133,6 @@ const winterSet = {
   smileHand: {
     id: "winterSmileHand",
     src: "/assets/oo-winter-poses/mosaic_chibi_02.png",
-    fallbackSrc: "/assets/oo-poses/oo-pose-02.png",
     alt: "冬季像素风 oo 托腮微笑",
     label: "winter smile hand",
     offsetX: "0px",
@@ -144,7 +144,6 @@ const winterSet = {
   lattePoint: {
     id: "winterLattePoint",
     src: "/assets/oo-winter-poses/mosaic_chibi_03.png",
-    fallbackSrc: "/assets/oo-poses/oo-pose-03.png",
     alt: "冬季像素风 oo 指着拿铁",
     label: "winter latte point",
     offsetX: "0px",
@@ -156,7 +155,6 @@ const winterSet = {
   pointing: {
     id: "winterPointing",
     src: "/assets/oo-winter-poses/mosaic_chibi_04.png",
-    fallbackSrc: "/assets/oo-poses/oo-pose-04.png",
     alt: "冬季像素风 oo 指向前方",
     label: "winter pointing",
     offsetX: "0px",
@@ -168,7 +166,6 @@ const winterSet = {
   doublePeace: {
     id: "winterDoublePeace",
     src: "/assets/oo-winter-poses/mosaic_chibi_05.png",
-    fallbackSrc: "/assets/oo-poses/oo-pose-05.png",
     alt: "冬季像素风 oo 双手比耶",
     label: "winter double peace",
     offsetX: "0px",
@@ -180,7 +177,6 @@ const winterSet = {
   drinkingLatte: {
     id: "winterDrinkingLatte",
     src: "/assets/oo-winter-poses/mosaic_chibi_06.png",
-    fallbackSrc: "/assets/oo-poses/oo-pose-06.png",
     alt: "冬季像素风 oo 正在喝咖啡",
     label: "winter drinking latte",
     offsetX: "0px",
@@ -192,7 +188,6 @@ const winterSet = {
   cuteFace: {
     id: "winterCuteFace",
     src: "/assets/oo-winter-poses/mosaic_chibi_07.png",
-    fallbackSrc: "/assets/oo-poses/oo-pose-07.png",
     alt: "冬季像素风 oo 露出可爱表情",
     label: "winter cute face",
     offsetX: "0px",
@@ -204,7 +199,6 @@ const winterSet = {
   ok: {
     id: "winterOk",
     src: "/assets/oo-winter-poses/mosaic_chibi_08.png",
-    fallbackSrc: "/assets/oo-poses/oo-pose-08.png",
     alt: "冬季像素风 oo 做 OK 手势",
     label: "winter ok",
     offsetX: "0px",
@@ -216,7 +210,6 @@ const winterSet = {
   happyMusic: {
     id: "winterHappyMusic",
     src: "/assets/oo-winter-poses/mosaic_chibi_09.png",
-    fallbackSrc: winterFallback,
     alt: "冬季像素风 oo 开心听音乐",
     label: "winter happy music",
     offsetX: "0px",
@@ -231,20 +224,3 @@ export const ooPoseSets: Record<Season, Record<string, HeroPose>> = {
   summer: summerPoseSet,
   winter: winterSet,
 };
-
-export type SummerPoseKey = keyof typeof ooPoseSets.summer;
-export type WinterPoseKey = keyof typeof ooPoseSets.winter;
-export type PoseKey = SummerPoseKey | WinterPoseKey;
-
-export const ooPoses: Record<string, HeroPose> = {
-  ...summerPoseSet,
-  ...winterSet,
-};
-
-export function getSeasonPose(season: Season, poseId: string) {
-  const seasonalPoseSet = ooPoseSets[season] as Record<string, HeroPose>;
-  const summerPoseSetRecord = ooPoseSets.summer as Record<string, HeroPose>;
-  const winterSetRecord = ooPoseSets.winter as Record<string, HeroPose>;
-
-  return seasonalPoseSet[poseId] ?? summerPoseSetRecord[poseId] ?? winterSetRecord[poseId];
-}

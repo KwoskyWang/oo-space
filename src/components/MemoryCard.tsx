@@ -1,4 +1,4 @@
-import type { HeroPose } from "../data/poseMap";
+import type { Season, HeroPose } from "../data/poseMap";
 import type { MemoryCard as MemoryCardType } from "../data/siteContent";
 import OoPixelAvatar from "./OoPixelAvatar";
 import PixelVideoPlaceholder from "./PixelVideoPlaceholder";
@@ -6,6 +6,7 @@ import PixelVideoPlaceholder from "./PixelVideoPlaceholder";
 type MemoryCardProps = {
   memory: MemoryCardType;
   pose?: HeroPose;
+  season: Season;
 };
 
 function MemoryImagePlaceholder({ memory, pose }: { memory: MemoryCardType; pose?: HeroPose }) {
@@ -58,13 +59,36 @@ function MemoryImagePlaceholder({ memory, pose }: { memory: MemoryCardType; pose
   );
 }
 
-function MemoryCard({ memory, pose }: MemoryCardProps) {
+const winterStickers: Record<string, string> = {
+  "spain-sun": "❄",
+  "hangzhou-days": "◇",
+  "fruit-planet": "✹",
+  "work-oo": "☕",
+  "weekend-happy": "🧣",
+  "coffee-winter": "☃",
+};
+
+function MemoryCard({ memory, pose, season }: MemoryCardProps) {
   const hasVideoAsset = memory.type === "video" && memory.assetUrl;
+  const sticker = season === "winter" ? winterStickers[memory.id] ?? "❄" : memory.sticker;
 
   return (
     <article className={`pixel-card memory-card memory-card--${memory.placeholderTheme}`}>
       <span className="pixel-sticker memory-card__sticker" aria-hidden="true">
-        {memory.sticker}
+        {season === "winter" && memory.id === "coffee-winter" && pose ? (
+          <OoPixelAvatar
+            src={pose.src}
+            alt=""
+            fallbackSrc={pose.fallbackSrc}
+            offsetX={pose.offsetX}
+            offsetY={pose.offsetY}
+            poseName={pose.id}
+            scale={pose.scale}
+            size={42}
+          />
+        ) : (
+          sticker
+        )}
       </span>
 
       <div className="memory-media">

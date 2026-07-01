@@ -158,6 +158,47 @@ html[data-season="winter"] body {
   filter: saturate(1.04);
 }
 
+[data-season="winter"] .memory-card__sticker {
+  background: #e6f7ff;
+  color: #4a3328;
+}
+
+[data-season="winter"] .memory-card--coffee .memory-card__sticker {
+  width: 58px;
+  height: 58px;
+  background: #fffaf0;
+}
+
+[data-season="winter"] .memory-card--coffee .memory-card__sticker .oo-avatar {
+  filter: drop-shadow(3px 3px 0 rgba(111, 75, 101, 0.24));
+}
+
+[data-season="winter"] .memory-art__snow {
+  display: block;
+  background: #ffffff;
+  box-shadow:
+    0 0 0 3px rgba(189, 231, 247, 0.28),
+    4px 4px 0 rgba(111, 75, 101, 0.14);
+}
+
+[data-season="winter"] .memory-art__lamp,
+[data-season="winter"] .memory-art__cup {
+  display: block;
+}
+
+[data-season="winter"] .memory-art:not(.memory-art--coffee) .memory-art__cup {
+  opacity: 0.62;
+  scale: 0.78;
+}
+
+[data-season="winter"] .pixel-tag {
+  background: #dff5ff;
+}
+
+[data-season="winter"] .mini-tag {
+  background: #fff4c5;
+}
+
 [data-season="winter"] .work-card {
   background:
     linear-gradient(90deg, rgba(191, 233, 255, 0.22), transparent 28%),
@@ -173,6 +214,18 @@ html[data-season="winter"] body {
 [data-season="winter"] .work-media--spanish,
 [data-season="winter"] .work-media--hotel {
   background: linear-gradient(135deg, #dff5ff, #fffaf0 50%, #ffe6a7);
+}
+
+[data-season="winter"] .work-card .pixel-tag:nth-child(3n + 1) {
+  background: #dff5ff;
+}
+
+[data-season="winter"] .work-card .pixel-tag:nth-child(3n + 2) {
+  background: #fff4c5;
+}
+
+[data-season="winter"] .work-card .pixel-tag:nth-child(3n) {
+  background: #f5d8c1;
 }
 
 [data-season="winter"] .oo-note {

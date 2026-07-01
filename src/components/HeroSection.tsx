@@ -69,9 +69,9 @@ function HeroSection({ content, poseSet, season, seasonal }: HeroSectionProps) {
         </div>
       </div>
 
-      <a className="scroll-cue" href="#memories" aria-label="向下滑，继续认识 oo">
-        <span>{content.hero.scrollHintChinese}</span>
-        <small>{content.hero.scrollHintSpanish}</small>
+      <a className="scroll-cue" href="#memories" aria-label={seasonal.hero.scrollHintChinese}>
+        <span>{seasonal.hero.scrollHintChinese}</span>
+        <small>{seasonal.hero.scrollHintSpanish}</small>
       </a>
     </section>
   );
