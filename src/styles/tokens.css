@@ -1,0 +1,44 @@
+:root {
+  --hero-avatar-size-desktop: 340px;
+  --hero-avatar-size-tablet: 280px;
+  --hero-avatar-size-mobile: 220px;
+  --hero-frame-size-desktop: 360px;
+  --hero-frame-size-tablet: 300px;
+  --hero-frame-size-mobile: 240px;
+  --section-avatar-size: 180px;
+  --card-avatar-size: 56px;
+  --mini-avatar-size: 40px;
+  --nav-avatar-size: 28px;
+  --footer-avatar-size: 72px;
+  --dragon-size-desktop: 82px;
+  --dragon-size-mobile: 56px;
+  --pixel-border-width: 3px;
+  --pixel-shadow-x: 7px;
+  --pixel-shadow-y: 7px;
+  --content-width: 1160px;
+  --section-gap-desktop: 96px;
+  --section-gap-mobile: 56px;
+  --z-bg: 0;
+  --z-particles: 1;
+  --z-decor: 2;
+  --z-content: 5;
+  --z-sticky-nav: 20;
+  --z-toast: 50;
+  --z-transition: 80;
+}
+
+@media (max-width: 980px) {
+  :root {
+    --hero-avatar-size-desktop: var(--hero-avatar-size-tablet);
+    --hero-frame-size-desktop: var(--hero-frame-size-tablet);
+  }
+}
+
+@media (max-width: 720px) {
+  :root {
+    --hero-avatar-size-desktop: var(--hero-avatar-size-mobile);
+    --hero-frame-size-desktop: var(--hero-frame-size-mobile);
+    --section-avatar-size: 150px;
+    --footer-avatar-size: 64px;
+  }
+}

@@ -31,14 +31,8 @@ function HeroSection({ content, poseSet, season, seasonal }: HeroSectionProps) {
       {stickerPose ? (
         <div className="hero-mini-sticker">
           <OoPixelAvatar
-            src={stickerPose.src}
-            alt={stickerPose.alt}
-            fallbackSrc={stickerPose.fallbackSrc}
-            offsetX={stickerPose.offsetX}
-            offsetY={stickerPose.offsetY}
-            poseName={stickerPose.id}
-            scale={stickerPose.scale}
-            size={64}
+            pose={stickerPose}
+            size="card"
           />
           <span>{seasonal.hero.sticker.label}</span>
         </div>

@@ -1,6 +1,6 @@
 import type { Season, HeroPose } from "../data/poseMap";
 import type { NavItem } from "../data/siteContent";
-import OoPixelAvatar from "./OoPixelAvatar";
+import HeaderLogoAvatar from "./HeaderLogoAvatar";
 import SeasonToggle from "./SeasonToggle";
 
 type PixelNavProps = {
@@ -16,16 +16,7 @@ function PixelNav({ activeSection, logoPose, navItems, onToggleSeason, season, s
   return (
     <nav className="pixel-nav" aria-label="主导航">
       <a className="pixel-nav__brand" href="#inicio" aria-label={siteName}>
-        <OoPixelAvatar
-          src={logoPose.src}
-          alt=""
-          fallbackSrc={logoPose.fallbackSrc}
-          offsetX={logoPose.offsetX}
-          offsetY={logoPose.offsetY}
-          poseName={logoPose.id}
-          scale={logoPose.scale}
-          size={38}
-        />
+        <HeaderLogoAvatar pose={logoPose} />
         <span>oo ✦</span>
       </a>
 

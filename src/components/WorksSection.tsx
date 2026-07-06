@@ -24,14 +24,8 @@ function WorksSection({ content, poseMap, seasonal }: WorksSectionProps) {
         {headingPose ? (
           <OoPixelAvatar
             className="section-heading__character"
-            src={headingPose.src}
-            alt={headingPose.alt}
-            fallbackSrc={headingPose.fallbackSrc}
-            offsetX={headingPose.offsetX}
-            offsetY={headingPose.offsetY}
-            poseName={headingPose.id}
-            scale={headingPose.scale}
-            size="clamp(112px, 15vw, 168px)"
+            pose={headingPose}
+            size="section"
           />
         ) : null}
       </div>

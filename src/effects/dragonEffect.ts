@@ -35,6 +35,19 @@ const particlesBySeason = {
   winter: ["ice"],
 } as const;
 
+const dragonAccessoryConfig = {
+  summer: null,
+  winter: {
+    type: "scarf",
+    enabled: false,
+  },
+} as const;
+
+const dragonMouthAnchor = {
+  desktop: { x: 0.72, y: 0.38 },
+  mobile: { x: 0.72, y: 0.38 },
+};
+
 export const dragonEffectAssets: DragonEffectAssets = {
   dragonFrames: [
     dragonAssets.idle,
@@ -80,8 +93,8 @@ function clamp(value: number, min: number, max: number) {
 
 function getOrigin(targetElement: Element) {
   const rect = targetElement.getBoundingClientRect();
-  const dragonWidth = 132;
-  const dragonHeight = 120;
+  const dragonWidth = window.innerWidth < 720 ? 90 : 132;
+  const dragonHeight = window.innerWidth < 720 ? 82 : 120;
   const gap = 20;
 
   let left = rect.right + gap;
@@ -206,6 +219,7 @@ export function showDragonEffect(targetElement: Element, options?: DragonEffectO
   const overlay = document.createElement("div");
   overlay.className = "dragon-effect";
   overlay.dataset.season = season;
+  overlay.dataset.accessory = dragonAccessoryConfig[season]?.enabled ? dragonAccessoryConfig[season].type : "none";
   overlay.setAttribute("aria-hidden", "true");
 
   const dragon = document.createElement("img");
@@ -237,8 +251,12 @@ export function showDragonEffect(targetElement: Element, options?: DragonEffectO
   canvas.height = canvasHeight * dpr;
   canvas.style.width = `${canvasWidth}px`;
   canvas.style.height = `${canvasHeight}px`;
-  canvas.style.left = `${Math.min(dragonWidth * 0.78, 112)}px`;
-  canvas.style.top = `${Math.max(dragonHeight * -0.02, -2)}px`;
+  const mouthAnchor = window.innerWidth < 720 ? dragonMouthAnchor.mobile : dragonMouthAnchor.desktop;
+  const mouthX = dragonWidth * mouthAnchor.x;
+  const mouthY = dragonHeight * mouthAnchor.y;
+
+  canvas.style.left = `${mouthX}px`;
+  canvas.style.top = `${mouthY - canvasHeight * 0.5}px`;
 
   if (ctx) {
     ctx.scale(dpr, dpr);
@@ -270,10 +288,10 @@ export function showDragonEffect(targetElement: Element, options?: DragonEffectO
       const burst = elapsed > 680 && elapsed < 1100;
       const count = burst ? 5 : 3;
       for (let i = 0; i < count; i += 1) {
-        particles.push(createParticle(42, canvasHeight * 0.22, starImages, burst, season));
+        particles.push(createParticle(0, canvasHeight * 0.5, starImages, burst, season));
       }
     } else if (reduceMotion && elapsed < 180) {
-      particles.push(createParticle(42, canvasHeight * 0.22, starImages, true, season));
+      particles.push(createParticle(0, canvasHeight * 0.5, starImages, true, season));
     }
 
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);

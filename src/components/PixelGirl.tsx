@@ -72,16 +72,10 @@ function PixelGirl({ easterEgg, easterEggAvatars, poses, name, season, statusIte
         {safePoses.map((pose, poseIndex) => (
           <OoPixelAvatar
             className={`pixel-girl__image ${poseIndex === index ? "is-active" : ""}`}
-            src={pose.src}
-            alt={pose.alt}
+            pose={pose}
             key={pose.id}
             loading="eager"
-            offsetX={pose.offsetX}
-            offsetY={pose.offsetY}
-            poseName={pose.id}
-            scale={pose.scale}
-            fallbackSrc={pose.fallbackSrc}
-            size="100%"
+            size="hero"
           />
         ))}
       </button>
@@ -91,14 +85,9 @@ function PixelGirl({ easterEgg, easterEggAvatars, poses, name, season, statusIte
           {eggAvatar ? (
             <OoPixelAvatar
               className="pixel-toast__avatar"
-              src={eggAvatar.src}
-              alt=""
-              fallbackSrc={eggAvatar.fallbackSrc}
-              offsetX={eggAvatar.offsetX}
-              offsetY={eggAvatar.offsetY}
-              poseName={eggAvatar.id}
-              scale={eggAvatar.scale}
-              size={46}
+              decorative
+              pose={eggAvatar}
+              size="mini"
             />
           ) : null}
           <strong>{easterEgg.chinese}</strong>

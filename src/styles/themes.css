@@ -205,6 +205,16 @@ html[data-season="winter"] body {
     var(--paper);
 }
 
+[data-season="winter"] .works-section::before {
+  opacity: 0.32;
+  background:
+    linear-gradient(90deg, transparent 0 31px, rgba(189, 231, 247, 0.55) 31px 34px, transparent 34px),
+    linear-gradient(0deg, transparent 0 31px, rgba(255, 230, 167, 0.38) 31px 34px, transparent 34px),
+    radial-gradient(circle at 18% 24%, rgba(255, 255, 255, 0.78) 0 5px, transparent 6px),
+    radial-gradient(circle at 78% 72%, rgba(201, 154, 107, 0.36) 0 5px, transparent 6px);
+  background-size: 74px 74px, 74px 74px, auto, auto;
+}
+
 [data-season="winter"] .work-card__character-shell,
 [data-season="winter"] .work-media__window::before {
   background: #e6f7ff;
@@ -256,7 +266,7 @@ html[data-season="winter"] body {
   background: #e6f7ff;
 }
 
-.dragon-effect[data-season="winter"]::after {
+.dragon-effect[data-accessory="scarf"]::after {
   position: absolute;
   left: 24px;
   top: 48px;

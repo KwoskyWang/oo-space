@@ -22,14 +22,8 @@ function Footer({ content, ownerName, pose }: FooterProps) {
       </div>
       <OoPixelAvatar
         className="pixel-postcard__character"
-        src={pose.src}
-        alt={pose.alt}
-        fallbackSrc={pose.fallbackSrc}
-        offsetX={pose.offsetX}
-        offsetY={pose.offsetY}
-        poseName={pose.id}
-        scale={pose.scale}
-        size={112}
+        pose={pose}
+        size="footer"
       />
       <p className="footer-logo">{ownerName}</p>
       <p>{content.spanish}</p>

@@ -42,14 +42,8 @@ function MemoryImagePlaceholder({ memory, pose }: { memory: MemoryCardType; pose
       {pose ? (
         <OoPixelAvatar
           className="memory-art__avatar"
-          src={pose.src}
-          alt={pose.alt}
-          fallbackSrc={pose.fallbackSrc}
-          offsetX={pose.offsetX}
-          offsetY={pose.offsetY}
-          poseName={pose.id}
-          scale={pose.scale}
-          size={72}
+          pose={pose}
+          size="card"
         />
       ) : null}
       <span className="memory-art__spark memory-art__spark--one" />
@@ -77,14 +71,9 @@ function MemoryCard({ memory, pose, season }: MemoryCardProps) {
       <span className="pixel-sticker memory-card__sticker" aria-hidden="true">
         {season === "winter" && memory.id === "coffee-winter" && pose ? (
           <OoPixelAvatar
-            src={pose.src}
-            alt=""
-            fallbackSrc={pose.fallbackSrc}
-            offsetX={pose.offsetX}
-            offsetY={pose.offsetY}
-            poseName={pose.id}
-            scale={pose.scale}
-            size={42}
+            pose={pose}
+            size="mini"
+            decorative
           />
         ) : (
           sticker

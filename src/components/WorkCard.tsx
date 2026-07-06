@@ -88,14 +88,8 @@ function WorkCard({ collapseLabel, expandLabel, noteExtraSpanish, pose, work }: 
         <div className="work-card__character-shell">
           <OoPixelAvatar
             className="work-card__character"
-            src={pose.src}
-            alt={pose.alt}
-            fallbackSrc={pose.fallbackSrc}
-            offsetX={pose.offsetX}
-            offsetY={pose.offsetY}
-            poseName={pose.id}
-            scale={pose.scale}
-            size={96}
+            pose={pose}
+            size="card"
           />
         </div>
 

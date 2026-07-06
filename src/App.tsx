@@ -4,7 +4,10 @@ import Footer from "./components/Footer";
 import HeroSection from "./components/HeroSection";
 import MemoryGallery from "./components/MemoryGallery";
 import PixelNav from "./components/PixelNav";
+import ScrollSparkleTrail from "./components/ScrollSparkleTrail";
 import SectionDivider from "./components/SectionDivider";
+import SeasonTransitionOverlay from "./components/SeasonTransitionOverlay";
+import TechParticleLayer from "./components/TechParticleLayer";
 import WorksSection from "./components/WorksSection";
 import { ooPoseSets } from "./data/poseMap";
 import { seasonContent } from "./data/seasonContent";
@@ -55,6 +58,9 @@ function App() {
 
   return (
     <div className="site-shell" data-season={season}>
+      <TechParticleLayer season={season} />
+      <ScrollSparkleTrail season={season} />
+      <SeasonTransitionOverlay season={season} />
       <PixelNav
         activeSection={activeSection}
         logoPose={season === "winter" ? poseSet.cuteFace : poseSet.wave}

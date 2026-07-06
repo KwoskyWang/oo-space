@@ -2,7 +2,7 @@
   position: fixed;
   top: 16px;
   left: 50%;
-  z-index: 20;
+  z-index: var(--z-sticky-nav);
   display: flex;
   width: min(960px, calc(100% - 24px));
   align-items: center;
@@ -29,11 +29,13 @@
   font-weight: 900;
 }
 
-.pixel-nav__brand img {
-  width: 38px;
-  height: 38px;
-  object-fit: contain;
-  image-rendering: pixelated;
+.header-logo-avatar {
+  display: flex;
+  width: calc(var(--nav-avatar-size) + 8px);
+  height: calc(var(--nav-avatar-size) + 8px);
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
 }
 
 .pixel-nav__items {
@@ -211,7 +213,7 @@
 
 .hero-content {
   position: relative;
-  z-index: 2;
+  z-index: var(--z-content);
   display: grid;
   width: min(920px, 100%);
   justify-items: center;
@@ -330,7 +332,7 @@
 .seasonal-decor {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: var(--z-decor);
   overflow: hidden;
   pointer-events: none;
 }
@@ -519,7 +521,7 @@
 .pixel-girl {
   position: relative;
   display: grid;
-  width: min(420px, 76vw);
+  width: var(--hero-frame-size-desktop);
   margin: 8px 0 2px;
   justify-items: center;
   animation: girlIdle 2.1s steps(5, end) infinite;
@@ -540,21 +542,24 @@
   position: relative;
   z-index: 1;
   display: grid;
-  width: 92%;
-  aspect-ratio: 0.82;
+  width: var(--hero-frame-size-desktop);
+  height: var(--hero-frame-size-desktop);
   padding: 0;
   place-items: center;
   overflow: visible;
   background:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.16) 0 2px, transparent 2px 12px),
     linear-gradient(rgba(255, 255, 255, 0.18) 2px, transparent 2px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.18) 2px, transparent 2px),
+    radial-gradient(circle at 50% 38%, rgba(255, 255, 255, 0.54), transparent 34%),
     radial-gradient(circle at 50% 38%, rgba(255, 200, 87, 0.54), transparent 44%),
     rgba(203, 201, 194, 0.74);
-  background-size: 14px 14px, 14px 14px, auto, auto;
+  background-size: auto, 14px 14px, 14px 14px, auto, auto, auto;
   border: 4px solid var(--pixel-dark);
   box-shadow:
     9px 9px 0 var(--berry-shadow),
-    inset 0 0 0 5px rgba(255, 250, 240, 0.42);
+    inset 0 0 0 5px rgba(255, 250, 240, 0.42),
+    inset 0 0 28px rgba(142, 202, 230, 0.3);
   transition:
     transform 180ms steps(2, end),
     filter 180ms ease;
@@ -632,6 +637,7 @@
   height: 7px;
   background: var(--dragonfruit);
   border: 1px solid var(--pixel-dark);
+  animation: statusBlink 1.9s steps(2, end) infinite;
 }
 
 .pixel-girl__status:nth-child(2) i {
@@ -652,19 +658,17 @@
 
 .pixel-girl__image {
   position: absolute;
-  inset: -68px -13% 6px;
-  width: 126%;
-  height: calc(100% + 72px);
-  object-fit: contain;
-  object-position: center;
-  image-rendering: pixelated;
+  left: 50%;
+  top: 50%;
+  z-index: 4;
   filter:
     saturate(1.12)
     contrast(1.08)
     drop-shadow(8px 10px 0 rgba(43, 29, 47, 0.3));
   opacity: 0;
   transform:
-    translate3d(var(--pose-offset-x, 0px), calc(2% + var(--pose-offset-y, 0px)), 0)
+    translate(-50%, -50%)
+    translate3d(0, 2%, 0)
     scale(0.99);
   transition:
     opacity 220ms steps(2, end),
@@ -675,8 +679,9 @@
 .pixel-girl__image.is-active {
   opacity: 1;
   transform:
-    translate3d(var(--pose-offset-x, 0px), var(--pose-offset-y, 0px), 0)
-    scale(1.09);
+    translate(-50%, -50%)
+    translate3d(0, 0, 0)
+    scale(1);
 }
 
 .pixel-girl__hover-stars {
@@ -798,6 +803,20 @@
   overflow: visible;
 }
 
+.memory-card::before {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(120deg, transparent 0 42%, rgba(255, 255, 255, 0.38) 48%, transparent 55%);
+  opacity: 0;
+  pointer-events: none;
+  content: "";
+  transform: translateX(-45%);
+  transition:
+    opacity 160ms ease,
+    transform 420ms steps(7, end);
+}
+
 .memory-card:nth-child(odd) {
   transform: translateY(-8px);
 }
@@ -811,6 +830,11 @@
   filter: drop-shadow(0 0 16px rgba(255, 200, 87, 0.28));
 }
 
+.memory-card:hover::before {
+  opacity: 1;
+  transform: translateX(42%);
+}
+
 .memory-card:nth-child(even):hover {
   transform: translate(-2px, -6px) rotate(-0.5deg);
 }
@@ -819,7 +843,7 @@
   position: absolute;
   right: -12px;
   top: -14px;
-  z-index: 3;
+  z-index: 4;
   transform: rotate(8deg);
 }
 
@@ -913,6 +937,16 @@
     linear-gradient(90deg, rgba(255, 255, 255, 0.16) 2px, transparent 2px);
   background-size: 18px 18px;
   content: "";
+}
+
+.memory-art::after {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.18;
+  background: repeating-linear-gradient(90deg, transparent 0 16px, rgba(255, 255, 255, 0.48) 16px 18px);
+  content: "";
+  pointer-events: none;
 }
 
 .memory-art--spain {
@@ -1392,7 +1426,23 @@
 }
 
 .works-section {
+  position: relative;
   width: min(1060px, calc(100% - 32px));
+}
+
+.works-section::before {
+  position: absolute;
+  inset: 68px -24px 40px;
+  z-index: -1;
+  opacity: 0.28;
+  background:
+    linear-gradient(90deg, transparent 0 31px, rgba(255, 200, 87, 0.5) 31px 34px, transparent 34px),
+    linear-gradient(0deg, transparent 0 31px, rgba(142, 202, 230, 0.42) 31px 34px, transparent 34px),
+    radial-gradient(circle at 18% 24%, rgba(255, 143, 171, 0.42) 0 5px, transparent 6px),
+    radial-gradient(circle at 78% 72%, rgba(140, 207, 126, 0.42) 0 5px, transparent 6px);
+  background-size: 74px 74px, 74px 74px, auto, auto;
+  content: "";
+  pointer-events: none;
 }
 
 .works-list {
@@ -1401,13 +1451,37 @@
 }
 
 .work-card {
+  overflow: hidden;
   padding: 20px;
   background:
     linear-gradient(90deg, rgba(255, 200, 87, 0.12), transparent 26%),
     var(--paper);
 }
 
+.work-card::before {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(115deg, transparent 0 38%, rgba(255, 255, 255, 0.48) 43%, transparent 50%),
+    repeating-linear-gradient(0deg, transparent 0 11px, rgba(255, 255, 255, 0.18) 11px 13px);
+  opacity: 0;
+  pointer-events: none;
+  content: "";
+  transform: translateX(-42%);
+  transition:
+    opacity 180ms ease,
+    transform 420ms steps(7, end);
+}
+
+.work-card:hover::before {
+  opacity: 1;
+  transform: translateX(38%);
+}
+
 .work-card__summary {
+  position: relative;
+  z-index: 2;
   display: grid;
   grid-template-columns: 116px minmax(0, 1fr) auto;
   gap: 18px;
@@ -1416,8 +1490,8 @@
 
 .work-card__character-shell {
   display: grid;
-  width: 104px;
-  height: 104px;
+  width: calc(var(--card-avatar-size) + 48px);
+  height: calc(var(--card-avatar-size) + 48px);
   place-items: center;
   background: #fff4ae;
   border: 3px solid var(--pixel-dark);
@@ -1425,10 +1499,6 @@
 }
 
 .work-card__character {
-  width: 94px;
-  height: 94px;
-  object-fit: contain;
-  image-rendering: pixelated;
   filter: drop-shadow(5px 6px 0 rgba(43, 29, 47, 0.24));
 }
 
@@ -1438,6 +1508,8 @@
 }
 
 .work-card__details {
+  position: relative;
+  z-index: 2;
   padding-top: 24px;
   animation: expandIn 260ms ease both;
 }
@@ -1535,6 +1607,10 @@
   box-shadow: 7px 7px 0 rgba(123, 63, 97, 0.34);
 }
 
+.work-media__window > span {
+  pointer-events: none;
+}
+
 .work-media__window::before {
   position: absolute;
   inset: 0 0 auto;
@@ -1561,6 +1637,9 @@
   top: 54px;
   height: 56px;
   background:
+    radial-gradient(circle at 68% 34%, var(--dragonfruit) 0 4px, transparent 5px),
+    radial-gradient(circle at 80% 70%, var(--sky) 0 4px, transparent 5px),
+    linear-gradient(135deg, transparent 0 48%, rgba(43, 29, 47, 0.28) 48% 51%, transparent 51%),
     linear-gradient(90deg, var(--sky) 0 38%, transparent 38%),
     linear-gradient(#ffc857 0 14px, transparent 14px 22px, #ffc857 22px 36px, transparent 36px);
   content: "";
@@ -1694,6 +1773,7 @@
   max-width: 150px;
   color: var(--dragonfruit);
   transform: translate(-50%, -50%);
+  animation: mindmapPulse 2.4s steps(5, end) infinite;
 }
 
 .mindmap__center::before {
@@ -1712,7 +1792,7 @@
     translate(-50%, -50%)
     rotate(var(--node-angle))
     translateX(var(--mindmap-distance))
-    rotate(calc(var(--node-angle) * -1));
+    rotate(var(--node-counter-angle));
   transition:
     transform 180ms steps(2, end),
     background 180ms ease;
@@ -1739,7 +1819,7 @@
     translate(-50%, -50%)
     rotate(var(--node-angle))
     translateX(calc(var(--mindmap-distance) + 6px))
-    rotate(calc(var(--node-angle) * -1));
+    rotate(var(--node-counter-angle));
 }
 
 .mindmap__line {
@@ -1750,6 +1830,8 @@
   width: var(--mindmap-distance);
   height: 4px;
   background: repeating-linear-gradient(90deg, var(--berry-shadow) 0 8px, transparent 8px 13px);
+  opacity: 0.76;
+  animation: dataLinePulse 2.6s steps(5, end) infinite;
   transform: rotate(var(--node-angle));
   transform-origin: left center;
 }
@@ -1780,7 +1862,6 @@
 
 .about-planet__main-avatar {
   position: relative;
-  width: min(280px, 78vw);
   filter: drop-shadow(9px 10px 0 rgba(123, 63, 97, 0.28));
   animation: girlIdle 2.4s steps(5, end) infinite;
 }
@@ -1988,8 +2069,6 @@
 }
 
 .pixel-postcard__character {
-  width: 112px;
-  image-rendering: pixelated;
   filter: drop-shadow(6px 7px 0 rgba(123, 63, 97, 0.28));
   animation: footerHop 2.2s steps(5, end) infinite;
 }
@@ -2536,10 +2615,6 @@
     font-size: 0.7rem;
   }
 
-  .about-planet__main-avatar {
-    width: min(220px, 78vw);
-  }
-
   .about-season-card {
     right: 2%;
     bottom: 2%;
@@ -2552,10 +2627,6 @@
   .site-footer {
     width: min(100% - 22px, 620px);
     padding: 20px 14px;
-  }
-
-  .pixel-postcard__character {
-    width: 92px;
   }
 
   .pixel-postcard__stamp {

@@ -31,25 +31,13 @@ function AboutSection({ abilityStats, about, miniPose, pose }: AboutSectionProps
         <div className="about-planet__character">
           <OoPixelAvatar
             className="about-planet__main-avatar"
-            src={pose.src}
-            alt={pose.alt}
-            fallbackSrc={pose.fallbackSrc}
-            offsetX={pose.offsetX}
-            offsetY={pose.offsetY}
-            poseName={pose.id}
-            scale={pose.scale}
-            size="min(280px, 78vw)"
+            pose={pose}
+            size="section"
           />
           <div className="about-season-card">
             <OoPixelAvatar
-              src={miniPose.src}
-              alt={miniPose.alt}
-              fallbackSrc={miniPose.fallbackSrc}
-              offsetX={miniPose.offsetX}
-              offsetY={miniPose.offsetY}
-              poseName={miniPose.id}
-              scale={miniPose.scale}
-              size={58}
+              pose={miniPose}
+              size="mini"
             />
             <span>{about.seasonLabels.join(" / ")}</span>
           </div>

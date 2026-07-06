@@ -20,7 +20,12 @@ function PixelMindMap({ title, nodes }: PixelMindMapProps) {
         <div
           className="mindmap__node"
           key={node.id}
-          style={{ "--node-angle": `${node.angle}deg` } as React.CSSProperties}
+          style={
+            {
+              "--node-angle": `${node.angle}deg`,
+              "--node-counter-angle": `${node.angle * -1}deg`,
+            } as React.CSSProperties
+          }
         >
           {node.label}
         </div>
