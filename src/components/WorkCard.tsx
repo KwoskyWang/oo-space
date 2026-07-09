@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { HeroPose } from "../data/poseMap";
 import type { WorkItem } from "../data/siteContent";
 import OoPixelAvatar from "./OoPixelAvatar";
+import { PixelButton, PixelTag } from "./PixelPrimitives";
 import PixelMindMap from "./PixelMindMap";
 
 type WorkCardProps = {
@@ -96,23 +97,22 @@ function WorkCard({ collapseLabel, expandLabel, noteExtraSpanish, pose, work }: 
         <div className="work-card__copy">
           <div className="tag-row">
             {work.badges.map((badge) => (
-              <span className="pixel-tag" key={badge}>
+              <PixelTag key={badge}>
                 {badge}
-              </span>
+              </PixelTag>
             ))}
           </div>
           <h3>{work.title}</h3>
           <p>{work.description}</p>
         </div>
-        <button
-          className="pixel-button"
+        <PixelButton
           type="button"
           aria-expanded={expanded}
           aria-controls={contentId}
           onClick={() => setExpanded((current) => !current)}
         >
           {expanded ? collapseLabel : expandLabel}
-        </button>
+        </PixelButton>
       </div>
 
       <div className="work-card__details" id={contentId} hidden={!expanded}>

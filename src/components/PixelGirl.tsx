@@ -33,6 +33,7 @@ function PixelGirl({ easterEgg, easterEggAvatars, poses, name, season, statusIte
 
   useEffect(() => {
     if (safePoses.length <= 1) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const timer = window.setInterval(() => {
       setIndex((current) => (current + 1) % safePoses.length);
@@ -68,7 +69,6 @@ function PixelGirl({ easterEgg, easterEggAvatars, poses, name, season, statusIte
           <i />
           <i />
         </span>
-        {/* TODO: 以后要替换姿势图时，只需要改 src/data/poseMap.ts 和 seasonContent.ts。 */}
         {safePoses.map((pose, poseIndex) => (
           <OoPixelAvatar
             className={`pixel-girl__image ${poseIndex === index ? "is-active" : ""}`}

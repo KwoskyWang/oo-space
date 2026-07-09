@@ -3,6 +3,7 @@ import type { Season, HeroPose } from "../data/poseMap";
 import type { SeasonalContent } from "../data/seasonContent";
 import MarqueeText from "./MarqueeText";
 import OoPixelAvatar from "./OoPixelAvatar";
+import { PixelLinkButton } from "./PixelPrimitives";
 import PixelGirl from "./PixelGirl";
 import SeasonalDecorLayer from "./SeasonalDecorLayer";
 
@@ -56,9 +57,9 @@ function HeroSection({ content, poseSet, season, seasonal }: HeroSectionProps) {
 
         <div className="hero-cta-row">
           {content.hero.ctas.map((cta) => (
-            <a className="pixel-button" href={cta.href} key={cta.href}>
+            <PixelLinkButton href={cta.href} key={cta.href}>
               {cta.label}
-            </a>
+            </PixelLinkButton>
           ))}
         </div>
       </div>

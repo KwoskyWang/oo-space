@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import type { HeroPose } from "../data/poseMap";
 import OoPixelAvatar from "./OoPixelAvatar";
+import { PixelTag } from "./PixelPrimitives";
 
 type AboutSectionProps = {
   about: {
@@ -58,9 +59,9 @@ function AboutSection({ abilityStats, about, miniPose, pose }: AboutSectionProps
 
           <div className="tag-row">
             {about.tags.map((tag) => (
-              <span className="pixel-tag" key={tag}>
+              <PixelTag key={tag}>
                 {tag}
-              </span>
+              </PixelTag>
             ))}
           </div>
 

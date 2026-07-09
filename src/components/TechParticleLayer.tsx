@@ -38,6 +38,7 @@ function TechParticleLayer({ season }: TechParticleLayerProps) {
     let dpr = 1;
     let scrollVelocity = 0;
     let lastScrollY = window.scrollY;
+    let isPageVisible = !document.hidden;
     let particles: Particle[] = [];
 
     function resize() {
@@ -69,6 +70,11 @@ function TechParticleLayer({ season }: TechParticleLayerProps) {
     }
 
     function draw(now: number) {
+      if (!isPageVisible) {
+        frameId = window.requestAnimationFrame(draw);
+        return;
+      }
+
       context.clearRect(0, 0, width, height);
       const palette = palettes[season];
       scrollVelocity *= 0.92;
@@ -102,15 +108,21 @@ function TechParticleLayer({ season }: TechParticleLayerProps) {
       frameId = window.requestAnimationFrame(draw);
     }
 
+    function handleVisibilityChange() {
+      isPageVisible = !document.hidden;
+    }
+
     resize();
     window.addEventListener("resize", resize);
     window.addEventListener("scroll", handleScroll, { passive: true });
+    document.addEventListener("visibilitychange", handleVisibilityChange);
     frameId = window.requestAnimationFrame(draw);
 
     return () => {
       window.cancelAnimationFrame(frameId);
       window.removeEventListener("resize", resize);
       window.removeEventListener("scroll", handleScroll);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, [season]);
 

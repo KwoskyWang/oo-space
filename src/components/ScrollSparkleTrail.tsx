@@ -17,6 +17,7 @@ function ScrollSparkleTrail({ season }: ScrollSparkleTrailProps) {
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (window.innerWidth < 480) return;
 
     let lastScrollY = window.scrollY;
     let lastSpawnedAt = 0;
@@ -32,7 +33,7 @@ function ScrollSparkleTrail({ season }: ScrollSparkleTrailProps) {
       lastSpawnedAt = now;
 
       const side = Math.random() > 0.5 ? 1 : 0;
-      const count = window.innerWidth < 720 ? 1 : 2;
+      const count = window.innerWidth < 860 ? 1 : 2;
       const next = Array.from({ length: count }, () => ({
         driftY: `${delta > 0 ? -22 : 22}px`,
         id: id++,
@@ -40,7 +41,7 @@ function ScrollSparkleTrail({ season }: ScrollSparkleTrailProps) {
         y: 80 + Math.random() * (window.innerHeight - 160),
       }));
 
-      setSparkles((current) => [...current.slice(-14), ...next]);
+      setSparkles((current) => [...current.slice(-10), ...next]);
       window.clearTimeout(cleanupTimer);
       cleanupTimer = window.setTimeout(() => {
         setSparkles((current) => current.slice(-4));

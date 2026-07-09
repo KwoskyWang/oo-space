@@ -1,6 +1,7 @@
 import type { Season, HeroPose } from "../data/poseMap";
 import type { MemoryCard as MemoryCardType } from "../data/siteContent";
 import OoPixelAvatar from "./OoPixelAvatar";
+import { PixelTag } from "./PixelPrimitives";
 import PixelVideoPlaceholder from "./PixelVideoPlaceholder";
 
 type MemoryCardProps = {
@@ -92,17 +93,17 @@ function MemoryCard({ memory, pose, season }: MemoryCardProps) {
 
       <div className="memory-card__body">
         <div className="tag-row">
-          <span className="pixel-tag">{memory.dateLabel}</span>
-          <span className="mini-tag">{memory.subtitleEs}</span>
+          <PixelTag>{memory.dateLabel}</PixelTag>
+          <PixelTag variant="mini">{memory.subtitleEs}</PixelTag>
         </div>
         <h3>{memory.title}</h3>
         <p>{memory.description}</p>
         <p className="spanish-line">{memory.quoteEs}</p>
         <div className="tag-row">
           {memory.tags.map((tag) => (
-            <span className="mini-tag" key={tag}>
+            <PixelTag variant="mini" key={tag}>
               {tag}
-            </span>
+            </PixelTag>
           ))}
         </div>
       </div>
