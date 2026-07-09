@@ -13,11 +13,43 @@
   --dragon-size-desktop: 82px;
   --dragon-size-mobile: 56px;
   --pixel-border-width: 3px;
+  --pixel-border-width-thin: 2px;
+  --pixel-border-width-heavy: 4px;
   --pixel-shadow-x: 7px;
   --pixel-shadow-y: 7px;
+  --pixel-shadow-sm: 3px 3px 0 rgba(123, 63, 97, 0.32);
+  --pixel-shadow-md: 5px 5px 0 rgba(123, 63, 97, 0.42);
+  --pixel-shadow-lg: 8px 8px 0 rgba(123, 63, 97, 0.5);
+  --pixel-shadow-pressed: 2px 2px 0 rgba(123, 63, 97, 0.48);
+  --pixel-shadow-hover: 9px 10px 0 rgba(123, 63, 97, 0.52);
+  --pixel-outline: 3px solid var(--sky);
+  --pixel-outline-offset: 3px;
   --content-width: 1160px;
   --section-gap-desktop: 96px;
   --section-gap-mobile: 56px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 56px;
+  --surface-raised: var(--paper);
+  --surface-soft: #fff4ae;
+  --surface-panel: #fff9df;
+  --surface-ink: var(--pixel-dark);
+  --surface-grid-line: rgba(43, 29, 47, 0.08);
+  --type-display-shadow:
+    4px 4px 0 var(--strawberry-soft),
+    7px 7px 0 rgba(123, 63, 97, 0.22);
+  --type-hero-shadow:
+    5px 5px 0 var(--mango),
+    10px 10px 0 var(--pixel-dark);
+  --motion-quick: 160ms steps(2, end);
+  --motion-medium: 260ms steps(4, end);
+  --motion-smooth: 220ms ease;
   --z-bg: 0;
   --z-particles: 1;
   --z-decor: 2;
