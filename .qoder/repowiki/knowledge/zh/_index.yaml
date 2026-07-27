@@ -3,11 +3,11 @@ schema_version: 1
 locale: zh-CN
 branch: main
 nodes_managed: true
-exported_at: "2026-07-27T02:13:43Z"
+exported_at: "2026-07-27T03:13:04Z"
 modules:
     "":
-        dir_name: 像素风个人站点与图像生成一体化应用
-        title: 像素风个人站点与图像生成一体化应用
+        dir_name: 像素风个人站点单体应用
+        title: 像素风个人站点单体应用
         scope:
             - README.md
             - package.json
@@ -44,14 +44,17 @@ modules:
         depends_on: []
         related_to: []
     frontend_app/components:
-        dir_name: 像素风页面组件库
-        title: 像素风页面组件库
+        dir_name: 像素风格个人站点 UI 组件库
+        title: 像素风格个人站点 UI 组件库
         scope:
             - src/components/
         source_files: []
         children: []
         depends_on: []
-        related_to: []
+        related_to:
+            - path: frontend_app/data_content
+            - path: frontend_app/hooks_and_effects
+            - path: frontend_app/styles_themes
     frontend_app/data_content:
         dir_name: 站点静态内容与角色姿态数据
         title: 站点静态内容与角色姿态数据
@@ -60,17 +63,21 @@ modules:
         source_files: []
         children: []
         depends_on: []
-        related_to: []
+        related_to:
+            - path: frontend_app/components
     frontend_app/hooks_and_effects:
-        dir_name: 前端交互钩子与视觉特效
-        title: 前端交互钩子与视觉特效
+        dir_name: React 自定义 Hook 与 Canvas 龙形粒子特效
+        title: React 自定义 Hook 与 Canvas 龙形粒子特效
         scope:
             - src/hooks/
             - src/effects/
         source_files: []
         children: []
         depends_on: []
-        related_to: []
+        related_to:
+            - path: frontend_app/components
+            - path: frontend_app/static_assets
+            - path: frontend_app/styles_themes
     frontend_app/static_assets:
         dir_name: 前端静态资源与演示页面
         title: 前端静态资源与演示页面
@@ -79,22 +86,27 @@ modules:
         source_files: []
         children: []
         depends_on: []
-        related_to: []
+        related_to:
+            - path: frontend_app/hooks_and_effects
+            - path: scripts
     frontend_app/styles_themes:
-        dir_name: 像素风主题与样式系统
-        title: 像素风主题与样式系统
+        dir_name: 像素风格主题与视觉样式系统
+        title: 像素风格主题与视觉样式系统
         scope:
             - src/styles/
         source_files: []
         children: []
         depends_on: []
-        related_to: []
+        related_to:
+            - path: frontend_app/components
+            - path: frontend_app/hooks_and_effects
     scripts:
-        dir_name: 图像生成与资源处理脚本集
-        title: 图像生成与资源处理脚本集
+        dir_name: 图像生成与处理辅助脚本集
+        title: 图像生成与处理辅助脚本集
         scope:
             - scripts/
         source_files: []
         children: []
         depends_on: []
-        related_to: []
+        related_to:
+            - path: frontend_app/static_assets

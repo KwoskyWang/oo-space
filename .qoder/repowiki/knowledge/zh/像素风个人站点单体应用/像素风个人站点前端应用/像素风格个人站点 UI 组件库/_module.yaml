@@ -1,0 +1,11 @@
+schema_version: 1
+module_path: frontend_app/components
+title: 像素风格个人站点 UI 组件库
+scope:
+    - src/components/
+source_files: []
+depends_on: []
+related_to:
+    - path: frontend_app/data_content
+    - path: frontend_app/hooks_and_effects
+    - path: frontend_app/styles_themes

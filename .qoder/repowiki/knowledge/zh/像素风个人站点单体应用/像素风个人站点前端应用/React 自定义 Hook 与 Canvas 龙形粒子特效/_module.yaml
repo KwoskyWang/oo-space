@@ -1,0 +1,12 @@
+schema_version: 1
+module_path: frontend_app/hooks_and_effects
+title: React 自定义 Hook 与 Canvas 龙形粒子特效
+scope:
+    - src/hooks/
+    - src/effects/
+source_files: []
+depends_on: []
+related_to:
+    - path: frontend_app/components
+    - path: frontend_app/static_assets
+    - path: frontend_app/styles_themes

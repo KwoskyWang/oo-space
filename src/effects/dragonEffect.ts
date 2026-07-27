@@ -220,30 +220,32 @@ export function showDragonEffect(targetElement: Element, options?: DragonEffectO
   if (!container) return;
 
   // A2: DOM 复用 — 复用持久化的 overlay/dragon/canvas
-  let overlay = document.getElementById("dragon-effect-root") as HTMLDivElement | null;
+  let foundOverlay = document.getElementById("dragon-effect-root") as HTMLDivElement | null;
   let dragon: HTMLImageElement;
   let canvas: HTMLCanvasElement;
 
-  if (overlay) {
+  if (foundOverlay) {
     // 清除上次残留的 is-leaving 状态
-    overlay.classList.remove("is-leaving");
-    overlay.style.display = "";
-    dragon = overlay.querySelector(".dragon-effect__dragon") as HTMLImageElement;
-    canvas = overlay.querySelector(".dragon-effect__canvas") as HTMLCanvasElement;
+    foundOverlay.classList.remove("is-leaving");
+    foundOverlay.style.display = "";
+    dragon = foundOverlay.querySelector(".dragon-effect__dragon") as HTMLImageElement;
+    canvas = foundOverlay.querySelector(".dragon-effect__canvas") as HTMLCanvasElement;
   } else {
-    overlay = document.createElement("div");
-    overlay.id = "dragon-effect-root";
-    overlay.className = "dragon-effect";
+    foundOverlay = document.createElement("div");
+    foundOverlay.id = "dragon-effect-root";
+    foundOverlay.className = "dragon-effect";
 
     dragon = document.createElement("img");
     dragon.className = "dragon-effect__dragon";
     dragon.alt = "";
-    overlay.appendChild(dragon);
+    foundOverlay.appendChild(dragon);
 
     canvas = document.createElement("canvas");
     canvas.className = "dragon-effect__canvas";
-    overlay.appendChild(canvas);
+    foundOverlay.appendChild(canvas);
   }
+
+  const overlay = foundOverlay;
 
   overlay.dataset.season = season;
   overlay.dataset.accessory = dragonAccessoryConfig[season]?.enabled ? dragonAccessoryConfig[season].type : "none";
@@ -403,6 +405,6 @@ export function preloadDragonAssets(options?: DragonEffectOptions) {
   if ("requestIdleCallback" in window) {
     (window as unknown as { requestIdleCallback: (cb: () => void) => void }).requestIdleCallback(doPreload);
   } else {
-    window.setTimeout(doPreload, 800);
+    setTimeout(doPreload, 800);
   }
 }

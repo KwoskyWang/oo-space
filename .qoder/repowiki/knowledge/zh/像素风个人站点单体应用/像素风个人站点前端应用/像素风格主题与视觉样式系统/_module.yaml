@@ -1,0 +1,10 @@
+schema_version: 1
+module_path: frontend_app/styles_themes
+title: 像素风格主题与视觉样式系统
+scope:
+    - src/styles/
+source_files: []
+depends_on: []
+related_to:
+    - path: frontend_app/components
+    - path: frontend_app/hooks_and_effects
