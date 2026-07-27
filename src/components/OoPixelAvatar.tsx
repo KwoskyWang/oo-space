@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import type { HeroPose } from "../data/poseMap";
 
 type AvatarSize = "hero" | "section" | "card" | "mini" | "nav" | "footer";
@@ -28,7 +28,7 @@ const avatarSizeTokens: Record<AvatarSize, string> = {
   footer: "var(--footer-avatar-size)",
 };
 
-function OoPixelAvatar({
+function OoPixelAvatarInner({
   alt,
   animated = false,
   className = "",
@@ -51,25 +51,28 @@ function OoPixelAvatar({
   const resolvedPoseName = pose?.id ?? poseName;
   const resolvedScale = pose?.scale ?? scale;
   const [imageSrc, setImageSrc] = useState(resolvedSrc);
+  // A5: 用 ref 追踪上一次 src，仅在实际变化时才 setState
+  const prevSrcRef = useRef(resolvedSrc);
   const numericSize =
     typeof size === "number" ? `${size}px` : avatarSizeTokens[size as AvatarSize] ?? size;
 
   useEffect(() => {
-    setImageSrc(resolvedSrc);
+    if (prevSrcRef.current !== resolvedSrc) {
+      prevSrcRef.current = resolvedSrc;
+      setImageSrc(resolvedSrc);
+    }
   }, [resolvedSrc]);
 
   return (
     <span
       className={`oo-avatar oo-avatar--${typeof size === "string" && avatarSizeTokens[size as AvatarSize] ? size : "custom"} ${animated ? "oo-avatar--animated" : ""} ${className}`}
       data-pose={resolvedPoseName}
-      style={
-        {
+      style={{
           "--oo-avatar-size": numericSize,
           "--oo-avatar-offset-x": resolvedOffsetX,
           "--oo-avatar-offset-y": resolvedOffsetY,
           "--oo-avatar-scale": resolvedScale,
-        } as React.CSSProperties
-      }
+        } as React.CSSProperties}
     >
       <img
         src={imageSrc}
@@ -87,4 +90,6 @@ function OoPixelAvatar({
   );
 }
 
+// B2: React.memo — 避免季节切换时头像无意义重渲染
+const OoPixelAvatar = memo(OoPixelAvatarInner);
 export default OoPixelAvatar;

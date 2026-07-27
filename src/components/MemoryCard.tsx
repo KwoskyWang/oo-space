@@ -28,6 +28,8 @@ function MemoryImagePlaceholder({ memory, pose }: { memory: MemoryCardType; pose
         src={memory.assetUrl}
         alt={memory.title}
         loading="lazy"
+        width="800"
+        height="600"
       />
     );
   }

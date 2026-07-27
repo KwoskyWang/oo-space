@@ -43,9 +43,10 @@ const dragonAccessoryConfig = {
   },
 } as const;
 
+// A1: 锚点修正 — 火龙面朝正前方，嘴巴在图像中下部
 const dragonMouthAnchor = {
-  desktop: { x: 0.72, y: 0.38 },
-  mobile: { x: 0.72, y: 0.38 },
+  desktop: { x: 0.52, y: 0.58 },
+  mobile: { x: 0.52, y: 0.58 },
 };
 
 export const dragonEffectAssets: DragonEffectAssets = {
@@ -67,8 +68,10 @@ export const dragonEffectAssets: DragonEffectAssets = {
 let activeCleanup: (() => void) | null = null;
 const imageCache = new Map<string, HTMLImageElement>();
 
-function loadImage(src: string) {
-  if (imageCache.has(src)) return imageCache.get(src);
+// E1: 类型安全 — 明确返回 HTMLImageElement
+function loadImage(src: string): HTMLImageElement {
+  const cached = imageCache.get(src);
+  if (cached) return cached;
 
   const image = new Image();
   image.src = src;
@@ -216,21 +219,36 @@ export function showDragonEffect(targetElement: Element, options?: DragonEffectO
 
   if (!container) return;
 
-  const overlay = document.createElement("div");
-  overlay.className = "dragon-effect";
+  // A2: DOM 复用 — 复用持久化的 overlay/dragon/canvas
+  let overlay = document.getElementById("dragon-effect-root") as HTMLDivElement | null;
+  let dragon: HTMLImageElement;
+  let canvas: HTMLCanvasElement;
+
+  if (overlay) {
+    // 清除上次残留的 is-leaving 状态
+    overlay.classList.remove("is-leaving");
+    overlay.style.display = "";
+    dragon = overlay.querySelector(".dragon-effect__dragon") as HTMLImageElement;
+    canvas = overlay.querySelector(".dragon-effect__canvas") as HTMLCanvasElement;
+  } else {
+    overlay = document.createElement("div");
+    overlay.id = "dragon-effect-root";
+    overlay.className = "dragon-effect";
+
+    dragon = document.createElement("img");
+    dragon.className = "dragon-effect__dragon";
+    dragon.alt = "";
+    overlay.appendChild(dragon);
+
+    canvas = document.createElement("canvas");
+    canvas.className = "dragon-effect__canvas";
+    overlay.appendChild(canvas);
+  }
+
   overlay.dataset.season = season;
   overlay.dataset.accessory = dragonAccessoryConfig[season]?.enabled ? dragonAccessoryConfig[season].type : "none";
   overlay.setAttribute("aria-hidden", "true");
-
-  const dragon = document.createElement("img");
-  dragon.className = "dragon-effect__dragon";
-  dragon.alt = "";
   dragon.src = assets.dragonFrames[0];
-  overlay.appendChild(dragon);
-
-  const canvas = document.createElement("canvas");
-  canvas.className = "dragon-effect__canvas";
-  overlay.appendChild(canvas);
   container.appendChild(overlay);
 
   const { dragonHeight, dragonWidth, left, top } = getOrigin(targetElement);
@@ -262,19 +280,22 @@ export function showDragonEffect(targetElement: Element, options?: DragonEffectO
     ctx.scale(dpr, dpr);
   }
 
-  const starImages = assets.starSprites.map((src) => loadImage(src)).filter(Boolean) as HTMLImageElement[];
+  const starImages = assets.starSprites.map((src) => loadImage(src));
   const particles: Particle[] = [];
   let rafId = 0;
   let stopped = false;
   const startedAt = performance.now();
   const duration = reduceMotion ? 950 : 2300;
 
+  // 确保龙图也在缓存中
   loadImage(assets.dragonFrames[0]);
 
   function cleanup() {
     stopped = true;
     window.cancelAnimationFrame(rafId);
-    overlay.remove();
+    if (ctx) ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+    // A2: 隐藏而非移除，便于下次复用
+    overlay!.style.display = "none";
     if (activeCleanup === cleanup) activeCleanup = null;
   }
 
@@ -362,4 +383,26 @@ export function initDragonEffect(options: DragonEffectOptions = {}) {
 
   document.addEventListener("click", handleClick);
   return () => document.removeEventListener("click", handleClick);
+}
+
+// A3: 资源预加载 — 在空闲时预载所有火龙素材
+export function preloadDragonAssets(options?: DragonEffectOptions) {
+  if (typeof window === "undefined") return;
+  const assets = resolveAssets(options);
+  const urls = [...assets.dragonFrames, ...assets.starSprites];
+
+  const doPreload = () => {
+    for (const src of urls) {
+      const img = new Image();
+      img.src = src;
+      imageCache.set(src, img);
+    }
+  };
+
+  // 利用空闲时间预加载，不阻塞首屏
+  if ("requestIdleCallback" in window) {
+    (window as unknown as { requestIdleCallback: (cb: () => void) => void }).requestIdleCallback(doPreload);
+  } else {
+    window.setTimeout(doPreload, 800);
+  }
 }

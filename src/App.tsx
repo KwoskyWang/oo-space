@@ -10,6 +10,7 @@ import SeasonTransitionOverlay from "./components/SeasonTransitionOverlay";
 import TechParticleLayer from "./components/TechParticleLayer";
 import WorksSection from "./components/WorksSection";
 import { ooPoseSets } from "./data/poseMap";
+import { preloadDragonAssets } from "./effects/dragonEffect";
 import { seasonContent } from "./data/seasonContent";
 import { siteContent } from "./data/siteContent";
 import { useSeasonTheme } from "./hooks/useSeasonTheme";
@@ -44,6 +45,21 @@ function App() {
     return () => observer.disconnect();
   }, []);
 
+  // A3: 空闲时预加载火龙资源
+  useEffect(() => {
+    preloadDragonAssets();
+  }, []);
+
+  // F1: 返回顶部按钮可见性
+  const [showBackToTop, setShowBackToTop] = useState(false);
+  useEffect(() => {
+    function onScroll() {
+      setShowBackToTop(window.scrollY > 600);
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   // Perf-21: pause infinite animations while scrolling
   useEffect(() => {
     let timer = 0;
@@ -61,6 +77,10 @@ function App() {
 
   return (
     <div className="site-shell" data-season={season}>
+      {/* D2: skip-to-content 跳转链接 */}
+      <a className="skip-link" href="#memories">
+        跳过导航 / Saltar navegación
+      </a>
       <TechParticleLayer season={season} />
       <ScrollSparkleTrail season={season} />
       <SeasonTransitionOverlay season={season} />
@@ -96,6 +116,15 @@ function App() {
         ownerName={siteContent.owner.name}
         pose={poseSet[seasonal.footerContent.poseId]}
       />
+      {/* F1: 返回顶部按钮 */}
+      <button
+        className={`back-to-top ${showBackToTop ? "is-visible" : ""}`}
+        type="button"
+        aria-label="返回顶部 / Volver arriba"
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      >
+        ↑
+      </button>
     </div>
   );
 }

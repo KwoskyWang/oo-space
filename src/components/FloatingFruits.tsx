@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { FloatingFruit } from "../data/siteContent";
 
 type FloatingFruitsProps = {
@@ -11,27 +11,31 @@ function FloatingFruits({ fruits }: FloatingFruitsProps) {
 
   useEffect(() => {
     return () => {
+      // E3: 确保清理所有 timer
       if (timerRef.current) window.clearTimeout(timerRef.current);
     };
   }, []);
 
-  function showBubble(id: string) {
+  // D1 + E3: 明确的 role、清理旧 timer
+  const showBubble = useCallback((id: string) => {
     setActiveFruitId(id);
-
+    // E3: 清除旧 timer 再设新的
     if (timerRef.current) window.clearTimeout(timerRef.current);
     timerRef.current = window.setTimeout(() => {
       setActiveFruitId(null);
+      timerRef.current = null;
     }, 1500);
-  }
+  }, []);
 
   return (
-    <div className="floating-fruits" aria-label="水果互动层">
+    <div className="floating-fruits" aria-label="水果互动层" role="group">
       {fruits.map((fruit) => (
         <button
           className={`floating-fruit floating-fruit--${fruit.drift} floating-fruit--${fruit.layer}`}
           key={fruit.id}
           type="button"
           aria-label={fruit.bubble}
+          aria-pressed={activeFruitId === fruit.id}
           onClick={() => showBubble(fruit.id)}
           style={
             {

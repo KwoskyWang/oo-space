@@ -8,9 +8,69 @@
       content="oo 的水果像素星球，记录水果、星星、AI、西语、回忆和闪闪发光的小日常。"
     />
     <title>oo 的水果像素星球 | El planeta pixel de oo</title>
+    <!-- C1: Open Graph / Twitter Card -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="oo 的水果像素星球 | El planeta pixel de oo" />
+    <meta property="og:description" content="记录水果、星星、AI、西语、回忆和闪闪发光的小日常。" />
+    <meta property="og:image" content="/assets/oo-pixel-girl.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="oo 的水果像素星球" />
+    <meta name="twitter:description" content="记录水果、星星、AI、西语、回忆和闪闪发光的小日常。" />
+    <!-- C2: Canonical -->
+    <link rel="canonical" href="https://oo.pixel.art/" />
+    <!-- C3: JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "oo 的水果像素星球",
+      "alternateName": "El planeta pixel de oo",
+      "description": "记录水果、星星、AI、西语、回忆和闪闪发光的小日常。",
+      "url": "https://oo.pixel.art/"
+    }
+    </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- F2: 首屏骨架屏，React 加载完成后被替换 -->
+      <style>
+        .skeleton-loading {
+          min-height: 100vh;
+          margin: 0;
+          background: #fff7df;
+          font-family: "Trebuchet MS", system-ui, sans-serif;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 16px;
+          color: #2b1d2f;
+        }
+        .skeleton-loading .sk-bar {
+          width: 200px;
+          height: 16px;
+          background: repeating-linear-gradient(90deg, #ffc857 0 8px, #ffe8a0 8px 16px);
+          border: 3px solid #2b1d2f;
+          animation: skPulse 1.2s steps(3, end) infinite;
+        }
+        .skeleton-loading .sk-block {
+          width: 280px;
+          height: 120px;
+          background: #fffaf0;
+          border: 3px solid #2b1d2f;
+          box-shadow: 5px 5px 0 rgba(123, 63, 97, 0.4);
+        }
+        @keyframes skPulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.5; }
+        }
+      </style>
+      <div class="skeleton-loading">
+        <div class="sk-bar"></div>
+        <div class="sk-block"></div>
+        <div class="sk-bar" style="width: 160px"></div>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

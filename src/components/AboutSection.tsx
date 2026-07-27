@@ -84,7 +84,11 @@ function AboutSection({ abilityStats, about, miniPose, pose }: AboutSectionProps
                 </div>
                 <div
                   className="ability-stat__bar"
+                  role="progressbar"
                   aria-label={`${stat.label} ${stat.value}%`}
+                  aria-valuenow={stat.value}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
                   style={{ "--ability-value": `${stat.value}%` } as CSSProperties}
                 >
                   <span />

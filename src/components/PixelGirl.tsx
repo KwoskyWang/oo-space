@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Season, HeroPose } from "../data/poseMap";
 import { showDragonEffect } from "../effects/dragonEffect";
 import { useEasterEggClick } from "../hooks/useEasterEggClick";
@@ -26,24 +26,35 @@ function PixelGirl({ easterEgg, easterEggAvatars, poses, name, season, statusIte
   const [index, setIndex] = useState(0);
   const [eggAvatarIndex, setEggAvatarIndex] = useState(0);
   const [showRipple, setShowRipple] = useState(false);
+  // E2: 用 ref 替代 document.querySelector
+  const stageRef = useRef<HTMLButtonElement>(null);
   const { handleClick, isVisible } = useEasterEggClick(2, 2500, () => {
-    const stage = document.querySelector(".pixel-girl__stage");
-    if (stage) showDragonEffect(stage, { season });
+    if (stageRef.current) showDragonEffect(stageRef.current, { season });
   });
   const eggAvatar = easterEggAvatars[eggAvatarIndex % easterEggAvatars.length];
 
+  // B3: tab 不可见时暂停轮播
   useEffect(() => {
     if (safePoses.length <= 1) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
+    let paused = false;
     const timer = window.setInterval(() => {
-      setIndex((current) => (current + 1) % safePoses.length);
+      if (!paused) setIndex((current) => (current + 1) % safePoses.length);
     }, SWAP_INTERVAL);
 
-    return () => window.clearInterval(timer);
+    function onVisibilityChange() {
+      paused = document.hidden;
+    }
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
+    return () => {
+      window.clearInterval(timer);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+    };
   }, [safePoses.length]);
 
-  function handleStageClick() {
+  const handleStageClick = useCallback(() => {
     if (easterEggAvatars.length > 1) {
       setEggAvatarIndex((current) => (current + 1) % easterEggAvatars.length);
     }
@@ -51,12 +62,12 @@ function PixelGirl({ easterEgg, easterEggAvatars, poses, name, season, statusIte
     setShowRipple(true);
     window.setTimeout(() => setShowRipple(false), 500);
     handleClick();
-  }
+  }, [easterEggAvatars.length, handleClick]);
 
   return (
     <figure className="pixel-girl" aria-label={`像素风小女孩 ${name}`}>
       <div className="pixel-girl__halo" aria-hidden="true" />
-      <button className="pixel-girl__stage" type="button" onClick={handleStageClick}>
+      <button className="pixel-girl__stage" type="button" onClick={handleStageClick} ref={stageRef}>
         <span className="pixel-girl__island" aria-hidden="true">
           {statusItems.map((item) => (
             <span className="pixel-girl__status" key={item.label}>
