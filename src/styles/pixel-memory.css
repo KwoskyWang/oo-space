@@ -16,7 +16,7 @@
   position: absolute;
   inset: 0;
   z-index: 2;
-  background: linear-gradient(120deg, transparent 0 42%, rgba(255, 255, 255, 0.38) 48%, transparent 55%);
+  background: linear-gradient(120deg, transparent 0 42%, rgba(255, 255, 255, 0.65) 48%, transparent 55%);
   opacity: 0;
   pointer-events: none;
   content: "";
@@ -439,86 +439,11 @@
   top: 84px;
 }
 
-.memory-art--spain .memory-art__building,
-.memory-art--spain .memory-art__cup,
-.memory-art--spain .memory-art__lamp,
-.memory-art--spain .memory-art__desk,
-.memory-art--spain .memory-art__note,
-.memory-art--spain .memory-art__ticket,
-.memory-art--spain .memory-art__path,
-.memory-art--spain .memory-art__planet,
-.memory-art--spain .memory-art__snow,
-.memory-art--spain .memory-art__fruit {
-  display: none;
-}
-
-.memory-art--hangzhou .memory-art__sun,
-.memory-art--hangzhou .memory-art__flag,
-.memory-art--hangzhou .memory-art__street,
-.memory-art--hangzhou .memory-art__lamp,
-.memory-art--hangzhou .memory-art__desk,
-.memory-art--hangzhou .memory-art__note,
-.memory-art--hangzhou .memory-art__ticket,
-.memory-art--hangzhou .memory-art__path,
-.memory-art--hangzhou .memory-art__planet,
-.memory-art--hangzhou .memory-art__snow,
-.memory-art--hangzhou .memory-art__fruit {
-  display: none;
-}
-
-.memory-art--fruit .memory-art__sun,
-.memory-art--fruit .memory-art__flag,
-.memory-art--fruit .memory-art__street,
-.memory-art--fruit .memory-art__building,
-.memory-art--fruit .memory-art__cup,
-.memory-art--fruit .memory-art__lamp,
-.memory-art--fruit .memory-art__desk,
-.memory-art--fruit .memory-art__note,
-.memory-art--fruit .memory-art__ticket,
-.memory-art--fruit .memory-art__path,
-.memory-art--fruit .memory-art__snow {
-  display: none;
-}
-
-.memory-art--work .memory-art__sun,
-.memory-art--work .memory-art__flag,
-.memory-art--work .memory-art__street,
-.memory-art--work .memory-art__building,
-.memory-art--work .memory-art__cup,
-.memory-art--work .memory-art__lamp,
-.memory-art--work .memory-art__ticket,
-.memory-art--work .memory-art__path,
-.memory-art--work .memory-art__planet,
-.memory-art--work .memory-art__snow,
-.memory-art--work .memory-art__fruit {
-  display: none;
-}
-
-.memory-art--weekend .memory-art__sun,
-.memory-art--weekend .memory-art__flag,
-.memory-art--weekend .memory-art__street,
-.memory-art--weekend .memory-art__building,
-.memory-art--weekend .memory-art__cup,
-.memory-art--weekend .memory-art__lamp,
-.memory-art--weekend .memory-art__desk,
-.memory-art--weekend .memory-art__note,
-.memory-art--weekend .memory-art__planet,
-.memory-art--weekend .memory-art__snow,
-.memory-art--weekend .memory-art__fruit {
-  display: none;
-}
-
-.memory-art--coffee .memory-art__sun,
-.memory-art--coffee .memory-art__flag,
-.memory-art--coffee .memory-art__street,
-.memory-art--coffee .memory-art__building,
-.memory-art--coffee .memory-art__desk,
-.memory-art--coffee .memory-art__note,
-.memory-art--coffee .memory-art__ticket,
-.memory-art--coffee .memory-art__path,
-.memory-art--coffee .memory-art__planet,
-.memory-art--coffee .memory-art__fruit {
-  display: none;
+/* Theme element visibility (Perf-19: component handles conditional rendering) */
+[data-art-hidden="true"] {
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
 }
 
 .memory-card--coffee .memory-card__sticker {

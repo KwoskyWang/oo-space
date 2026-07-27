@@ -617,3 +617,9 @@
     animation: none !important;
   }
 }
+
+/* Perf-21: pause infinite animations while scrolling */
+body.is-scrolling .floating-fruit,
+body.is-scrolling .seasonal-decor__item {
+  animation-play-state: paused;
+}

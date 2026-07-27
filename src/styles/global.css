@@ -1,3 +1,4 @@
+@layer base {
 :root {
   color-scheme: light;
   --content-width: 1180px;
@@ -267,12 +268,41 @@ video {
   transition:
     opacity 560ms steps(5, end),
     transform 560ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}
+
+/* Section gradient transition edges */
+.page-section::before,
+.page-section::after {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 48px;
+  pointer-events: none;
+  z-index: 0;
+  content: "";
+}
+
+.page-section::before {
+  top: 0;
+  background: linear-gradient(to bottom, var(--cream), transparent);
+}
+
+.page-section::after {
+  bottom: 0;
+  background: linear-gradient(to top, var(--cream), transparent);
 }
 
 .page-section.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Section entry stagger delays */
+.memories-section { transition-delay: 0ms; }
+.works-section  { transition-delay: 80ms; }
+.about-section  { transition-delay: 140ms; }
 
 .section-heading {
   max-width: 760px;
@@ -312,6 +342,10 @@ video {
   border: var(--pixel-border-width-thin) solid var(--pixel-dark);
   box-shadow: var(--pixel-shadow-sm);
   content: "";
+}
+
+.section-heading--with-character::after {
+  display: none;
 }
 
 .pixel-title,
@@ -369,6 +403,18 @@ video {
   transform: translate(-2px, -5px);
   box-shadow: var(--pixel-shadow-hover);
   filter: saturate(1.03);
+}
+
+/* Shadow tier system */
+.memory-card { box-shadow: var(--shadow-tier-card); }
+.memory-card:hover { box-shadow: var(--shadow-tier-card-hover); }
+.work-card { box-shadow: var(--shadow-tier-card); }
+.work-card:hover { box-shadow: var(--shadow-tier-card-hover); }
+.pixel-panel, .keyword-board, .ability-board, .markdown-view, .oo-note { box-shadow: var(--shadow-tier-panel); }
+.pixel-sticker, .pixel-girl__label, .pixel-toast, .section-divider--message { box-shadow: var(--shadow-tier-decor); }
+
+.pixel-panel {
+  position: relative;
 }
 
 .pixel-button {
@@ -429,7 +475,7 @@ video {
 }
 
 .pixel-button:active {
-  transform: translate(2px, 2px);
+  transform: translate(2px, 2px) scale(0.98);
   box-shadow: var(--pixel-shadow-pressed);
 }
 
@@ -583,3 +629,4 @@ video {
     transition-duration: 0.01ms !important;
   }
 }
+} /* end @layer base */

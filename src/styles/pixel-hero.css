@@ -11,8 +11,8 @@
   padding: 6px;
   background: rgba(255, 250, 240, 0.82);
   border: var(--pixel-border-width-thin) solid rgba(43, 29, 47, 0.34);
-  box-shadow: var(--pixel-shadow-md);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(16px) saturate(1.6);
+  box-shadow: var(--pixel-shadow-md), inset 0 1px 0 rgba(255,255,255,0.7);
   transform: translateX(-50%);
   pointer-events: none;
 }
@@ -252,7 +252,9 @@
   font-size: clamp(3.2rem, 8vw, 6rem);
   line-height: 0.9;
   letter-spacing: 0;
-  text-shadow: var(--type-hero-shadow);
+  text-shadow:
+    4px 4px 0 rgba(255, 200, 87, 0.78),
+    7px 7px 0 rgba(43, 29, 47, 0.68);
 }
 
 .hero-planet-title {
@@ -331,6 +333,8 @@
     linear-gradient(90deg, rgba(255, 255, 255, 0.26), transparent 22% 78%, rgba(255, 255, 255, 0.22)),
     var(--surface-soft);
   box-shadow: 0 5px 0 rgba(123, 63, 97, 0.24);
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
 }
 
 .marquee-track {
@@ -338,6 +342,13 @@
   width: max-content;
   animation: marqueeMove 32s linear infinite;
   transform: translateX(-12%);
+}
+
+.marquee-track.is-static {
+  width: 100%;
+  justify-content: center;
+  animation: none;
+  transform: none;
 }
 
 .marquee-track span {
@@ -378,6 +389,9 @@
     4px 4px 0 rgba(123, 63, 97, 0.22);
   transform: translate(-50%, -50%);
   animation: decorFloat var(--decor-duration) ease-in-out var(--decor-delay) infinite;
+}
+
+.seasonal-decor__item:hover {
   will-change: transform;
 }
 
@@ -422,6 +436,9 @@
   transition:
     scale 180ms steps(2, end),
     filter 180ms ease;
+}
+
+.floating-fruit:hover {
   will-change: transform;
 }
 
@@ -481,6 +498,32 @@
   font-weight: 900;
   transform: translateX(-50%);
   animation: bubblePop 1.5s steps(4, end) both;
+}
+
+/* UI-13: pixel-girl click ripple */
+.pixel-ripple {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 10;
+  width: 20px;
+  height: 20px;
+  background: var(--mango);
+  border: 3px solid var(--pixel-dark);
+  transform: translate(-50%, -50%) rotate(45deg) scale(0);
+  animation: pixelRipple 480ms steps(5, end) both;
+  pointer-events: none;
+}
+
+@keyframes pixelRipple {
+  from {
+    transform: translate(-50%, -50%) rotate(45deg) scale(0);
+    opacity: 1;
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(45deg) scale(16);
+    opacity: 0;
+  }
 }
 
 .pixel-fruit {
@@ -583,7 +626,7 @@
   border: 4px solid var(--pixel-dark);
   box-shadow:
     var(--pixel-shadow-hover),
-    inset 0 0 0 5px rgba(255, 250, 240, 0.42),
+    inset 0 0 28px rgba(255, 200, 87, 0.2),
     inset 0 -22px 0 rgba(142, 202, 230, 0.18);
   transition:
     transform 180ms steps(2, end),
@@ -698,10 +741,10 @@
   transition:
     opacity 220ms steps(2, end),
     transform 260ms steps(2, end);
-  will-change: opacity, transform;
 }
 
 .pixel-girl__image.is-active {
+  will-change: opacity, transform;
   opacity: 1;
   transform:
     translate(-50%, -50%)
@@ -813,4 +856,3 @@
 .pixel-toast span {
   color: var(--dragonfruit);
 }
-

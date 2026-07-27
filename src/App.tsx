@@ -21,39 +21,42 @@ function App() {
   const poseSet = ooPoseSets[season];
 
   useEffect(() => {
-    const sections = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
+    const revealEls = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
+    const navEls = Array.from(document.querySelectorAll<HTMLElement>("[data-section-nav]"));
+    const allEls = [...revealEls, ...navEls];
+
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
+        for (const entry of entries) {
+          const el = entry.target as HTMLElement;
+          if (el.dataset.reveal !== undefined && entry.isIntersecting) {
+            el.classList.add("is-visible");
           }
-        });
+          if (el.dataset.sectionNav !== undefined && entry.isIntersecting && el.id) {
+            setActiveSection(el.id);
+          }
+        }
       },
-      { rootMargin: "0px 0px -12% 0px", threshold: 0.12 },
+      { rootMargin: "0px 0px -12% 0px", threshold: [0.08, 0.12, 0.22, 0.42] },
     );
 
-    sections.forEach((section) => observer.observe(section));
+    allEls.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
 
+  // Perf-21: pause infinite animations while scrolling
   useEffect(() => {
-    const sections = Array.from(document.querySelectorAll<HTMLElement>("[data-section-nav]"));
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-
-        if (visible?.target.id) {
-          setActiveSection(visible.target.id);
-        }
-      },
-      { rootMargin: "-32% 0px -52% 0px", threshold: [0.08, 0.22, 0.42] },
-    );
-
-    sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
+    let timer = 0;
+    function onScroll() {
+      document.body.classList.add("is-scrolling");
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => document.body.classList.remove("is-scrolling"), 180);
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.clearTimeout(timer);
+    };
   }, []);
 
   return (

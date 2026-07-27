@@ -1,0 +1,8 @@
+schema_version: 1
+module_path: frontend_app/data_content
+title: 站点静态内容与角色姿态数据
+scope:
+    - src/data/
+source_files: []
+depends_on: []
+related_to: []

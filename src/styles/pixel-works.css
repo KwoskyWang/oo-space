@@ -92,6 +92,11 @@
   animation: expandIn 260ms ease both;
 }
 
+.work-card__details:focus {
+  outline: var(--pixel-outline);
+  outline-offset: var(--pixel-outline-offset);
+}
+
 .work-card__details-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(300px, 0.82fr);
@@ -424,6 +429,8 @@
     rotate(var(--node-angle))
     translateX(calc(var(--mindmap-distance) + 6px))
     rotate(var(--node-counter-angle));
+  box-shadow: 0 0 14px var(--theme-glow), var(--pixel-shadow-sm);
+  border-color: var(--dragonfruit);
 }
 
 .mindmap__line {
@@ -439,4 +446,3 @@
   transform: rotate(var(--node-angle));
   transform-origin: left center;
 }
-

@@ -2,6 +2,7 @@ import type { siteContent } from "../data/siteContent";
 import type { HeroPose } from "../data/poseMap";
 import type { SeasonalContent } from "../data/seasonContent";
 import OoPixelAvatar from "./OoPixelAvatar";
+import { PixelSectionHeading } from "./PixelPrimitives";
 import WorkCard from "./WorkCard";
 
 type WorksSectionProps = {
@@ -15,20 +16,18 @@ function WorksSection({ content, poseMap, seasonal }: WorksSectionProps) {
 
   return (
     <section className="page-section works-section" id="works" data-reveal data-section-nav>
-      <div className="section-heading section-heading--with-character">
-        <div>
-          <p className="pixel-kicker">{seasonal.kicker}</p>
-          <h2 className="pixel-title">{seasonal.title}</h2>
-          <p>{seasonal.description}</p>
-        </div>
-        {headingPose ? (
+      <PixelSectionHeading
+        description={seasonal.description}
+        kicker={seasonal.kicker}
+        side={headingPose ? (
           <OoPixelAvatar
             className="section-heading__character"
             pose={headingPose}
             size="section"
           />
         ) : null}
-      </div>
+        title={seasonal.title}
+      />
 
       <div className="works-list">
         {content.workCards.map((work) => (

@@ -1,6 +1,7 @@
 import type { Season, HeroPose } from "../data/poseMap";
 import type { MemoryCard as MemoryCardType } from "../data/siteContent";
 import MemoryCard from "./MemoryCard";
+import { PixelSectionHeading } from "./PixelPrimitives";
 
 type MemoryGalleryProps = {
   memories: MemoryCardType[];
@@ -18,15 +19,17 @@ type MemoryGalleryProps = {
 function MemoryGallery({ memories, poseMap, season, section }: MemoryGalleryProps) {
   return (
     <section className="page-section memories-section" id="memories" data-reveal data-section-nav>
-      <div className="section-heading">
-        <p className="pixel-kicker">{section.kicker}</p>
-        <h2 className="pixel-title">{section.title}</h2>
-        <p>{section.description}</p>
-        <div className="memory-note">
+      <PixelSectionHeading
+        afterDescription={(
+          <div className="memory-note">
           <strong>{section.noteChinese}</strong>
           <span>{section.noteSpanish}</span>
-        </div>
-      </div>
+          </div>
+        )}
+        description={section.description}
+        kicker={section.kicker}
+        title={section.title}
+      />
 
       <div className="memory-grid">
         {memories.map((memory) => (

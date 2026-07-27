@@ -6,8 +6,12 @@ const STORAGE_KEY = "oo-season";
 function readInitialSeason(): Season {
   if (typeof window === "undefined") return "summer";
 
-  const stored = window.localStorage.getItem(STORAGE_KEY);
-  return stored === "winter" ? "winter" : "summer";
+  try {
+    const stored = window.localStorage.getItem(STORAGE_KEY);
+    return stored === "winter" ? "winter" : "summer";
+  } catch {
+    return "summer";
+  }
 }
 
 export function useSeasonTheme() {
@@ -15,7 +19,11 @@ export function useSeasonTheme() {
 
   useEffect(() => {
     document.documentElement.dataset.season = season;
-    window.localStorage.setItem(STORAGE_KEY, season);
+    try {
+      window.localStorage.setItem(STORAGE_KEY, season);
+    } catch {
+      // Ignore storage failures; the visual theme still updates for this session.
+    }
   }, [season]);
 
   function toggleSeason() {

@@ -1,0 +1,8 @@
+schema_version: 1
+module_path: frontend_app/styles_themes
+title: 像素风主题与样式系统
+scope:
+    - src/styles/
+source_files: []
+depends_on: []
+related_to: []

@@ -1,5 +1,5 @@
-@import "./pixel-hero.css";
-@import "./pixel-memory.css";
-@import "./pixel-works.css";
-@import "./pixel-about-footer.css";
-@import "./pixel-effects-responsive.css";
+@import "./pixel-hero.css" layer(components);
+@import "./pixel-memory.css" layer(components);
+@import "./pixel-works.css" layer(components);
+@import "./pixel-about-footer.css" layer(components);
+@import "./pixel-effects-responsive.css" layer(components);

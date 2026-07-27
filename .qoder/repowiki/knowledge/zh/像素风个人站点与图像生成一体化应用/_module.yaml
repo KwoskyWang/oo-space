@@ -1,0 +1,20 @@
+schema_version: 1
+module_path: ""
+title: 像素风个人站点与图像生成一体化应用
+scope:
+    - README.md
+    - package.json
+    - vite.config.ts
+    - tsconfig.json
+    - tsconfig.app.json
+    - tsconfig.node.json
+    - .gitignore
+    - config.example.json
+    - deply.sh
+    - gpt-image2-local-web.zip
+    - index.html
+    - package-lock.json
+    - server.py
+source_files: []
+depends_on: []
+related_to: []

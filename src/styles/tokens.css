@@ -1,3 +1,6 @@
+@layer base, components, themes;
+
+@layer base {
 :root {
   --hero-avatar-size-desktop: 340px;
   --hero-avatar-size-tablet: 280px;
@@ -22,6 +25,11 @@
   --pixel-shadow-lg: 8px 8px 0 rgba(123, 63, 97, 0.5);
   --pixel-shadow-pressed: 2px 2px 0 rgba(123, 63, 97, 0.48);
   --pixel-shadow-hover: 9px 10px 0 rgba(123, 63, 97, 0.52);
+  /* Shadow tier system: card > panel > decor */
+  --shadow-tier-card: 8px 8px 0 rgba(123, 63, 97, 0.5);
+  --shadow-tier-card-hover: 10px 12px 0 rgba(123, 63, 97, 0.54);
+  --shadow-tier-panel: 5px 5px 0 rgba(123, 63, 97, 0.4);
+  --shadow-tier-decor: 3px 3px 0 rgba(123, 63, 97, 0.26);
   --pixel-outline: 3px solid var(--sky);
   --pixel-outline-offset: 3px;
   --content-width: 1160px;
@@ -74,3 +82,4 @@
     --footer-avatar-size: 64px;
   }
 }
+} /* end @layer base */

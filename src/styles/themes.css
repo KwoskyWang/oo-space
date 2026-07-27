@@ -1,3 +1,4 @@
+@layer themes {
 html {
   transition:
     background-color 360ms ease,
@@ -179,7 +180,8 @@ html[data-season="winter"] body {
 }
 
 [data-season="winter"] .memory-art__snow {
-  display: block;
+  visibility: visible;
+  height: auto;
   background: #ffffff;
   box-shadow:
     0 0 0 3px rgba(189, 231, 247, 0.28),
@@ -188,7 +190,8 @@ html[data-season="winter"] body {
 
 [data-season="winter"] .memory-art__lamp,
 [data-season="winter"] .memory-art__cup {
-  display: block;
+  visibility: visible;
+  height: auto;
 }
 
 [data-season="winter"] .memory-art:not(.memory-art--coffee) .memory-art__cup {
@@ -302,3 +305,4 @@ html[data-season="winter"] body {
     animation: none;
   }
 }
+} /* end @layer themes */

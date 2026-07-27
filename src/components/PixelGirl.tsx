@@ -25,6 +25,7 @@ function PixelGirl({ easterEgg, easterEggAvatars, poses, name, season, statusIte
   const safePoses = useMemo(() => poses.slice(0, 7), [poses]);
   const [index, setIndex] = useState(0);
   const [eggAvatarIndex, setEggAvatarIndex] = useState(0);
+  const [showRipple, setShowRipple] = useState(false);
   const { handleClick, isVisible } = useEasterEggClick(2, 2500, () => {
     const stage = document.querySelector(".pixel-girl__stage");
     if (stage) showDragonEffect(stage, { season });
@@ -46,7 +47,9 @@ function PixelGirl({ easterEgg, easterEggAvatars, poses, name, season, statusIte
     if (easterEggAvatars.length > 1) {
       setEggAvatarIndex((current) => (current + 1) % easterEggAvatars.length);
     }
-
+    // UI-13: show click ripple
+    setShowRipple(true);
+    window.setTimeout(() => setShowRipple(false), 500);
     handleClick();
   }
 
@@ -74,10 +77,11 @@ function PixelGirl({ easterEgg, easterEggAvatars, poses, name, season, statusIte
             className={`pixel-girl__image ${poseIndex === index ? "is-active" : ""}`}
             pose={pose}
             key={pose.id}
-            loading="eager"
+            loading={poseIndex === 0 ? "eager" : "lazy"}
             size="hero"
           />
         ))}
+        {showRipple ? <span className="pixel-ripple" /> : null}
       </button>
 
       {isVisible ? (

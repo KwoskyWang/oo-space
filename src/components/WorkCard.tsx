@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { HeroPose } from "../data/poseMap";
 import type { WorkItem } from "../data/siteContent";
 import OoPixelAvatar from "./OoPixelAvatar";
-import { PixelButton, PixelTag } from "./PixelPrimitives";
+import { PixelButton, PixelCard, PixelPanel, PixelTag } from "./PixelPrimitives";
 import PixelMindMap from "./PixelMindMap";
 
 type WorkCardProps = {
@@ -33,7 +33,7 @@ function MarkdownView({ markdown }: { markdown: string }) {
   const lines = markdown.split("\n");
 
   return (
-    <div className="markdown-view">
+    <PixelPanel className="markdown-view">
       {lines.map((line, index) => {
         const trimmed = line.trim();
 
@@ -51,7 +51,7 @@ function MarkdownView({ markdown }: { markdown: string }) {
 
         return <p key={`${trimmed}-${index}`}>{renderInline(trimmed)}</p>;
       })}
-    </div>
+    </PixelPanel>
   );
 }
 
@@ -62,7 +62,7 @@ type WorkMediaProps = {
 
 function WorkMedia({ palette, title }: WorkMediaProps) {
   return (
-    <div className={`work-media work-media--${palette}`} aria-label={`${title} 图片和视频占位`}>
+    <div className={`work-media work-media--${palette}`} aria-label={`${title} 项目预览`}>
       <div className="work-media__window">
         <span className="work-media__bar" />
         <span className="work-media__chart" />
@@ -74,17 +74,24 @@ function WorkMedia({ palette, title }: WorkMediaProps) {
       <span className="work-media__dot work-media__dot--one" />
       <span className="work-media__dot work-media__dot--two" />
       <span className="work-media__dot work-media__dot--three" />
-      <span className="work-media__caption">mock preview</span>
+      <span className="work-media__caption">project preview</span>
     </div>
   );
 }
 
 function WorkCard({ collapseLabel, expandLabel, noteExtraSpanish, pose, work }: WorkCardProps) {
   const [expanded, setExpanded] = useState(false);
+  const detailsRef = useRef<HTMLDivElement | null>(null);
   const contentId = `${work.id}-details`;
 
+  useEffect(() => {
+    if (expanded) {
+      detailsRef.current?.focus({ preventScroll: true });
+    }
+  }, [expanded]);
+
   return (
-    <article className={`pixel-card work-card ${expanded ? "is-expanded" : ""}`}>
+    <PixelCard as="article" className={`work-card ${expanded ? "is-expanded" : ""}`}>
       <div className="work-card__summary">
         <div className="work-card__character-shell">
           <OoPixelAvatar
@@ -115,16 +122,22 @@ function WorkCard({ collapseLabel, expandLabel, noteExtraSpanish, pose, work }: 
         </PixelButton>
       </div>
 
-      <div className="work-card__details" id={contentId} hidden={!expanded}>
+      <div
+        className="work-card__details"
+        id={contentId}
+        hidden={!expanded}
+        ref={detailsRef}
+        tabIndex={-1}
+      >
         <div className="work-card__details-grid">
           <div className="work-card__written">
             <MarkdownView markdown={work.markdown} />
-            <div className="oo-note">
+            <PixelPanel className="oo-note">
               <h4>{work.note.title}</h4>
               <p>{work.note.chinese}</p>
               <p className="spanish-line">{work.note.spanish}</p>
               {noteExtraSpanish ? <p className="spanish-line">{noteExtraSpanish}</p> : null}
-            </div>
+            </PixelPanel>
           </div>
           <div className="work-card__visuals">
             <WorkMedia palette={work.mediaPalette} title={work.title} />
@@ -132,7 +145,7 @@ function WorkCard({ collapseLabel, expandLabel, noteExtraSpanish, pose, work }: 
           </div>
         </div>
       </div>
-    </article>
+    </PixelCard>
   );
 }
 

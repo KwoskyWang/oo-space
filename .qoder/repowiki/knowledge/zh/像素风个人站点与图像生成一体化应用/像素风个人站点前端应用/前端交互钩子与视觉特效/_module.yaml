@@ -1,0 +1,9 @@
+schema_version: 1
+module_path: frontend_app/hooks_and_effects
+title: 前端交互钩子与视觉特效
+scope:
+    - src/hooks/
+    - src/effects/
+source_files: []
+depends_on: []
+related_to: []

@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
 import type { HeroPose } from "../data/poseMap";
 import OoPixelAvatar from "./OoPixelAvatar";
-import { PixelTag } from "./PixelPrimitives";
+import { PixelCard, PixelPanel, PixelTag } from "./PixelPrimitives";
 
 type AboutSectionProps = {
   about: {
@@ -51,7 +51,7 @@ function AboutSection({ abilityStats, about, miniPose, pose }: AboutSectionProps
           <span className="about-planet__spark about-planet__spark--two" aria-hidden="true" />
         </div>
 
-        <div className="pixel-card about-card">
+        <PixelCard className="about-card">
           <p className="pixel-kicker">{about.kicker}</p>
           <h2 className="pixel-title">{about.title}</h2>
           <p>{about.chinese}</p>
@@ -65,16 +65,16 @@ function AboutSection({ abilityStats, about, miniPose, pose }: AboutSectionProps
             ))}
           </div>
 
-          <div className="keyword-board">
+          <PixelPanel className="keyword-board">
             <h3>{about.keywordTitle} / {about.keywordTitleEs}</h3>
             <div className="keyword-board__grid">
               {about.keywords.map((keyword) => (
                 <span key={keyword}>{keyword}</span>
               ))}
             </div>
-          </div>
+          </PixelPanel>
 
-          <div className="ability-board">
+          <PixelPanel className="ability-board">
             <h3>{about.abilityTitle}</h3>
             {abilityStats.map((stat) => (
               <div className="ability-stat" key={stat.id}>
@@ -91,8 +91,8 @@ function AboutSection({ abilityStats, about, miniPose, pose }: AboutSectionProps
                 </div>
               </div>
             ))}
-          </div>
-        </div>
+          </PixelPanel>
+        </PixelCard>
       </div>
     </section>
   );
