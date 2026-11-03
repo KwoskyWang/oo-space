@@ -594,3 +594,385 @@
   margin: 0;
   line-height: 1.72;
 }
+
+/* ===== 新版回忆册：三卡片 + 弹窗相册 ===== */
+.memory-grid--albums {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.memory-album-card {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  overflow: visible;
+}
+
+.memory-album-card:nth-child(2) {
+  transform: translateY(8px);
+}
+
+.memory-album-card:hover {
+  transform: translate(-2px, -5px);
+  filter: saturate(1.04);
+}
+
+.memory-album-card:nth-child(2):hover {
+  transform: translate(-2px, 3px);
+}
+
+.memory-album-card__sticker {
+  position: absolute;
+  right: -12px;
+  top: -14px;
+  z-index: 4;
+  transform: rotate(8deg);
+}
+
+.memory-album-card:hover .memory-album-card__sticker {
+  animation: stickerWiggle 580ms steps(4, end) infinite;
+}
+
+.memory-album-card__cover {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: var(--surface-panel);
+  border: 0;
+  border-bottom: 3px solid var(--pixel-dark);
+}
+
+.memory-album-card__cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 250ms steps(5, end);
+}
+
+.memory-album-card__cover:hover img {
+  transform: scale(1.035);
+}
+
+.memory-album-card__label {
+  position: absolute;
+  left: 10px;
+  bottom: 11px;
+  z-index: 3;
+  max-width: calc(100% - 20px);
+  padding: 2px 7px;
+  overflow-wrap: anywhere;
+  color: var(--pixel-dark);
+  background: var(--paper);
+  border: 2px solid var(--pixel-dark);
+  box-shadow: 3px 3px 0 var(--berry-shadow);
+  font-family: "Courier New", monospace;
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-align: left;
+}
+
+.memory-album-card__body {
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr) auto auto auto;
+  gap: 12px;
+  min-height: 260px;
+  padding: 18px 18px 20px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.2), transparent 28%),
+    var(--paper);
+}
+
+.memory-album-card h3 {
+  margin: 0;
+  color: var(--pixel-dark);
+  font-size: 1.32rem;
+  line-height: 1.25;
+  text-shadow: 2px 2px 0 #ffd0de;
+}
+
+.memory-album-card p {
+  margin: 0;
+  line-height: 1.72;
+}
+
+.memory-album-card__bottom {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 4px;
+  padding-top: 10px;
+  border-top: 1px dashed #cbb1bf;
+}
+
+.memory-album-card__open {
+  min-width: 0;
+  min-height: 0;
+  padding: 8px 14px;
+  background: #ffe0eb;
+  box-shadow: var(--pixel-shadow-sm);
+  font-size: 0.9rem;
+}
+
+.memory-album-card__open:hover {
+  background: var(--avocado);
+}
+
+/* ===== 弹窗相册 ===== */
+.album-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-transition);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 28px 20px;
+  overflow-y: auto;
+  background: rgba(43, 29, 47, 0.55);
+  backdrop-filter: blur(3px);
+  animation: albumFadeIn 180ms ease both;
+}
+
+.album-window {
+  position: relative;
+  width: 100%;
+  max-width: 770px;
+  background: var(--paper);
+  border: 3px solid var(--pixel-dark);
+  box-shadow: 8px 9px 0 rgba(43, 29, 47, 0.4);
+  animation: albumPop 220ms steps(4, end) both;
+}
+
+.album-window__titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 12px;
+  background: #ffd3e2;
+  border-bottom: 3px solid var(--pixel-dark);
+}
+
+.album-window__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-family: "Courier New", monospace;
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.album-window__close {
+  display: grid;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  place-items: center;
+  color: var(--pixel-dark);
+  background: var(--paper);
+  border: 2px solid var(--pixel-dark);
+  box-shadow: 2px 2px 0 rgba(123, 63, 97, 0.4);
+  font-size: 1rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.album-window__close:hover {
+  background: var(--avocado);
+}
+
+.album-window__close:active {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+.album-window__body {
+  padding: 19px;
+}
+
+.album-window__heading {
+  margin-bottom: 16px;
+}
+
+.album-window__heading h3 {
+  margin: 0 0 2px;
+  color: var(--pixel-dark);
+  font-size: 1.4rem;
+  line-height: 1.3;
+}
+
+.album-window__meta {
+  color: var(--dragonfruit);
+  font-family: "Courier New", monospace;
+  font-size: 0.74rem;
+  font-weight: 900;
+}
+
+.album-stage {
+  position: relative;
+  display: flex;
+  height: 410px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #edece8;
+  border: 2px solid var(--pixel-dark);
+}
+
+.album-stage > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.album-stage__arrow {
+  position: absolute;
+  top: 50%;
+  display: grid;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  place-items: center;
+  color: var(--pixel-dark);
+  background: rgba(255, 250, 240, 0.93);
+  border: 2px solid var(--pixel-dark);
+  box-shadow: 2px 2px 0 rgba(123, 63, 97, 0.4);
+  font-size: 1.5rem;
+  font-weight: 900;
+  line-height: 1;
+  transform: translateY(-50%);
+}
+
+.album-stage__arrow--prev {
+  left: 9px;
+}
+
+.album-stage__arrow--next {
+  right: 9px;
+}
+
+.album-stage__arrow:hover {
+  background: var(--avocado);
+}
+
+.album-stage__arrow:active {
+  transform: translateY(-50%) translate(2px, 2px);
+  box-shadow: none;
+}
+
+.album-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 11px 0 19px;
+  font-family: "Courier New", monospace;
+  font-size: 0.74rem;
+  font-weight: 900;
+}
+
+.album-toolbar__count {
+  color: var(--muted);
+}
+
+.album-toolbar__play {
+  padding: 5px 10px;
+  color: var(--pixel-dark);
+  background: var(--mint);
+  border: 2px solid var(--pixel-dark);
+  box-shadow: 2px 2px 0 rgba(123, 63, 97, 0.4);
+  font-family: "Courier New", monospace;
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.album-toolbar__play:hover {
+  background: var(--avocado);
+}
+
+.album-thumbs {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(77px, 1fr));
+  gap: 9px;
+}
+
+.album-thumb {
+  position: relative;
+  display: block;
+  min-width: 0;
+  width: 100%;
+  height: 76px;
+  padding: 3px;
+  overflow: hidden;
+  background: var(--paper);
+  border: 2px solid #b49caa;
+}
+
+.album-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.album-thumb.is-active {
+  border: 3px solid var(--dragonfruit);
+  box-shadow: 2px 2px 0 rgba(232, 74, 138, 0.4);
+}
+
+@keyframes albumFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes albumPop {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .memory-grid--albums {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .memory-album-card:nth-child(2) {
+    transform: none;
+  }
+
+  .memory-album-card:nth-child(2):hover {
+    transform: translate(-2px, -5px);
+  }
+
+  .memory-album-card__body {
+    min-height: 0;
+    padding: 16px;
+  }
+
+  .album-lightbox {
+    padding: 18px 10px;
+  }
+
+  .album-window__body {
+    padding: 13px;
+  }
+
+  .album-stage {
+    height: 340px;
+  }
+}
+

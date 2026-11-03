@@ -35,23 +35,6 @@ export type FloatingFruit = {
   layer: "near" | "mid" | "far";
 };
 
-export type MemoryTheme = "spain" | "hangzhou" | "fruit" | "work" | "weekend" | "coffee";
-
-export type MemoryCard = {
-  id: string;
-  type: "image" | "video";
-  title: string;
-  subtitleEs: string;
-  description: string;
-  quoteEs: string;
-  dateLabel: string;
-  tags: string[];
-  sticker: string;
-  placeholderTheme: MemoryTheme;
-  avatarPoseId?: string;
-  assetUrl?: string;
-};
-
 export type MindMapNode = {
   id: string;
   label: string;
@@ -238,85 +221,10 @@ export const siteContent = {
   memorySection: {
     kicker: "Pequeños recuerdos de oo",
     title: "oo 的小小回忆册",
-    description: "这些位置先用像素占位保存，之后可以换成真实照片和视频。",
-    noteChinese: "这些像素卡片先保存回忆的位置，之后可以换成真实照片和视频。",
-    noteSpanish: "Estos espacios esperan tus fotos y vídeos reales.",
+    description: "走过的街道、认真工作的日子和平凡生活里的小快乐，都装进这三本相册里。",
+    noteChinese: "点击像素卡片，看看 oo 在西班牙、工作和生活里留下的小片段。",
+    noteSpanish: "Haz clic en las tarjetas para ver las fotos.",
   },
-  memoryCards: [
-    {
-      id: "spain-sun",
-      type: "image",
-      title: "在西班牙的阳光里",
-      subtitleEs: "Sol de España",
-      description: "午后的街角、明亮的墙面和慢慢变金色的天空，都是 oo 的西语记忆。",
-      quoteEs: "Un pedacito de sol español.",
-      dateLabel: "España · 2023",
-      tags: ["España", "Recuerdos", "Viaje"],
-      sticker: "☀️",
-      placeholderTheme: "spain",
-    },
-    {
-      id: "hangzhou-days",
-      type: "image",
-      title: "杭州的日常",
-      subtitleEs: "Días en Hangzhou",
-      description: "下班路上的风、咖啡店里的光和认真生活的每一天，组成了现在的 oo。",
-      quoteEs: "La vida cotidiana también brilla.",
-      dateLabel: "Hangzhou · Now",
-      tags: ["Hangzhou", "Pequeños momentos"],
-      sticker: "🥑",
-      placeholderTheme: "hangzhou",
-    },
-    {
-      id: "fruit-planet",
-      type: "video",
-      title: "可爱的水果星球",
-      subtitleEs: "Planeta de frutas",
-      description: "一个留给真实视频的位置：可以放水果、旅行、vlog，或者 oo 的可爱瞬间。",
-      quoteEs: "Dulce vida, dulce planeta.",
-      dateLabel: "Momentos · Video",
-      tags: ["Dulce vida", "Momentos"],
-      sticker: "🍓",
-      placeholderTheme: "fruit",
-    },
-    {
-      id: "work-oo",
-      type: "image",
-      title: "努力工作的 oo",
-      subtitleEs: "Ideas claras",
-      description: "在杭州认真发光，处理任务、学习新工具，也悄悄把生活变得更有秩序。",
-      quoteEs: "Trabajar con calma y corazón.",
-      dateLabel: "Hangzhou · Work",
-      tags: ["Hangzhou", "IA", "Brillante"],
-      sticker: "✨",
-      placeholderTheme: "work",
-    },
-    {
-      id: "weekend-happy",
-      type: "image",
-      title: "周末的小快乐",
-      subtitleEs: "Pequeñas alegrías",
-      description: "甜品、散步、电影和一点点发呆，是给一周充电的小小魔法。",
-      quoteEs: "Pequeñas alegrías del finde.",
-      dateLabel: "Weekend · Comida",
-      tags: ["Comida", "Pequeños momentos"],
-      sticker: "💌",
-      placeholderTheme: "weekend",
-    },
-    {
-      id: "coffee-winter",
-      type: "image",
-      title: "咖啡和冬天",
-      subtitleEs: "Café de invierno",
-      description: "一杯热咖啡、一点暖灯和柔软外套，把冷天也变成可以收藏的小片段。",
-      quoteEs: "Un cafecito caliente para un día suave.",
-      dateLabel: "Winter · Café",
-      tags: ["Café", "Invierno", "Dulce vida", "Cafecito"],
-      sticker: "☕",
-      placeholderTheme: "coffee",
-      avatarPoseId: "drinkingLatte",
-    },
-  ] satisfies MemoryCard[],
   workSection: {
     kicker: "El pequeño universo de IA de oo",
     title: "oo 的 AI 小宇宙",

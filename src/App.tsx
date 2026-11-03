@@ -96,7 +96,6 @@ function App() {
       <main>
         <SectionDivider type="trail" content={siteContent.transitions.heroToMemories} />
         <MemoryGallery
-          memories={siteContent.memoryCards}
           poseMap={poseSet}
           season={season}
           section={seasonal.memorySection}

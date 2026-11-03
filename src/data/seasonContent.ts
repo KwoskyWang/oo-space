@@ -126,9 +126,9 @@ export const seasonContent: Record<Season, SeasonalContent> = {
     memorySection: {
       kicker: "Pequeños recuerdos de oo",
       title: "oo 的小小回忆册",
-      description: "这些位置先用像素占位保存，之后可以换成真实照片和视频。",
-      noteChinese: "这些像素卡片先保存回忆的位置，之后可以换成真实照片和视频。",
-      noteSpanish: "Estos espacios esperan tus fotos y vídeos reales.",
+      description: "走过的街道、认真工作的日子和平凡生活里的小快乐，都装进这三本相册里。",
+      noteChinese: "点击像素卡片，看看 oo 在西班牙、工作和生活里留下的小片段。",
+      noteSpanish: "Haz clic en las tarjetas para ver las fotos.",
     },
     workSection: {
       kicker: "El pequeño universo de IA de oo",
@@ -203,9 +203,9 @@ export const seasonContent: Record<Season, SeasonalContent> = {
     memorySection: {
       kicker: "Recuerdos de invierno de oo",
       title: "oo 的冬日回忆册",
-      description: "这些位置先用冬日像素占位保存，之后可以换成真实照片和视频。",
-      noteChinese: "这些像素卡片先保存冬日回忆的位置，之后可以换成真实照片和视频。",
-      noteSpanish: "Estos espacios esperan tus fotos y vídeos de invierno.",
+      description: "走过的街道、认真工作的日子和平凡生活里的小快乐，都装进这三本相册里。",
+      noteChinese: "点击像素卡片，看看 oo 在西班牙、工作和生活里留下的小片段。",
+      noteSpanish: "Haz clic en las tarjetas para ver las fotos.",
     },
     workSection: {
       kicker: "El pequeño universo de IA de oo",

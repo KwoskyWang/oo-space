@@ -48,3 +48,8 @@ src/data/siteContent.ts
 - `src/components/WorkCard.tsx`
 
 建议把真实素材放在 `public/` 下面，然后在 mock 数据里维护路径。
+
+
+oo更新记录
+我又更新了一条
+更新了【回忆】页面
