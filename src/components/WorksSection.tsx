@@ -34,7 +34,6 @@ function WorksSection({ content, poseMap, seasonal }: WorksSectionProps) {
           <WorkCard
             collapseLabel={content.workSection.collapseLabel}
             expandLabel={content.workSection.expandLabel}
-            noteExtraSpanish={seasonal.noteExtraSpanish}
             pose={poseMap[seasonal.projectPoseIds[work.id]] ?? headingPose}
             work={work}
             key={work.id}

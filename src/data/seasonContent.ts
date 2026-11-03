@@ -46,7 +46,6 @@ export type SeasonalContent = {
     description: string;
     characterPoseId: string;
     projectPoseIds: Record<string, string>;
-    noteExtraSpanish?: string;
   };
   aboutContent: {
     kicker: string;
@@ -136,9 +135,9 @@ export const seasonContent: Record<Season, SeasonalContent> = {
       description: "把 AI、Prompt、知识整理和一点点想象力，做成可展开探索的项目游戏卡。",
       characterPoseId: "coding",
       projectPoseIds: {
+        "ai-todo": "coding",
         "ai-weekly": "coding",
-        "spanish-prompt": "reading",
-        "hotel-kb": "pointing",
+        "product-popup": "pointing",
       },
     },
     aboutContent: {
@@ -213,11 +212,10 @@ export const seasonContent: Record<Season, SeasonalContent> = {
       description: "冬天的 AI 小宇宙像一扇暖窗，把想法、Prompt 和知识整理得更清楚。",
       characterPoseId: "drinkingLatte",
       projectPoseIds: {
+        "ai-todo": "doublePeace",
         "ai-weekly": "ok",
-        "spanish-prompt": "doublePeace",
-        "hotel-kb": "lattePoint",
+        "product-popup": "lattePoint",
       },
-      noteExtraSpanish: "La IA también puede sentirse como abrir una ventanita cálida en invierno.",
     },
     aboutContent: {
       kicker: "Sobre oo",

@@ -8,7 +8,6 @@ import PixelMindMap from "./PixelMindMap";
 type WorkCardProps = {
   collapseLabel: string;
   expandLabel: string;
-  noteExtraSpanish?: string;
   pose: HeroPose;
   work: WorkItem;
 };
@@ -55,31 +54,16 @@ function MarkdownView({ markdown }: { markdown: string }) {
   );
 }
 
-type WorkMediaProps = {
-  palette: WorkItem["mediaPalette"];
-  title: WorkItem["title"];
-};
-
-function WorkMedia({ palette, title }: WorkMediaProps) {
+function WorkMedia({ preview }: { preview: WorkItem["preview"] }) {
   return (
-    <div className={`work-media work-media--${palette}`} aria-label={`${title} 项目预览`}>
-      <div className="work-media__window">
-        <span className="work-media__bar" />
-        <span className="work-media__chart" />
-        <span className="work-media__line work-media__line--one" />
-        <span className="work-media__line work-media__line--two" />
-        <span className="work-media__line work-media__line--three" />
-        <span className="work-media__action" />
-      </div>
-      <span className="work-media__dot work-media__dot--one" />
-      <span className="work-media__dot work-media__dot--two" />
-      <span className="work-media__dot work-media__dot--three" />
-      <span className="work-media__caption">project preview</span>
-    </div>
+    <figure className="work-preview">
+      <img src={preview.src} alt={preview.alt} width={1200} height={900} loading="lazy" />
+      <figcaption>界面示意</figcaption>
+    </figure>
   );
 }
 
-function WorkCard({ collapseLabel, expandLabel, noteExtraSpanish, pose, work }: WorkCardProps) {
+function WorkCard({ collapseLabel, expandLabel, pose, work }: WorkCardProps) {
   const [expanded, setExpanded] = useState(false);
   const detailsRef = useRef<HTMLDivElement | null>(null);
   const contentId = `${work.id}-details`;
@@ -102,6 +86,8 @@ function WorkCard({ collapseLabel, expandLabel, noteExtraSpanish, pose, work }: 
         </div>
 
         <div className="work-card__copy">
+          <h3>{work.title}</h3>
+          <p>{work.description}</p>
           <div className="tag-row">
             {work.badges.map((badge) => (
               <PixelTag key={badge}>
@@ -109,8 +95,6 @@ function WorkCard({ collapseLabel, expandLabel, noteExtraSpanish, pose, work }: 
               </PixelTag>
             ))}
           </div>
-          <h3>{work.title}</h3>
-          <p>{work.description}</p>
         </div>
         <PixelButton
           type="button"
@@ -132,15 +116,9 @@ function WorkCard({ collapseLabel, expandLabel, noteExtraSpanish, pose, work }: 
         <div className="work-card__details-grid">
           <div className="work-card__written">
             <MarkdownView markdown={work.markdown} />
-            <PixelPanel className="oo-note">
-              <h4>{work.note.title}</h4>
-              <p>{work.note.chinese}</p>
-              <p className="spanish-line">{work.note.spanish}</p>
-              {noteExtraSpanish ? <p className="spanish-line">{noteExtraSpanish}</p> : null}
-            </PixelPanel>
           </div>
           <div className="work-card__visuals">
-            <WorkMedia palette={work.mediaPalette} title={work.title} />
+            <WorkMedia preview={work.preview} />
             <PixelMindMap title={work.title} nodes={work.mindMapNodes} />
           </div>
         </div>
