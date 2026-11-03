@@ -371,9 +371,9 @@ oo 希望把每周的任务、会议记录和学习笔记快速整理成一份�
     seasonalMiniPoseId: "smileHand",
     seasonLabels: ["Verano mode", "Invierno mode"],
     chinese:
-      "oo 是一个可爱、好奇、温柔又闪闪发光的小姑娘。她学西语，喜欢探索新的东西，也正在慢慢把 AI 变成自己的小工具箱。",
+      "我是 oo，很高兴你逛到这里。这里有我喜欢的东西、正在学的东西，也有一些还在尝试中的小想法。",
     spanish:
-      "oo es una chica dulce, curiosa y brillante. Le encanta aprender, crear y descubrir pequeños mundos nuevos.",
+      "Soy oo, me alegra que hayas llegado hasta aquí. Aquí están las cosas que me gustan, las que estoy aprendiendo y algunas pequeñas ideas que todavía estoy probando.",
     tags: ["Español", "IA", "Frutas", "Hangzhou", "Dulce vida", "Curiosa", "Brillante"],
     keywordTitle: "oo 的小关键词",
     keywordTitleEs: "Palabras de oo",
