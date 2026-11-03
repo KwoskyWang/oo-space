@@ -46,14 +46,6 @@ function AlbumLightbox({ album, onClose }: AlbumLightboxProps) {
     return () => window.clearInterval(timer);
   }, [playing, total]);
 
-  // 打开时锁定背景滚动
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, []);
-
   const goPrev = () => {
     setPlaying(false);
     setIndex((i) => (i - 1 + total) % total);
