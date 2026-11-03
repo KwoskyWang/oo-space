@@ -7,29 +7,16 @@ type PixelMindMapProps = {
 
 function PixelMindMap({ title, nodes }: PixelMindMapProps) {
   return (
-    <div className="mindmap" aria-label={`${title} 思维导图占位`}>
-      <div className="mindmap__center">{title}</div>
-      {nodes.map((node) => (
-        <div
-          className="mindmap__line"
-          key={`${node.id}-line`}
-          style={{ "--node-angle": `${node.angle}deg` } as React.CSSProperties}
-        />
-      ))}
-      {nodes.map((node) => (
-        <div
-          className="mindmap__node"
-          key={node.id}
-          style={
-            {
-              "--node-angle": `${node.angle}deg`,
-              "--node-counter-angle": `${node.angle * -1}deg`,
-            } as React.CSSProperties
-          }
-        >
-          {node.label}
-        </div>
-      ))}
+    <div className="project-map" role="group" aria-label={`${title} 能力流程图`}>
+      <div className="project-map__title">{title}</div>
+      <ol className="project-map__steps">
+        {nodes.map((node, index) => (
+          <li className="project-map__step" key={node.id}>
+            <span className="project-map__number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+            <span>{node.label}</span>
+          </li>
+        ))}
+      </ol>
     </div>
   );
 }
