@@ -376,12 +376,6 @@
     display: inline;
   }
 
-  .pixel-girl__image {
-    inset: -42px -10% 4px;
-    width: 120%;
-    height: calc(100% + 48px);
-  }
-
   .pixel-girl__image.is-active {
     scale: 1;
   }

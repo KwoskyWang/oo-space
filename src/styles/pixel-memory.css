@@ -724,8 +724,6 @@
   inset: 0;
   z-index: var(--z-transition);
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
   padding: 28px 20px;
   overflow-y: auto;
   background: rgba(43, 29, 47, 0.55);
@@ -737,14 +735,26 @@
   position: relative;
   width: 100%;
   max-width: 770px;
+  max-height: calc(100vh - 56px);
+  display: flex;
+  flex-direction: column;
+  margin: auto;
   background: var(--paper);
   border: 3px solid var(--pixel-dark);
   box-shadow: 8px 9px 0 rgba(43, 29, 47, 0.4);
   animation: albumPop 220ms steps(4, end) both;
 }
 
+.album-window__body {
+  padding: 19px;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
 .album-window__titlebar {
   display: flex;
+  flex: 0 0 auto;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
@@ -787,10 +797,6 @@
 .album-window__close:active {
   transform: translate(2px, 2px);
   box-shadow: none;
-}
-
-.album-window__body {
-  padding: 19px;
 }
 
 .album-window__heading {
@@ -964,7 +970,11 @@
   }
 
   .album-lightbox {
-    padding: 18px 10px;
+    padding: 12px 8px;
+  }
+
+  .album-window {
+    max-height: calc(100vh - 24px);
   }
 
   .album-window__body {
@@ -972,7 +982,8 @@
   }
 
   .album-stage {
-    height: 340px;
+    height: min(300px, 42vh);
+    flex: 0 0 auto;
   }
 }
 
