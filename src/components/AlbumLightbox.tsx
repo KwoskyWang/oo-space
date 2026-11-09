@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import type { Album } from "../data/albums";
 
 type AlbumLightboxProps = {
@@ -15,6 +16,12 @@ function AlbumLightbox({ album, onClose }: AlbumLightboxProps) {
   // 打开时聚焦关闭按钮，便于键盘操作
   useEffect(() => {
     closeRef.current?.focus();
+    // 锁定背景滚动，避免弹窗打开时页面滚动
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prevOverflow;
+    };
   }, []);
 
   // 键盘：Esc 关闭、左右切换
@@ -55,7 +62,7 @@ function AlbumLightbox({ album, onClose }: AlbumLightboxProps) {
     setIndex((i) => (i + 1) % total);
   };
 
-  return (
+  return createPortal(
     <div
       className="album-lightbox"
       role="dialog"
@@ -155,7 +162,8 @@ function AlbumLightbox({ album, onClose }: AlbumLightboxProps) {
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 
